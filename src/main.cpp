@@ -44,7 +44,7 @@ int main ()
 		EndDrawing();
 		DrawText("Hello World from Steven", 200, 300, 20, WHITE);
 		DrawText("Hello World from Adri(not sigma)!!!", 200, 200, 20, WHITE);
-		DrawText("Hello World from Erik!!!", 200, 100, 20, WHITE);
+		DrawText("Hello World from Erik!!!!!!!!", 200, 100, 20, WHITE);
 	}
 
 	// cleanup
