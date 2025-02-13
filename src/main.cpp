@@ -43,7 +43,8 @@ int main ()
 		// end the frame and get ready for the next one  (display frame, poll input, etc...)
 		EndDrawing();
 		DrawText("Hello World from Steven", 200, 300, 20, WHITE);
-		DrawText("Hello World from Adri!!!", 200, 200, 20, WHITE);
+		DrawText("Hello World from Adri(not sigma)!!!", 200, 200, 20, WHITE);
+		DrawText("Hello World from Erik!!!", 200, 200, 20, WHITE);
 	}
 
 	// cleanup
