@@ -26,7 +26,11 @@ int main ()
 	Texture wabbit = LoadTexture("wabbit_alpha.png");
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
-	int t = 0;
+	int t = 1;
+
+	float currentTime = GetTime();
+	float lastTime = 0.0f;
+	int gravityactive = 0;
 	
 	// game loop
 	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
@@ -43,11 +47,24 @@ int main ()
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
 		if (IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) ballPosition.y -= 10.0f;
 		if (IsKeyDown('S')) ballPosition.y += 10.0f;
-		t++;
-		if (ballPosition.y < 750) {
+		//Check if 1 second has passed
+		if (currentTime - lastTime >= 1.0f) {
+			t++; // Increment t every second
+			lastTime = GetTime(); // Update lastTime to the current time
+		}
+		
+		if (ballPosition.y < 750.0f) {
 
-			ballPosition.y += 1 / 2 * 9.8 * t * t;
-		} 
+			gravityactive = 1;
+			ballPosition.y += 0.5 * 9.8 * t * t;
+
+
+		}
+		else if(ballPosition.y > 750.0f) {
+			ballPosition.y = 750.0f;
+			gravityactive = 0;
+
+		}
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -57,6 +74,7 @@ int main ()
 		ClearBackground(RAYWHITE);
 
 		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
+		DrawText(TextFormat("gravity: %i", gravityactive), 10, 30, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
 
