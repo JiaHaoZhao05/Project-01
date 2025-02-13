@@ -24,6 +24,9 @@ int main ()
 
 	// Load a texture from the resources directory
 	Texture wabbit = LoadTexture("wabbit_alpha.png");
+
+	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
+	int t = 0;
 	
 	// game loop
 	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
@@ -32,19 +35,33 @@ int main ()
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(BLACK);
+		ClearBackground(WHITE);
 
-		// draw some text using the default font
-		DrawText("Hello Raylib", 200,200,20,WHITE);
+		// Update
+		//----------------------------------------------------------------------------------
+		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
+		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
+		if (IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) ballPosition.y -= 10.0f;
+		if (IsKeyDown('S')) ballPosition.y += 10.0f;
+		t++;
+		if (ballPosition.y < 750) {
 
-		// draw our texture to the screen
-		DrawTexture(wabbit, 400, 200, WHITE);
-		
-		// end the frame and get ready for the next one  (display frame, poll input, etc...)
+			ballPosition.y += 1 / 2 * 9.8 * t * t;
+		} 
+		//----------------------------------------------------------------------------------
+
+		// Draw
+		//----------------------------------------------------------------------------------
+		BeginDrawing();
+
+		ClearBackground(RAYWHITE);
+
+		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
+
+		DrawCircleV(ballPosition, 50, MAROON);
+
 		EndDrawing();
-		DrawText("Hello World from Steven", 200, 300, 20, WHITE);
-		DrawText("Hello World from Adri(not sigma)!!!", 200, 400, 20, WHITE);
-		DrawText("Hello World from Erik!!!!!!!!", 500, 500, 20, WHITE);
+		//----------------------------------------------------------------------------------
 	}
 
 	// cleanup
