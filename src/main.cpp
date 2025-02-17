@@ -50,7 +50,7 @@ int main ()
 			
 			Wtrigger = 0;
 			ballPosition.y -= 10.0f;
-			gravityacc = -10;
+			gravityacc = -20;
 		}
 		if (IsKeyDown('S')) ballPosition.y += 10.0f;
 		//Check if 1 second has passed
@@ -61,8 +61,12 @@ int main ()
 			gravityactive = 1;
 			ballPosition.y += gravityacc;
 			
-			
-			gravityacc += 0.8f;
+			if (gravityacc < 15.0f) {
+				gravityacc += 0.8f;
+			}
+			else if (gravityacc > gravityacc) {
+				gravityacc = 15;
+			}
 			
 
 		}
