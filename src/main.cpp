@@ -44,7 +44,7 @@ int main()
 		//Movement -------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
-		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps != 0 && gravity >= 0) {
+		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps > 0 && gravity >= 0) {
 			jumps--;
 			ballPosition.y -= 10.0f;
 			gravity = -20.0f;
