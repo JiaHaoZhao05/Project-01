@@ -26,7 +26,7 @@ int main ()
 	Texture wabbit = LoadTexture("wabbit_alpha.png");
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
-	int t = 1;
+	
 
 	float currentTime = GetTime();
 	float lastTime = 0.0f;
@@ -44,6 +44,8 @@ int main ()
 		
 		// Update
 		//----------------------------------------------------------------------------------
+		
+		//Movement -------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Wtrigger == 1) {
@@ -52,32 +54,25 @@ int main ()
 			ballPosition.y -= 10.0f;
 			gravityacc = -20;
 		}
+		//----------------------------------------------------------------------------------
 		
-		
-		
+		//Physics --------------------------------------------------------------------------
 		if (ballPosition.y < 750.0f) {
 
-			gravityactive = 1;
 			ballPosition.y += gravityacc;
-			
-<<<<<<< HEAD
+
 			if (gravityacc < 15.0f) {
 				gravityacc += 0.8f;
 			}
-			else if (gravityacc > gravityacc) {
+			else if (gravityacc > 15) {
 				gravityacc = 15;
 			}
-=======
-			
-			gravityacc += 1.0f;
->>>>>>> 22a55e6da9edd7854715d92a2eb8c4266d172df3
-			
 
 		}
 		else if(ballPosition.y >= 750.0f) {
 			ballPosition.y = 750.0f;
 			gravityacc = 0;
-			gravityactive = 0;
+			
 			Wtrigger = 1;
 		}
 		//----------------------------------------------------------------------------------
@@ -89,7 +84,6 @@ int main ()
 		ClearBackground(RAYWHITE);
 
 		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
-		DrawText(TextFormat("gravity: %f", gravityacc), 10, 30, 20, DARKGRAY);
 		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
