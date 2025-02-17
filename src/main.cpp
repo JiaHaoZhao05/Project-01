@@ -11,7 +11,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 
-int main ()
+int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -26,106 +26,92 @@ int main ()
 	Texture wabbit = LoadTexture("wabbit_alpha.png");
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
-<<<<<<< HEAD
-	static float gravityacc = 0;
-=======
-	
 
-	float currentTime = GetTime();
-	float lastTime = 0.0f;
-	int gravityactive = 0;
-	float gravityacc = 0;
->>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
-	int Wtrigger = 0;
+	float gravity = 0;
+	int jumps = 0;
 	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
+	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(WHITE);
-		
+
 		// Update
 		//----------------------------------------------------------------------------------
-		
+
 		//Movement -------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
-		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Wtrigger == 1) {
-			Wtrigger = 0;
+		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps != 0 && gravity >= 0) {
+			jumps--;
 			ballPosition.y -= 10.0f;
-			gravityacc = -20.0f;
+			gravity = -20.0f;
 		}
-<<<<<<< HEAD
-		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) gravityacc += 3.0f;
-		
-		
+		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) gravity += 3.0f;
+
+
 		if (ballPosition.y < 750.0f) {
-			ballPosition.y += gravityacc;
-			
-			if (gravityacc < 15.0f) {
-				gravityacc += 0.8f;
+			ballPosition.y += gravity;
+
+			if (gravity < 15.0f) {
+				gravity += 0.8f;
 			}
-			else if (gravityacc > 15.0f) {
-				gravityacc = 15.0f;
+			else if (gravity > 15.0f) {
+				gravity = 15.0f;
 			}
 		}
 		if (CheckCollisionCircleLine(ballPosition, 50, { 1850,600 }, { 900,600 })) {
-			if (ballPosition.y > 550 && gravityacc > 0) {
+			if (ballPosition.y > 550 && gravity > 0) {
 				ballPosition.y = ballPosition.y;
-				gravityacc = 0;
-				Wtrigger = 1;
+				gravity = 0;
+				jumps = 2;
 			}
-=======
-		//----------------------------------------------------------------------------------
-		
-		//Physics --------------------------------------------------------------------------
-		if (ballPosition.y < 750.0f) {
+			//----------------------------------------------------------------------------------
 
-			ballPosition.y += gravityacc;
+			//Physics --------------------------------------------------------------------------
+			if (ballPosition.y < 750.0f) {
 
-			if (gravityacc < 15.0f) {
-				gravityacc += 0.8f;
+				ballPosition.y += gravity;
+
+				if (gravity < 15.0f) {
+					gravity += 0.8f;
+				}
+				else if (gravity > 15) {
+					gravity = 15;
+				}
+
 			}
-			else if (gravityacc > 15) {
-				gravityacc = 15;
+			else if (ballPosition.y >= 750.0f) {
+				ballPosition.y = 750.0f;
+				gravity = 0;
+				jumps = 2;
 			}
 
->>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
+			//----------------------------------------------------------------------------------
+
+			// Draw
+			//----------------------------------------------------------------------------------
+			BeginDrawing();
+
+			ClearBackground(RAYWHITE);
+
+			DrawText(TextFormat("pos y: %f", ballPosition.y), 10, 10, 20, DARKGRAY);
+			DrawText(TextFormat("Jumps: %i", jumps), 10, 50, 20, DARKGRAY);
+
+			DrawCircleV(ballPosition, 50, MAROON);
+			DrawLine(1850, 600, 900, 600, GREEN);
+			EndDrawing();
+			//----------------------------------------------------------------------------------
 		}
-		else if(ballPosition.y >= 750.0f) {
-			ballPosition.y = 750.0f;
-			gravityacc = 0;
-<<<<<<< HEAD
-=======
-			
->>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
-			Wtrigger = 1;
-		}
-		
-		//----------------------------------------------------------------------------------
 
-		// Draw
-		//----------------------------------------------------------------------------------
-		BeginDrawing();
+		// cleanup
+		// unload our texture so it can be cleaned up
+		UnloadTexture(wabbit);
 
-		ClearBackground(RAYWHITE);
-
-		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
-		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
-
-		DrawCircleV(ballPosition, 50, MAROON);
-		DrawLine(1850, 600, 900, 600, GREEN);
-		EndDrawing();
-		//----------------------------------------------------------------------------------
+		// destroy the window and cleanup the OpenGL context
+		CloseWindow();
+		return 0;
 	}
-
-	// cleanup
-	// unload our texture so it can be cleaned up
-	UnloadTexture(wabbit);
-
-	// destroy the window and cleanup the OpenGL context
-	CloseWindow();
-	return 0;
 }
