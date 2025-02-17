@@ -26,7 +26,16 @@ int main ()
 	Texture wabbit = LoadTexture("wabbit_alpha.png");
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
+<<<<<<< HEAD
 	static float gravityacc = 0;
+=======
+	
+
+	float currentTime = GetTime();
+	float lastTime = 0.0f;
+	int gravityactive = 0;
+	float gravityacc = 0;
+>>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
 	int Wtrigger = 0;
 	// game loop
 	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
@@ -39,6 +48,8 @@ int main ()
 		
 		// Update
 		//----------------------------------------------------------------------------------
+		
+		//Movement -------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Wtrigger == 1) {
@@ -46,6 +57,7 @@ int main ()
 			ballPosition.y -= 10.0f;
 			gravityacc = -20.0f;
 		}
+<<<<<<< HEAD
 		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) gravityacc += 3.0f;
 		
 		
@@ -65,10 +77,30 @@ int main ()
 				gravityacc = 0;
 				Wtrigger = 1;
 			}
+=======
+		//----------------------------------------------------------------------------------
+		
+		//Physics --------------------------------------------------------------------------
+		if (ballPosition.y < 750.0f) {
+
+			ballPosition.y += gravityacc;
+
+			if (gravityacc < 15.0f) {
+				gravityacc += 0.8f;
+			}
+			else if (gravityacc > 15) {
+				gravityacc = 15;
+			}
+
+>>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
 		}
 		else if(ballPosition.y >= 750.0f) {
 			ballPosition.y = 750.0f;
 			gravityacc = 0;
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 6532aa7907a9199b8ccd8b109a1b9f15d463adae
 			Wtrigger = 1;
 		}
 		
@@ -81,7 +113,6 @@ int main ()
 		ClearBackground(RAYWHITE);
 
 		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
-		DrawText(TextFormat("gravity: %f", gravityacc), 10, 30, 20, DARKGRAY);
 		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
