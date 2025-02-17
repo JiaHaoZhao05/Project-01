@@ -51,67 +51,56 @@ int main()
 		}
 		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) gravity += 3.0f;
 
-
-		if (ballPosition.y < 750.0f) {
-			ballPosition.y += gravity;
-
-			if (gravity < 15.0f) {
-				gravity += 0.8f;
-			}
-			else if (gravity > 15.0f) {
-				gravity = 15.0f;
-			}
-		}
 		if (CheckCollisionCircleLine(ballPosition, 50, { 1850,600 }, { 900,600 })) {
 			if (ballPosition.y > 550 && gravity > 0) {
 				ballPosition.y = ballPosition.y;
 				gravity = 0;
 				jumps = 2;
 			}
-			//----------------------------------------------------------------------------------
+		}
+		//----------------------------------------------------------------------------------
 
-			//Physics --------------------------------------------------------------------------
-			if (ballPosition.y < 750.0f) {
+		//Physics --------------------------------------------------------------------------
+		if (ballPosition.y < 750.0f) {
 
-				ballPosition.y += gravity;
+			ballPosition.y += gravity;
 
-				if (gravity < 15.0f) {
-					gravity += 0.8f;
-				}
-				else if (gravity > 15) {
-					gravity = 15;
-				}
-
+			if (gravity < 15.0f) {
+				gravity += 0.8f; //gravity acceleration
 			}
-			else if (ballPosition.y >= 750.0f) {
-				ballPosition.y = 750.0f;
-				gravity = 0;
-				jumps = 2;
+			else if (gravity > 15) {
+				gravity = 15; //terminal velocity
 			}
 
-			//----------------------------------------------------------------------------------
-
-			// Draw
-			//----------------------------------------------------------------------------------
-			BeginDrawing();
-
-			ClearBackground(RAYWHITE);
-
-			DrawText(TextFormat("pos y: %f", ballPosition.y), 10, 10, 20, DARKGRAY);
-			DrawText(TextFormat("Jumps: %i", jumps), 10, 50, 20, DARKGRAY);
-
-			DrawCircleV(ballPosition, 50, MAROON);
-			DrawLine(1850, 600, 900, 600, GREEN);
-			EndDrawing();
-			//----------------------------------------------------------------------------------
+		}
+		else if (ballPosition.y >= 750.0f) {
+			ballPosition.y = 750.0f;
+			gravity = 0;
+			jumps = 2;
 		}
 
-		// cleanup
-		// unload our texture so it can be cleaned up
-		UnloadTexture(wabbit);
+		//----------------------------------------------------------------------------------
 
-		// destroy the window and cleanup the OpenGL context
-		CloseWindow();
-		return 0;
+		// Draw
+		//----------------------------------------------------------------------------------
+		BeginDrawing();
+
+		ClearBackground(RAYWHITE);
+
+		DrawText(TextFormat("pos y: %f", ballPosition.y), 10, 10, 20, DARKGRAY);
+		DrawText(TextFormat("Jumps: %i", jumps), 10, 50, 20, DARKGRAY);
+
+		DrawCircleV(ballPosition, 50, MAROON);
+		DrawLine(1850, 600, 900, 600, GREEN);
+		EndDrawing();
+		//----------------------------------------------------------------------------------
 	}
+
+	// cleanup
+	// unload our texture so it can be cleaned up
+	UnloadTexture(wabbit);
+
+	// destroy the window and cleanup the OpenGL context
+	CloseWindow();
+	return 0;
 }
