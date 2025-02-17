@@ -32,6 +32,7 @@ int main ()
 	float lastTime = 0.0f;
 	int gravityactive = 0;
 	float gravityacc = 0;
+	int Wtrigger = 0;
 	// game loop
 	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -40,37 +41,36 @@ int main ()
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(WHITE);
-
+		
 		// Update
 		//----------------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
-		if (IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) {
+		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Wtrigger == 1) {
+			
+			Wtrigger = 0;
 			ballPosition.y -= 10.0f;
-			gravityacc = 0;
+			gravityacc = -10;
 		}
 		if (IsKeyDown('S')) ballPosition.y += 10.0f;
 		//Check if 1 second has passed
-		if (currentTime - lastTime >= 1.0f) {
-			t++; // Increment t every second
-			lastTime = GetTime(); // Update lastTime to the current time
-		}
+		
 		
 		if (ballPosition.y < 750.0f) {
 
 			gravityactive = 1;
 			ballPosition.y += gravityacc;
 			
-			if (gravityacc < 15) {
-			gravityacc += 0.2f;
-			}
+			
+			gravityacc += 0.8f;
+			
 
 		}
-		else if(ballPosition.y > 750.0f) {
+		else if(ballPosition.y >= 750.0f) {
 			ballPosition.y = 750.0f;
 			gravityacc = 0;
 			gravityactive = 0;
-
+			Wtrigger = 1;
 		}
 		//----------------------------------------------------------------------------------
 
@@ -81,7 +81,8 @@ int main ()
 		ClearBackground(RAYWHITE);
 
 		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
-		DrawText(TextFormat("gravity: %i", gravityactive), 10, 30, 20, DARKGRAY);
+		DrawText(TextFormat("gravity: %f", gravityacc), 10, 30, 20, DARKGRAY);
+		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
 
