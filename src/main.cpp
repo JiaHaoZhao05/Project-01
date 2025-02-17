@@ -49,10 +49,13 @@ int main()
 			ballPosition.y -= 10.0f;
 			gravity = -20.0f;
 		}
-		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) gravity += 3.0f;
+		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) {
+			gravity += 3.0f;
+			ballPosition.y += 1.0f;
+		}
 
 		if (CheckCollisionCircleLine(ballPosition, 50, { 1850,600 }, { 900,600 })) {
-			if (ballPosition.y > 550 && gravity > 0) {
+			if (ballPosition.y > 600 && gravity > 0) {
 				ballPosition.y = ballPosition.y;
 				gravity = 0;
 				jumps = 2;
@@ -78,7 +81,12 @@ int main()
 			gravity = 0;
 			jumps = 2;
 		}
-
+		if (ballPosition.x < 0) {
+			ballPosition.x = 0;
+		}
+		else if (ballPosition.x > 1280) {
+			ballPosition.x = 1280;
+		}
 		//----------------------------------------------------------------------------------
 
 		// Draw
