@@ -24,9 +24,21 @@ int main()
 
 	// Load a texture from the resources directory
 
+	
 
-	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
+	
 
+	struct player {
+
+		float x;
+		float y;
+		float height;
+		float width;
+		Texture skin;
+
+	};
+
+	struct player Reina = { 0,0,128,64,LoadTexture("Hormiga_Prueva.png") };
 	
 	int gravityactive = 0;
 	float gravityacc = 0;
@@ -49,31 +61,25 @@ int main()
 		//----------------------------------------------------------------------------------
 
 		//Movement -------------------------------------------------------------------------
-		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
-		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
+		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.x += 5.0f;
+		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.x -= 5.0f;
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps > 0 && gravity >= 0) {
 			jumps--;
-			ballPosition.y -= 10.0f;
+			Reina.y -= 10.0f;
 			gravity = -20.0f;
 		}
 		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) {
 			gravity += 3.0f;
-			ballPosition.y += 1.0f;
+			Reina.y += 1.0f;
 		}
 
-		if (CheckCollisionCircleLine(ballPosition, 50, { 1850,600 }, { 900,600 })) {
-			if (ballPosition.y > 600 && gravity > 0) {
-				ballPosition.y = ballPosition.y;
-				gravity = 0;
-				jumps = 2;
-			}
-		}
+		
 		//----------------------------------------------------------------------------------
 
 		//Physics --------------------------------------------------------------------------
-		if (ballPosition.y < 750.0f) {
+		if (Reina.y < 750.0f) {
 
-			ballPosition.y += gravity;
+			Reina.y += gravity;
 
 			if (gravity < 15.0f) {
 				gravity += 0.8f; //gravity acceleration
@@ -83,16 +89,16 @@ int main()
 			}
 
 		}
-		else if (ballPosition.y >= 750.0f) {
-			ballPosition.y = 750.0f;
+		else if (Reina.y >= 750.0f) {
+			Reina.y = 750.0f;
 			gravity = 0;
 			jumps = 2;
 		}
-		if (ballPosition.x < 0) {
-			ballPosition.x = 0;
+		if (Reina.x < 0) {
+			Reina.x = 0;
 		}
-		else if (ballPosition.x > 1280) {
-			ballPosition.x = 1280;
+		else if (Reina.x > 1280) {
+			Reina.x = 1280;
 		}
 
 		
@@ -104,13 +110,14 @@ int main()
 
 		ClearBackground(RAYWHITE);
 
-		DrawText(TextFormat("pos y: %f", ballPosition.y), 10, 10, 20, DARKGRAY);
+		DrawText(TextFormat("pos y: %f", Reina.y), 10, 10, 20, DARKGRAY);
 		DrawText(TextFormat("Jumps: %i", jumps), 10, 50, 20, DARKGRAY);
 
-		DrawCircleV(ballPosition, 50, MAROON);
+		
 
 		DrawRectangle(1000, 600, 200, 10,BLACK);
 
+		DrawTexture(Reina.skin, Reina.x, Reina.y, WHITE);
 
 		DrawLine(1850, 600, 900, 600, GREEN);
 
