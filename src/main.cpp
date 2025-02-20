@@ -17,6 +17,10 @@ struct player {
 	Texture skin;
 
 };
+struct floor {
+	Rectangle box;
+	Texture skin;
+};
 
 int main()
 {
@@ -32,7 +36,7 @@ int main()
 	
 	struct player Reina = { 0,0,64,128,0,0,LoadTexture("Hormiga_Prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10};
-	Rectangle Floor[10];
+	floor Floor[10];
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
