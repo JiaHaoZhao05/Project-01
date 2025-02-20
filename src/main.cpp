@@ -23,13 +23,10 @@ int main ()
 	SearchAndSetResourceDir("resources");
 
 	// Load a texture from the resources directory
-	Texture wabbit = LoadTexture("wabbit_alpha.png");
+
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
 	
-
-	float currentTime = GetTime();
-	float lastTime = 0.0f;
 	int gravityactive = 0;
 	float gravityacc = 0;
 	int Wtrigger = 0;
@@ -75,6 +72,8 @@ int main ()
 			
 			Wtrigger = 1;
 		}
+
+		
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -87,6 +86,7 @@ int main ()
 		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
+		DrawRectangle(1000, 600, 200, 10,BLACK);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ int main ()
 
 	// cleanup
 	// unload our texture so it can be cleaned up
-	UnloadTexture(wabbit);
+	
 
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
