@@ -21,6 +21,11 @@ struct floor {
 	Rectangle box;
 	Texture skin;
 };
+struct larvae {
+	Rectangle box;
+	float gravity;
+	Texture skin;
+};
 
 int main()
 {
@@ -35,12 +40,14 @@ int main()
 
 	
 	struct player Reina = { 0,0,64,128,0,0,LoadTexture("Hormiga_Prueva.png") };
+	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10};
 	floor soil[20];
 	float b = 0;
 	for (int a = 0; a < 20; ++a,++b) {
 		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
+	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -102,6 +109,21 @@ int main()
 				}
 			}
 		}
+		if (CheckCollisionRecs(Reina.box,mud.box)){
+			if (Reina.box.y < mud.box.y) {
+				Reina.gravity = 0;
+				Reina.jumps = 2;
+			}
+			else if (Reina.box.y > mud.box.y) {
+				Reina.gravity = 2.4f;
+			}
+			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 5)) {
+				Reina.box.x += 5.0f;
+			}
+			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 5)) {
+				Reina.box.x -= 5.0f;
+			}
+		}
 		Reina.box.y += Reina.gravity;
 		//----------------------------------------------------------------------------------
 
@@ -123,7 +145,7 @@ int main()
 		for (int a = 0; a < 20; ++a) {
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
-
+		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
 		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
