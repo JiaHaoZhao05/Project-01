@@ -22,12 +22,6 @@ int main()
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 
-	// Load a texture from the resources directory
-
-	
-
-	
-
 	struct player {
 
 		float x;
@@ -77,7 +71,7 @@ int main()
 		//----------------------------------------------------------------------------------
 
 		//Physics --------------------------------------------------------------------------
-		if (Reina.y < 750.0f) {
+		if (Reina.y < 686.0f) {
 
 			Reina.y += gravity;
 
@@ -89,8 +83,8 @@ int main()
 			}
 
 		}
-		else if (Reina.y >= 750.0f) {
-			Reina.y = 750.0f;
+		else if (Reina.y >= 686.0f) {
+			Reina.y = 686.0f;
 			gravity = 0;
 			jumps = 2;
 		}
@@ -120,6 +114,14 @@ int main()
 		DrawTexture(Reina.skin, Reina.x, Reina.y, WHITE);
 
 		DrawLine(1850, 600, 900, 600, GREEN);
+
+		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
+		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
+		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps > 0 && gravity >= 0) {
+			jumps--;
+			Reina.y -= 10.0f;
+			gravity = -20.0f;
+		}
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
