@@ -33,12 +33,6 @@ int main()
 	};
 
 	struct player Reina = { 0,0,128,64,LoadTexture("Hormiga_Prueva.png") };
-	
-	int gravityactive = 0;
-	float gravityacc = 0;
-	int Wtrigger = 0;
-
-
 	float gravity = 0;
 	int jumps = 0;
 
