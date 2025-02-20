@@ -11,7 +11,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 
-int main ()
+int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -26,51 +26,73 @@ int main ()
 
 
 	Vector2 ballPosition = { (float)1920 / 2, (float)1080 / 2 };
+
 	
 	int gravityactive = 0;
 	float gravityacc = 0;
 	int Wtrigger = 0;
+
+
+	float gravity = 0;
+	int jumps = 0;
+
 	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
+	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(WHITE);
-		
+
 		// Update
 		//----------------------------------------------------------------------------------
-		
+
 		//Movement -------------------------------------------------------------------------
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) ballPosition.x += 5.0f;
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) ballPosition.x -= 5.0f;
-		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Wtrigger == 1) {
-			
-			Wtrigger = 0;
+		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && jumps > 0 && gravity >= 0) {
+			jumps--;
 			ballPosition.y -= 10.0f;
-			gravityacc = -20;
+			gravity = -20.0f;
+		}
+		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) {
+			gravity += 3.0f;
+			ballPosition.y += 1.0f;
+		}
+
+		if (CheckCollisionCircleLine(ballPosition, 50, { 1850,600 }, { 900,600 })) {
+			if (ballPosition.y > 600 && gravity > 0) {
+				ballPosition.y = ballPosition.y;
+				gravity = 0;
+				jumps = 2;
+			}
 		}
 		//----------------------------------------------------------------------------------
-		
+
 		//Physics --------------------------------------------------------------------------
 		if (ballPosition.y < 750.0f) {
 
-			ballPosition.y += gravityacc;
+			ballPosition.y += gravity;
 
-			if (gravityacc < 15.0f) {
-				gravityacc += 0.8f;
+			if (gravity < 15.0f) {
+				gravity += 0.8f; //gravity acceleration
 			}
-			else if (gravityacc > 15) {
-				gravityacc = 15;
+			else if (gravity > 15) {
+				gravity = 15; //terminal velocity
 			}
 
 		}
-		else if(ballPosition.y >= 750.0f) {
+		else if (ballPosition.y >= 750.0f) {
 			ballPosition.y = 750.0f;
-			gravityacc = 0;
-			
-			Wtrigger = 1;
+			gravity = 0;
+			jumps = 2;
+		}
+		if (ballPosition.x < 0) {
+			ballPosition.x = 0;
+		}
+		else if (ballPosition.x > 1280) {
+			ballPosition.x = 1280;
 		}
 
 		
@@ -82,11 +104,15 @@ int main ()
 
 		ClearBackground(RAYWHITE);
 
-		DrawText(TextFormat("pos y: %f", ballPosition.y), 10,10,20, DARKGRAY);
-		DrawText(TextFormat("Wtrigger: %i", Wtrigger), 10, 50, 20, DARKGRAY);
+		DrawText(TextFormat("pos y: %f", ballPosition.y), 10, 10, 20, DARKGRAY);
+		DrawText(TextFormat("Jumps: %i", jumps), 10, 50, 20, DARKGRAY);
 
 		DrawCircleV(ballPosition, 50, MAROON);
+
 		DrawRectangle(1000, 600, 200, 10,BLACK);
+
+
+		DrawLine(1850, 600, 900, 600, GREEN);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
