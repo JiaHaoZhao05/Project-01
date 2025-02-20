@@ -36,7 +36,11 @@ int main()
 	
 	struct player Reina = { 0,0,64,128,0,0,LoadTexture("Hormiga_Prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10};
-	floor Floor[10];
+	floor soil[20];
+	float b = 0;
+	for (int a = 0; a < 20; ++a,++b) {
+		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
+	}
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -74,22 +78,28 @@ int main()
 		if (Reina.box.x < 0) {
 			Reina.box.x = 0;
 		}
-		else if (Reina.box.x > 1280) {
-			Reina.box.x = 1280;
+		if (Reina.box.x > 1216) {
+			Reina.box.x = 1216;
 		}
-		
+		if (Reina.gravity < 15.0f) {
+			Reina.gravity += 0.8f; //gravity acceleration
+		}
+		else if (Reina.gravity > 15) {
+			Reina.gravity = 15; //terminal velocity
+		}
 		if (CheckCollisionRecs(Reina.box, tester)) {
 			if (Reina.gravity > 0) {
 				Reina.gravity = 0;
 				Reina.jumps = 2;
 			}
 		}
-		else {
-			if (Reina.gravity < 15.0f) {
-				Reina.gravity += 0.8f; //gravity acceleration
-			}
-			else if (Reina.gravity > 15) {
-				Reina.gravity = 15; //terminal velocity
+		for (int a = 0; a < 20; ++a) {
+			if (CheckCollisionRecs(Reina.box, soil[a].box)) {
+				if (Reina.gravity >= 0) {
+					Reina.gravity = 0;
+					Reina.jumps = 2;
+					Reina.box.y = soil[a].box.y - Reina.box.height;
+				}
 			}
 		}
 		Reina.box.y += Reina.gravity;
@@ -110,7 +120,9 @@ int main()
 
 		DrawTexture(Reina.skin, Reina.box.x, Reina.box.y, WHITE);
 
-		DrawLine(1850, 600, 900, 600, GREEN);
+		for (int a = 0; a < 20; ++a) {
+			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
+		}
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
 		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
