@@ -37,9 +37,9 @@ int main()
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
-	Texture background = LoadTexture("fondo.png");
+	Texture background = LoadTexture("fondo2.png");
 	
-	struct player Reina = { 0,0,64,128,0,0,LoadTexture("Hormiga_Prueva.png") };
+	struct player Reina = { 0,0,64,128,0,0,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10};
 	floor soil[20];
@@ -95,7 +95,7 @@ int main()
 		}
 		if (CheckCollisionRecs(Reina.box, tester)) {
 			if (Reina.gravity > 0) {
-				Reina.gravity = 0;
+				Reina.gravity = Reina.gravity * -1;
 				Reina.jumps = 2;
 			}
 		}
@@ -116,10 +116,10 @@ int main()
 			else if (Reina.box.y > mud.box.y) {
 				Reina.gravity = 2.4f;
 			}
-			if (Reina.box.x > mud.box.x + (mud.box.width/2)) {
+			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
 				Reina.box.x += 5.0f;
 			}
-			else if (Reina.box.x < mud.box.x - (mud.box.width/2)) {
+			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 5)) {
 				Reina.box.x -= 5.0f;
 			}
 		}
@@ -145,8 +145,8 @@ int main()
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
 		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
-		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
-		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
+		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("reinaDERECHA.png");
+		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("reinaIZQUIERDA.png");
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
 			Reina.jumps--;
 			Reina.box.y -= 10.0f;
