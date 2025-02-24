@@ -95,7 +95,7 @@ int main()
 		}
 		if (CheckCollisionRecs(Reina.box, tester)) {
 			if (Reina.gravity > 0) {
-				Reina.gravity = Reina.gravity * -1;
+				Reina.gravity = -15.0f;
 				Reina.jumps = 2;
 			}
 		}
@@ -119,7 +119,7 @@ int main()
 			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
 				Reina.box.x += 5.0f;
 			}
-			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 5)) {
+			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 15)) {
 				Reina.box.x -= 5.0f;
 			}
 		}
