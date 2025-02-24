@@ -112,15 +112,31 @@ int main()
 			Reina.jumps = 2;
 			if (Reina.box.y < mud.box.y) {
 				Reina.gravity = 0;
+
+				
+				Reina.jumps = 2;
+
+
 			}
 			else if (Reina.box.y > mud.box.y) {
 				Reina.gravity = 2.4f;
 			}
+
+			if (Reina.box.x > mud.box.x + (mud.box.width/2)) {
+
 			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
+
 				Reina.box.x += 5.0f;
+				Reina.gravity = 2.4f;
+				
 			}
+<<<<<<< HEAD
 			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 15)) {
+=======
+			else if (Reina.box.x < mud.box.x - (mud.box.width/2)) {
+>>>>>>> 076aee112320232d15ab12c68557735383d53275
 				Reina.box.x -= 5.0f;
+				Reina.gravity = 2.4f;
 			}
 		}
 		Reina.box.y += Reina.gravity;
@@ -145,8 +161,13 @@ int main()
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
 		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
+
+		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
+		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
+
 		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("reinaDERECHA.png");
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("reinaIZQUIERDA.png");
+
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
 			Reina.jumps--;
 			Reina.box.y -= 10.0f;
