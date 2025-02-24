@@ -112,31 +112,15 @@ int main()
 			Reina.jumps = 2;
 			if (Reina.box.y < mud.box.y) {
 				Reina.gravity = 0;
-
-				
-				Reina.jumps = 2;
-
-
 			}
 			else if (Reina.box.y > mud.box.y) {
 				Reina.gravity = 2.4f;
 			}
-
-			if (Reina.box.x > mud.box.x + (mud.box.width/2)) {
-
 			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
-
 				Reina.box.x += 5.0f;
-				Reina.gravity = 2.4f;
-				
 			}
-<<<<<<< HEAD
 			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 15)) {
-=======
-			else if (Reina.box.x < mud.box.x - (mud.box.width/2)) {
->>>>>>> 076aee112320232d15ab12c68557735383d53275
 				Reina.box.x -= 5.0f;
-				Reina.gravity = 2.4f;
 			}
 		}
 		Reina.box.y += Reina.gravity;
