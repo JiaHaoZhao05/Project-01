@@ -37,7 +37,7 @@ int main()
 
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
-
+	Texture background = LoadTexture("fondo.png");
 	
 	struct player Reina = { 0,0,64,128,0,0,LoadTexture("Hormiga_Prueva.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
@@ -70,7 +70,6 @@ int main()
 		}
 		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) {
 			Reina.gravity += 3.0f;
-			Reina.box.y += 1.0f;
 		}
 
 		
@@ -110,17 +109,17 @@ int main()
 			}
 		}
 		if (CheckCollisionRecs(Reina.box,mud.box)){
+			Reina.jumps = 2;
 			if (Reina.box.y < mud.box.y) {
 				Reina.gravity = 0;
-				Reina.jumps = 2;
 			}
 			else if (Reina.box.y > mud.box.y) {
 				Reina.gravity = 2.4f;
 			}
-			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 5)) {
+			if (Reina.box.x > mud.box.x + (mud.box.width/2)) {
 				Reina.box.x += 5.0f;
 			}
-			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 5)) {
+			else if (Reina.box.x < mud.box.x - (mud.box.width/2)) {
 				Reina.box.x -= 5.0f;
 			}
 		}
@@ -132,7 +131,7 @@ int main()
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-
+		DrawTexture(background,0,0,WHITE);
 		DrawText(TextFormat("pos y: %f", Reina.box.y), 10, 10, 20, DARKGRAY);
 		DrawText(TextFormat("Jumps: %i", Reina.jumps), 10, 50, 20, DARKGRAY);
 
