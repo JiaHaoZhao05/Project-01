@@ -47,7 +47,7 @@ int main()
 	for (int a = 0; a < 20; ++a,++b) {
 		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
-	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud = { 800,700,64,64,LoadTexture("Suelo_prueba.png") };
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -146,8 +146,8 @@ int main()
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
 		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
-		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
-		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
+		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
+		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
 			Reina.jumps--;
 			Reina.box.y -= 10.0f;
