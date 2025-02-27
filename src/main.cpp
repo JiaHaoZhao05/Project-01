@@ -48,7 +48,8 @@ int main()
 		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
 	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
-	floor mud2 = { 800,464,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud2 = { 863,400,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud3 = { 737,400,64,64,LoadTexture("Suelo_prueba.png") };
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -110,10 +111,11 @@ int main()
 		}
 		if (CheckCollisionRecs(Reina.box,mud.box)){
 			Reina.jumps = 2;
-			if (Reina.box.y < mud.box.y) {
+			if (Reina.box.y <= mud.box.y + Reina.box.height - 20 && (Reina.box.x <= mud.box.x - Reina.box.width && Reina.box.x >= mud.box.x + mud.box.width)) {
 				Reina.gravity = 0;
+				Reina.box.y = mud.box.y - Reina.box.height;
 			}
-			else if (Reina.box.y > mud.box.y) {
+			if(Reina.box.y >= mud.box.y + 32) {
 				Reina.gravity = 2.4f;
 				Reina.jumps = 0;
 			}
@@ -124,6 +126,7 @@ int main()
 				Reina.box.x -= 5.0f;
 			}
 		}
+
 		Reina.box.y += Reina.gravity;
 		//----------------------------------------------------------------------------------
 
@@ -146,6 +149,8 @@ int main()
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
 		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
+		//DrawTexture(mud2.skin, mud2.box.x, mud2.box.y, WHITE);
+		//DrawTexture(mud3.skin, mud3.box.x, mud3.box.y, WHITE);
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
 		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
