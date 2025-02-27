@@ -47,7 +47,8 @@ int main()
 	for (int a = 0; a < 20; ++a,++b) {
 		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
-	floor mud = { 800,700,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud2 = { 800,464,64,64,LoadTexture("Suelo_prueba.png") };
 	// game loop
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -65,7 +66,6 @@ int main()
 		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.box.x -= 5.0f;
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
 			Reina.jumps--;
-			Reina.box.y -= 10.0f;
 			Reina.gravity = -20.0f;
 		}
 		if (IsKeyDown('S') || IsKeyDown(KEY_DOWN)) {
@@ -115,6 +115,7 @@ int main()
 			}
 			else if (Reina.box.y > mud.box.y) {
 				Reina.gravity = 2.4f;
+				Reina.jumps = 0;
 			}
 			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
 				Reina.box.x += 5.0f;
