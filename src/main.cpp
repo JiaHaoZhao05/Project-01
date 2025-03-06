@@ -14,7 +14,9 @@ struct player {
 	Rectangle box;
 	float gravity;
 	int jumps;
+	float speed;
 	Texture skin;
+	
 
 };
 struct floor {
@@ -38,19 +40,21 @@ int main()
 	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
 	SearchAndSetResourceDir("resources");
 	Texture background = LoadTexture("fondo2.png");
-	
-	struct player Reina = { 0,0,64,128,0,0,LoadTexture("reinaDERECHA.png") };
+
+	struct player Reina = { 0,0,64,128,0,0,5,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
-	Rectangle tester = { 1000, 600, 200, 10};
+	Rectangle tester = { 1000, 600, 200, 10 };
 	floor soil[20];
 	float b = 0;
-	for (int a = 0; a < 20; ++a,++b) {
-		soil[a] = { b*64,750,64,64, LoadTexture("Suelo_prueba.png") };
+	for (int a = 0; a < 20; ++a, ++b) {
+		soil[a] = { b * 64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
 	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
 	floor mud2 = { 863,400,64,64,LoadTexture("Suelo_prueba.png") };
 	floor mud3 = { 737,400,64,64,LoadTexture("Suelo_prueba.png") };
 	// game loop
+
+	bool disbugsol;
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
@@ -61,10 +65,22 @@ int main()
 
 		// Update
 		//----------------------------------------------------------------------------------
-		
+
 		//Movement -------------------------------------------------------------------------
-		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.box.x += 5.0f;
-		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.box.x -= 5.0f;
+		if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) Reina.speed = 5.0f;
+		else {
+			if ((IsKeyDown('A') || IsKeyDown(KEY_LEFT)) == 0) {
+				Reina.speed = .0f;
+
+			}
+		}
+		if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) Reina.speed = -5.0f;
+		else {
+			if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) == 0) {
+				Reina.speed = .0f;
+
+			}
+		}
 		if ((IsKeyDown('W') || IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_UP)) && Reina.jumps > 0 && Reina.gravity >= 0) {
 			Reina.jumps--;
 			Reina.gravity = -20.0f;
@@ -73,9 +89,9 @@ int main()
 			Reina.gravity += 3.0f;
 		}
 
-		
+
 		//----------------------------------------------------------------------------------
-		
+
 		//Physics --------------------------------------------------------------------------
 		if (Reina.box.y >= 686.0f) {
 			Reina.box.y = 686.0f;
@@ -109,25 +125,84 @@ int main()
 				}
 			}
 		}
-		if (CheckCollisionRecs(Reina.box,mud.box)){
+		if (CheckCollisionRecs(Reina.box, mud.box)) {
 			Reina.jumps = 2;
-			if (Reina.box.y <= mud.box.y + Reina.box.height - 20 && (Reina.box.x <= mud.box.x - Reina.box.width && Reina.box.x >= mud.box.x + mud.box.width)) {
-				Reina.gravity = 0;
-				Reina.box.y = mud.box.y - Reina.box.height;
+			if (Reina.box.y <= mud.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud.box.x && Reina.box.x + Reina.box.width - 48 <= mud.box.x + mud.box.width)) {
+				if (Reina.box.y <= mud.box.y) {
+					
+					Reina.gravity = 0;
+					Reina.box.y = mud.box.y - Reina.box.height;
+					
+				}
 			}
-			if(Reina.box.y >= mud.box.y + 32) {
+			if (Reina.box.y >= mud.box.y) {
 				Reina.gravity = 2.4f;
 				Reina.jumps = 0;
+				disbugsol = 0;
 			}
-			if (Reina.box.x > mud.box.x + (mud.box.width/2 + 15)) {
-				Reina.box.x += 5.0f;
+			if (Reina.box.x > mud.box.x + (mud.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
 			}
-			else if (Reina.box.x < mud.box.x - (mud.box.width/2 + 15)) {
-				Reina.box.x -= 5.0f;
+			else if (Reina.box.x < mud.box.x - (mud.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
 			}
 		}
+		//mud box 2
+		if (CheckCollisionRecs(Reina.box, mud2.box)) {
+			Reina.jumps = 2;
+			if (Reina.box.y <= mud2.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud2.box.x && Reina.box.x + Reina.box.width - 48 <= mud2.box.x + mud2.box.width)) {
+				if (Reina.box.y <= mud2.box.y) {
+					
+					Reina.gravity = 0;
+					Reina.box.y = mud2.box.y - Reina.box.height;
+					
+				}
+			}
+			if (Reina.box.y >= mud2.box.y) {
+				Reina.gravity = 2.4f;
+				Reina.jumps = 0;
+				
+			}
+			if (Reina.box.x > mud2.box.x + (mud2.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
+			}
+			else if (Reina.box.x < mud2.box.x - (mud2.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
+			}
+		}
+		//mud box 3
 
+		if (CheckCollisionRecs(Reina.box, mud3.box)) {
+			Reina.jumps = 2;
+			if (Reina.box.y <= mud3.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud3.box.x && Reina.box.x + Reina.box.width - 48 <= mud3.box.x + mud3.box.width)) {
+				if (Reina.box.y <= mud3.box.y) {
+					
+					Reina.gravity = 0;
+					Reina.box.y = mud3.box.y - Reina.box.height;
+					
+				}
+			}
+			if (Reina.box.y >= mud3.box.y) {
+				Reina.gravity = 2.4f;
+				Reina.jumps = 0;
+				
+			}
+			if (Reina.box.x > mud3.box.x + (mud3.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
+			}
+			else if (Reina.box.x < mud3.box.x - (mud3.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
+				Reina.speed = .0f;
+				
+			}
+		}
 		Reina.box.y += Reina.gravity;
+		disbugsol = 1;
+		Reina.box.x += Reina.speed;
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -135,22 +210,22 @@ int main()
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-		DrawTexture(background,0,0,WHITE);
+		DrawTexture(background, 0, 0, WHITE);
 		DrawText(TextFormat("pos y: %f", Reina.box.y), 10, 10, 20, DARKGRAY);
 		DrawText(TextFormat("Jumps: %i", Reina.jumps), 10, 50, 20, DARKGRAY);
 
-		
+		DrawText(TextFormat("Speed: %f", Reina.speed), 10, 70, 20, DARKGRAY);
 
-		DrawRectangle(tester.x,tester.y,tester.width,tester.height,BLACK);
+		DrawRectangle(tester.x, tester.y, tester.width, tester.height, BLACK);
 
 		DrawTexture(Reina.skin, Reina.box.x, Reina.box.y, WHITE);
 
 		for (int a = 0; a < 20; ++a) {
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
-		DrawTexture(mud.skin, mud.box.x, mud.box.y,WHITE);
-		//DrawTexture(mud2.skin, mud2.box.x, mud2.box.y, WHITE);
-		//DrawTexture(mud3.skin, mud3.box.x, mud3.box.y, WHITE);
+		DrawTexture(mud.skin, mud.box.x, mud.box.y, WHITE);
+		DrawTexture(mud2.skin, mud2.box.x, mud2.box.y, WHITE);
+		DrawTexture(mud3.skin, mud3.box.x, mud3.box.y, WHITE);
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
 		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
@@ -170,9 +245,12 @@ int main()
 
 	// cleanup
 	// unload our texture so it can be cleaned up
-	
+
 
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
 	return 0;
 }
+
+
+
