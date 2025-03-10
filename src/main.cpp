@@ -29,6 +29,8 @@ struct larvae {
 	Texture skin;
 };
 
+
+
 int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
@@ -41,7 +43,7 @@ int main()
 	SearchAndSetResourceDir("resources");
 	Texture background = LoadTexture("fondo2.png");
 
-	struct player Reina = { 0,0,64,128,0,0,5,LoadTexture("reinaDERECHA.png") };
+	struct player Reina = { 100,100,64,128,0,0,5,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10 };
 	floor soil[20];
@@ -49,12 +51,22 @@ int main()
 	for (int a = 0; a < 20; ++a, ++b) {
 		soil[a] = { b * 64,750,64,64, LoadTexture("Suelo_prueba.png") };
 	}
-	floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
+	/*floor mud = { 800,400,64,64,LoadTexture("Suelo_prueba.png") };
 	floor mud2 = { 863,400,64,64,LoadTexture("Suelo_prueba.png") };
-	floor mud3 = { 737,400,64,64,LoadTexture("Suelo_prueba.png") };
+	floor mud3 = { 737,400,64,64,LoadTexture("Suelo_prueba.png") };*/
 	// game loop
 
-	bool disbugsol;
+	//Map generation
+	int numblocks = 3;
+	floor mud[3];
+	int colact[3] = { -1, 0, 1 };
+	for (int i = 0; i < 3; ++i) {
+	
+		mud[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png") };
+		
+
+	}
+	
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
@@ -125,84 +137,38 @@ int main()
 				}
 			}
 		}
-		if (CheckCollisionRecs(Reina.box, mud.box)) {
-			Reina.jumps = 2;
-			if (Reina.box.y <= mud.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud.box.x && Reina.box.x + Reina.box.width - 48 <= mud.box.x + mud.box.width)) {
-				if (Reina.box.y <= mud.box.y) {
-					
-					Reina.gravity = 0;
-					Reina.box.y = mud.box.y - Reina.box.height;
-					
-				}
-			}
-			if (Reina.box.y >= mud.box.y) {
-				Reina.gravity = 2.4f;
-				Reina.jumps = 0;
-				disbugsol = 0;
-			}
-			if (Reina.box.x > mud.box.x + (mud.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
-			else if (Reina.box.x < mud.box.x - (mud.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
-		}
-		//mud box 2
-		if (CheckCollisionRecs(Reina.box, mud2.box)) {
-			Reina.jumps = 2;
-			if (Reina.box.y <= mud2.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud2.box.x && Reina.box.x + Reina.box.width - 48 <= mud2.box.x + mud2.box.width)) {
-				if (Reina.box.y <= mud2.box.y) {
-					
-					Reina.gravity = 0;
-					Reina.box.y = mud2.box.y - Reina.box.height;
-					
-				}
-			}
-			if (Reina.box.y >= mud2.box.y) {
-				Reina.gravity = 2.4f;
-				Reina.jumps = 0;
-				
-			}
-			if (Reina.box.x > mud2.box.x + (mud2.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
-			else if (Reina.box.x < mud2.box.x - (mud2.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
-		}
-		//mud box 3
+		for (int i = 0; i < numblocks; ++i) {
+			if (CheckCollisionRecs(Reina.box, mud[i].box)) {
+				Reina.jumps = 2;
+				if (Reina.box.y <= mud[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud[i].box.x && Reina.box.x + Reina.box.width - 48 <= mud[i].box.x + mud[i].box.width)) {
+					if (Reina.box.y <= mud[i].box.y) {
 
-		if (CheckCollisionRecs(Reina.box, mud3.box)) {
-			Reina.jumps = 2;
-			if (Reina.box.y <= mud3.box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud3.box.x && Reina.box.x + Reina.box.width - 48 <= mud3.box.x + mud3.box.width)) {
-				if (Reina.box.y <= mud3.box.y) {
+						Reina.gravity = 0;
+						Reina.box.y = mud[i].box.y - Reina.box.height;
+
+					}
+				}
+				if (Reina.box.y >= mud[i].box.y) {
+					Reina.gravity = 2.4f;
+					Reina.jumps = 0;
 					
-					Reina.gravity = 0;
-					Reina.box.y = mud3.box.y - Reina.box.height;
-					
+				} // <--
+				if (Reina.box.x > mud[i].box.x + (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && colact[i] == 1) {
+					Reina.speed = .0f;
+
+				} // -->
+				else if (Reina.box.x < mud[i].box.x - (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && colact[i] == -1) {
+					Reina.speed = .0f;
+
 				}
 			}
-			if (Reina.box.y >= mud3.box.y) {
-				Reina.gravity = 2.4f;
-				Reina.jumps = 0;
-				
-			}
-			if (Reina.box.x > mud3.box.x + (mud3.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
-			else if (Reina.box.x < mud3.box.x - (mud3.box.width / 2) && Reina.box.y + Reina.box.height > mud.box.y && Reina.box.y < mud.box.y + mud.box.height) {
-				Reina.speed = .0f;
-				
-			}
 		}
+
 		Reina.box.y += Reina.gravity;
-		disbugsol = 1;
 		Reina.box.x += Reina.speed;
+
+		
+		
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -223,9 +189,10 @@ int main()
 		for (int a = 0; a < 20; ++a) {
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
-		DrawTexture(mud.skin, mud.box.x, mud.box.y, WHITE);
-		DrawTexture(mud2.skin, mud2.box.x, mud2.box.y, WHITE);
-		DrawTexture(mud3.skin, mud3.box.x, mud3.box.y, WHITE);
+		
+		for (int i = 0; i < numblocks; ++i) {
+			DrawTexture(mud[i].skin, mud[i].box.x, mud[i].box.y, WHITE);
+		}
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
 		if (IsKeyDown('D') || IsKeyDown(KEY_LEFT)) Reina.skin = LoadTexture("Hormiga_Prueva.png");
