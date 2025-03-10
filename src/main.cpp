@@ -33,6 +33,7 @@ struct blocks {
 	Rectangle box;
 	Texture skin;
 	bool active;
+	bool move;
 };
 
 
@@ -72,18 +73,18 @@ int main()
 	colisionvalue[3] = 0;
 	colisionvalue[4] = 0;
 	colisionvalue[5] = 1;
-	char blocktype[6] = { 'b', 'b', 'm', 'm', 'b', 'm'};
+	char blocktype[6] = { 'b', 'b', 'm', 'm', 'b', 'm' };
 	for (int i = 0; i < 6; ++i) {
-	
+
 		if (blocktype[i] == 'm') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
 		}
 
 	}
-	
+
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -167,11 +168,11 @@ int main()
 					}
 				}
 				if (Reina.box.y >= block[i].box.y) {
-					
-					
+
+
 					if (blocktype[i] == 'b' && Reina.gravity < 0) {
 						block[i].active = false;
-						
+
 						Reina.gravity = 2.4f;
 						Reina.jumps = 0;
 
@@ -198,15 +199,15 @@ int main()
 							}
 						}
 
-						
+
 
 					}
 					else {
 						Reina.gravity = 2.4f;
 						Reina.jumps = 0;
 					}
-					
-				} 
+
+				}
 				// <--
 				if (Reina.box.x > block[i].box.x + (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colisionvalue[i] == 1 || colisionvalue[i] == 2)) {
 					if (IsKeyDown('A')) {
@@ -221,11 +222,35 @@ int main()
 			}
 		}
 
-		Reina.box.y += Reina.gravity;
-		Reina.box.x += Reina.speed;
 
-		
-		
+
+		Reina.box.y += Reina.gravity;
+		if (Reina.box.x < 300.0f) {
+			Reina.box.x += Reina.speed;
+		}
+		else {
+
+			Reina.box.x = 300.0f;
+
+			for (int i = 0; i < numblocks; ++i) {
+
+				block[i].move = true;
+
+			}
+
+		}
+
+		for (int i = 0; i < numblocks; ++i)
+
+			if (block[i].move == true) {
+
+				block[i].box.x += Reina.speed;
+
+			}
+
+	}
+
+
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -265,12 +290,12 @@ int main()
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
-	}
-
+	
+	
 	// cleanup
 	// unload our texture so it can be cleaned up
 
-
+	
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
 	return 0;
