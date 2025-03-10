@@ -153,13 +153,15 @@ int main()
 					Reina.jumps = 0;
 					
 				} // <--
-				if (Reina.box.x > mud[i].box.x + (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && colact[i] == 1) {
-					Reina.speed = .0f;
-
+				if (Reina.box.x > mud[i].box.x + (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && (colact[i] == 1 || colact[i] == 2)) {
+					if (IsKeyDown('A')) {
+						Reina.speed = .0f;
+					}
 				} // -->
-				else if (Reina.box.x < mud[i].box.x - (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && colact[i] == -1) {
-					Reina.speed = .0f;
-
+				else if (Reina.box.x < mud[i].box.x - (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && (colact[i] == -1 || colact[i] == 2)) {
+					if (IsKeyDown('D')) {
+						Reina.speed = .0f;
+					}
 				}
 			}
 		}
