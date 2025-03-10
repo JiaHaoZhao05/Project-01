@@ -35,6 +35,7 @@ struct blocks {
 };
 
 
+
 int main()
 {
 	// Tell the window to use vsync and work on high DPI displays
@@ -162,6 +163,34 @@ int main()
 					Reina.jumps = 0;
 					if (blocktype[i] == 'b') {
 						block[i].active = false;
+						
+
+
+
+						if (block[i - 1].box.x + 64 == block[i].box.x) {
+
+							if (block[i - 2].box.x + 64 == block[i - 1].box.x) {
+								colact[i - 1] = 1;
+
+							}
+							else {
+								colact[i - 1] = 2;
+							}
+						}
+
+						if (block[i + 1].box.x - 64 == block[i].box.x) {
+
+							if (block[i + 2].box.x - 64 == block[i + 1].box.x) {
+								colact[i + 1] = -1;
+
+							}
+							else {
+								colact[i + 1] = 2;
+							}
+						}
+
+
+
 					}
 					
 				} // <--
@@ -205,7 +234,7 @@ int main()
 		}
 		
 		for (int i = 0; i < numblocks; ++i) {
-			DrawTexture(block[i].skin, block[i].box.x, block[i].box.y, WHITE);
+			if (block[i].active == true) { DrawTexture(block[i].skin, block[i].box.x, block[i].box.y, WHITE); }
 		}
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
