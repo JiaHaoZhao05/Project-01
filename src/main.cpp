@@ -49,7 +49,7 @@ int main()
 	SearchAndSetResourceDir("resources");
 	Texture background = LoadTexture("fondo2.png");
 
-	struct player Reina = { 100,100,64,128,0,0,5,LoadTexture("reinaDERECHA.png") };
+	struct player Reina = { 100,100,62,128,0,0,5,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
 	Rectangle tester = { 1000, 600, 200, 10 };
 	floor soil[20];
@@ -63,14 +63,17 @@ int main()
 	// game loop
 
 	//Map generation
-	int numblocks = 3;
+	int numblocks = 6;
 	blocks block[100];
-	int colact[100];
-	colact[0] = -1;
-	colact[1] = 0;
-	colact[2] = 1;
-	char blocktype[3] = { 'm', 'b', 'm' };
-	for (int i = 0; i < 3; ++i) {
+	int colisionvalue[100];
+	colisionvalue[0] = -1;
+	colisionvalue[1] = 0;
+	colisionvalue[2] = 0;
+	colisionvalue[3] = 0;
+	colisionvalue[4] = 0;
+	colisionvalue[5] = 1;
+	char blocktype[6] = { 'b', 'b', 'm', 'm', 'b', 'm'};
+	for (int i = 0; i < 6; ++i) {
 	
 		if (blocktype[i] == 'm') {
 			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true };
@@ -164,9 +167,8 @@ int main()
 					}
 				}
 				if (Reina.box.y >= block[i].box.y) {
-					Reina.gravity = 2.4f;
-					Reina.jumps = 0;
-					if (blocktype[i] == 'b') {
+					
+					if (blocktype[i] == 'b' && Reina.gravity < 0) {
 						block[i].active = false;
 						
 
@@ -175,36 +177,37 @@ int main()
 						if (block[i - 1].box.x + 64 == block[i].box.x) {
 
 							if (block[i - 2].box.x + 64 == block[i - 1].box.x) {
-								colact[i - 1] = 1;
+								colisionvalue[i - 1] = 1;
 
 							}
 							else {
-								colact[i - 1] = 2;
+								colisionvalue[i - 1] = 2;
 							}
 						}
 
 						if (block[i + 1].box.x - 64 == block[i].box.x) {
 
 							if (block[i + 2].box.x - 64 == block[i + 1].box.x) {
-								colact[i + 1] = -1;
+								colisionvalue[i + 1] = -1;
 
 							}
 							else {
-								colact[i + 1] = 2;
+								colisionvalue[i + 1] = 2;
 							}
 						}
 
-
+						Reina.gravity = 2.4f;
+						Reina.jumps = 0;
 
 					}
 					
 				} // <--
-				if (Reina.box.x > block[i].box.x + (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colact[i] == 1 || colact[i] == 2)) {
+				if (Reina.box.x > block[i].box.x + (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colisionvalue[i] == 1 || colisionvalue[i] == 2)) {
 					if (IsKeyDown('A')) {
 						Reina.speed = .0f;
 					}
 				} // -->
-				else if (Reina.box.x < block[i].box.x - (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colact[i] == -1 || colact[i] == 2)) {
+				else if (Reina.box.x < block[i].box.x - (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colisionvalue[i] == -1 || colisionvalue[i] == 2)) {
 					if (IsKeyDown('D')) {
 						Reina.speed = .0f;
 					}
