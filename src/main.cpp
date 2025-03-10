@@ -28,7 +28,11 @@ struct larvae {
 	float gravity;
 	Texture skin;
 };
-
+struct blocks {
+	Rectangle box;
+	Texture skin;
+	bool active;
+};
 
 
 int main()
@@ -58,12 +62,17 @@ int main()
 
 	//Map generation
 	int numblocks = 3;
-	floor mud[3];
+	blocks block[3];
 	int colact[3] = { -1, 0, 1 };
+	char blocktype[3] = { 'm', 'm', 'b' };
 	for (int i = 0; i < 3; ++i) {
 	
-		mud[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png") };
-		
+		if (blocktype[i] == 'm') {
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true };
+		}
+		if (blocktype[i] == 'b') {
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true };
+		}
 
 	}
 	
@@ -138,27 +147,30 @@ int main()
 			}
 		}
 		for (int i = 0; i < numblocks; ++i) {
-			if (CheckCollisionRecs(Reina.box, mud[i].box)) {
+			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
-				if (Reina.box.y <= mud[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= mud[i].box.x && Reina.box.x + Reina.box.width - 48 <= mud[i].box.x + mud[i].box.width)) {
-					if (Reina.box.y <= mud[i].box.y) {
+				if (Reina.box.y <= block[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= block[i].box.x && Reina.box.x + Reina.box.width - 48 <= block[i].box.x + block[i].box.width)) {
+					if (Reina.box.y <= block[i].box.y) {
 
 						Reina.gravity = 0;
-						Reina.box.y = mud[i].box.y - Reina.box.height;
+						Reina.box.y = block[i].box.y - Reina.box.height;
 
 					}
 				}
-				if (Reina.box.y >= mud[i].box.y) {
+				if (Reina.box.y >= block[i].box.y) {
 					Reina.gravity = 2.4f;
 					Reina.jumps = 0;
+					if (blocktype[i] == 'b') {
+						block[i].active = false;
+					}
 					
 				} // <--
-				if (Reina.box.x > mud[i].box.x + (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && (colact[i] == 1 || colact[i] == 2)) {
+				if (Reina.box.x > block[i].box.x + (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colact[i] == 1 || colact[i] == 2)) {
 					if (IsKeyDown('A')) {
 						Reina.speed = .0f;
 					}
 				} // -->
-				else if (Reina.box.x < mud[i].box.x - (mud[i].box.width / 2) && (Reina.box.y + Reina.box.height > mud[i].box.y && Reina.box.y < mud[i].box.y + mud[i].box.height) && (colact[i] == -1 || colact[i] == 2)) {
+				else if (Reina.box.x < block[i].box.x - (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colact[i] == -1 || colact[i] == 2)) {
 					if (IsKeyDown('D')) {
 						Reina.speed = .0f;
 					}
@@ -193,7 +205,7 @@ int main()
 		}
 		
 		for (int i = 0; i < numblocks; ++i) {
-			DrawTexture(mud[i].skin, mud[i].box.x, mud[i].box.y, WHITE);
+			DrawTexture(block[i].skin, block[i].box.x, block[i].box.y, WHITE);
 		}
 
 		if (IsKeyDown('A') || IsKeyDown(KEY_RIGHT)) Reina.skin = LoadTexture("Hormiga_IZQUIERDA_Prueva.png");
