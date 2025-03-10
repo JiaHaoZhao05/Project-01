@@ -51,7 +51,7 @@ int main()
 
 	struct player Reina = { 100,100,62,128,0,0,5,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
-	Rectangle tester = { 1000, 600, 200, 10 };
+	/*Rectangle tester = { 1000, 600, 200, 10 };*/
 	floor soil[20];
 	float b = 0;
 	for (int a = 0; a < 20; ++a, ++b) {
@@ -140,12 +140,12 @@ int main()
 		else if (Reina.gravity > 15) {
 			Reina.gravity = 15; //terminal velocity
 		}
-		if (CheckCollisionRecs(Reina.box, tester)) {
+		/*if (CheckCollisionRecs(Reina.box, tester)) {
 			if (Reina.gravity > 0) {
 				Reina.gravity = -15.0f;
 				Reina.jumps = 2;
 			}
-		}
+		}*/
 		for (int a = 0; a < 20; ++a) {
 			if (CheckCollisionRecs(Reina.box, soil[a].box)) {
 				if (Reina.gravity >= 0) {
@@ -168,10 +168,12 @@ int main()
 				}
 				if (Reina.box.y >= block[i].box.y) {
 					
+					
 					if (blocktype[i] == 'b' && Reina.gravity < 0) {
 						block[i].active = false;
 						
-
+						Reina.gravity = 2.4f;
+						Reina.jumps = 0;
 
 
 						if (block[i - 1].box.x + 64 == block[i].box.x) {
@@ -196,12 +198,16 @@ int main()
 							}
 						}
 
-						Reina.gravity = 2.4f;
-						Reina.jumps = 0;
+						
 
 					}
+					else {
+						Reina.gravity = 2.4f;
+						Reina.jumps = 0;
+					}
 					
-				} // <--
+				} 
+				// <--
 				if (Reina.box.x > block[i].box.x + (block[i].box.width / 2) && (Reina.box.y + Reina.box.height > block[i].box.y && Reina.box.y < block[i].box.y + block[i].box.height) && (colisionvalue[i] == 1 || colisionvalue[i] == 2)) {
 					if (IsKeyDown('A')) {
 						Reina.speed = .0f;
@@ -233,7 +239,7 @@ int main()
 
 		DrawText(TextFormat("Speed: %f", Reina.speed), 10, 70, 20, DARKGRAY);
 
-		DrawRectangle(tester.x, tester.y, tester.width, tester.height, BLACK);
+		/*DrawRectangle(tester.x, tester.y, tester.width, tester.height, BLACK);*/
 
 		DrawTexture(Reina.skin, Reina.box.x, Reina.box.y, WHITE);
 
