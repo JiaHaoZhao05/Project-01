@@ -10,6 +10,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "raylib.h"
 
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+
 struct player {
 	Rectangle box;
 	float gravity;
@@ -63,9 +64,12 @@ int main()
 
 	//Map generation
 	int numblocks = 3;
-	blocks block[3];
-	int colact[3] = { -1, 0, 1 };
-	char blocktype[3] = { 'm', 'm', 'b' };
+	blocks block[100];
+	int colact[100];
+	colact[0] = -1;
+	colact[1] = 0;
+	colact[2] = 1;
+	char blocktype[3] = { 'm', 'b', 'm' };
 	for (int i = 0; i < 3; ++i) {
 	
 		if (blocktype[i] == 'm') {
@@ -77,6 +81,7 @@ int main()
 
 	}
 	
+
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		// drawing
