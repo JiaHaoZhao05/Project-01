@@ -225,35 +225,39 @@ int main()
 
 
 		Reina.box.y += Reina.gravity;
-		if (IsKeyDown('A')) {
-			Reina.box.x -= Reina.speed;
-		}
 		if (Reina.box.x < 300.0f) {
 			if (IsKeyDown('D')) {
 				Reina.box.x += Reina.speed;
 			}
-			
+			if (IsKeyDown('A')) {
+				Reina.box.x += Reina.speed;
+			}
 		}
 
 		else {
 
-			/*Reina.box.x = 300.0f;*/
-
-			for (int i = 0; i < numblocks; ++i) {
-
-				block[i].move = true;
-
+			if (IsKeyDown('A')) {
+				Reina.box.x += Reina.speed;
 			}
+
+			if (IsKeyDown('D')) {
+				for (int i = 0; i < numblocks; ++i) {
+
+					block[i].move = true;
+
+				}
+			}
+			
 
 		}
 
 		for (int i = 0; i < numblocks; ++i)
 
-			if (block[i].move == true) {
+			if (block[i].move == true && IsKeyDown('D') && Reina.box.x >= 300.0f) {
 
 				block[i].box.x -= Reina.speed;
 
-			} 
+			}
 
 
 
