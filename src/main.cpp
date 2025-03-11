@@ -225,12 +225,19 @@ int main()
 
 
 		Reina.box.y += Reina.gravity;
-		if (Reina.box.x < 300.0f) {
-			Reina.box.x += Reina.speed;
+		if (IsKeyDown('A')) {
+			Reina.box.x -= Reina.speed;
 		}
+		if (Reina.box.x < 300.0f) {
+			if (IsKeyDown('D')) {
+				Reina.box.x += Reina.speed;
+			}
+			
+		}
+
 		else {
 
-			Reina.box.x = 300.0f;
+			/*Reina.box.x = 300.0f;*/
 
 			for (int i = 0; i < numblocks; ++i) {
 
@@ -244,11 +251,11 @@ int main()
 
 			if (block[i].move == true) {
 
-				block[i].box.x += Reina.speed;
+				block[i].box.x -= Reina.speed;
 
-			}
+			} 
 
-	}
+
 
 
 		//----------------------------------------------------------------------------------
@@ -271,7 +278,7 @@ int main()
 		for (int a = 0; a < 20; ++a) {
 			DrawTexture(soil[a].skin, soil[a].box.x, soil[a].box.y, WHITE);
 		}
-		
+
 		for (int i = 0; i < numblocks; ++i) {
 			if (block[i].active == true) { DrawTexture(block[i].skin, block[i].box.x, block[i].box.y, WHITE); }
 		}
@@ -290,8 +297,8 @@ int main()
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
-	
-	
+
+	}
 	// cleanup
 	// unload our texture so it can be cleaned up
 
