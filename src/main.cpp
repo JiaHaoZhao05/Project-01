@@ -64,7 +64,7 @@ int main()
 	// game loop
 
 	//Map generation
-	int numblocks = 6;
+	int numblocks = 12;
 	blocks block[100];
 	int colisionvalue[100];
 	colisionvalue[0] = -1;
@@ -73,7 +73,8 @@ int main()
 	colisionvalue[3] = 0;
 	colisionvalue[4] = 0;
 	colisionvalue[5] = 1;
-	char blocktype[6] = { 'b', 'b', 'm', 'm', 'b', 'm' };
+	
+	char blocktype[12] = { 'b', 'b', 'm', 'm', 'b', 'm', 'b', 'b', 'm', 'm', 'm', 'b'};
 	for (int i = 0; i < 6; ++i) {
 
 		if (blocktype[i] == 'm') {
@@ -84,7 +85,22 @@ int main()
 		}
 
 	}
+	colisionvalue[6] = -1;
+	colisionvalue[7] = 0;
+	colisionvalue[8] = 0;
+	colisionvalue[9] = 0;
+	colisionvalue[10] = 0;
+	colisionvalue[11] = 1;
+	for (int i = 6; i < 12; ++i) {
 
+		if (blocktype[i] == 'm') {
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
+		}
+		if (blocktype[i] == 'b') {
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
+		}
+
+	}
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -156,7 +172,7 @@ int main()
 				}
 			}
 		}
-		for (int i = 0; i < numblocks; ++i) {
+		for (int i = numblocks; i >= 0; --i) {
 			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
 				if (Reina.box.y <= block[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= block[i].box.x && Reina.box.x + Reina.box.width - 48 <= block[i].box.x + block[i].box.width)) {
