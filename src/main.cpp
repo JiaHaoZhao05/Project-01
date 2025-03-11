@@ -172,7 +172,7 @@ int main()
 				}
 			}
 		}
-		for (int i = numblocks; i >= 0; --i) {
+		for (int i = 0; i < numblocks; ++i) {
 			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
 				if (Reina.box.y <= block[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= block[i].box.x && Reina.box.x + Reina.box.width - 48 <= block[i].box.x + block[i].box.width)) {
@@ -237,7 +237,7 @@ int main()
 				}
 			}
 		}
-
+		
 
 
 		Reina.box.y += Reina.gravity;
