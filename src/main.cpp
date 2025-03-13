@@ -13,6 +13,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 
 struct player {
 	Rectangle box;
+	Rectangle checker;
 	float gravity;
 	int jumps;
 	float speed;
@@ -50,9 +51,9 @@ int main()
 	SearchAndSetResourceDir("resources");
 	Texture background = LoadTexture("fondo2.png");
 
-	struct player Reina = { 100,100,62,128,0,0,5,LoadTexture("reinaDERECHA.png") };
+	struct player Reina = { 100,100,62,128, 100, 100, 40, 128 ,0,0,5,LoadTexture("reinaDERECHA.png") };
 	struct larvae Larva = { 0,0,64,128,0,LoadTexture("larva_prueva.png") };
-	/*Rectangle tester = { 1000, 600, 200, 10 };*/
+	//Rectangle tester = { 1000, 600, 200, 10 };
 	floor soil[20];
 	float b = 0;
 	for (int a = 0; a < 20; ++a, ++b) {
@@ -81,7 +82,7 @@ int main()
 			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 
 	}
@@ -97,7 +98,7 @@ int main()
 			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 
 	}
@@ -173,7 +174,7 @@ int main()
 			}
 		}
 		for (int i = 0; i < numblocks; ++i) {
-			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
+			if (CheckCollisionRecs(Reina.checker, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
 				if (Reina.box.y <= block[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= block[i].box.x && Reina.box.x + Reina.box.width - 48 <= block[i].box.x + block[i].box.width)) {
 					if (Reina.box.y <= block[i].box.y) {
@@ -275,7 +276,8 @@ int main()
 
 			}
 
-
+		Reina.checker.x = Reina.box.x + 32;
+		Reina.checker.y = Reina.box.y;
 
 
 		//----------------------------------------------------------------------------------
