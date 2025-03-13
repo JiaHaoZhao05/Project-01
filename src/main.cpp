@@ -176,6 +176,15 @@ int main()
 				}
 			}
 		}
+		for (int a = 0; a < numblocks; ++a) {
+			if (Reina.box.y >= block[a].box.y + block[a].box.height - 20 && blocktype[a] == 'b' && CheckCollisionRecs(Reina.checker, block[a].box) && block[a].active == true) {
+				if (Reina.gravity < 0) {
+					block[a].active = false;
+				}
+				Reina.gravity = 2.4f;
+				Reina.jumps = 0;
+			}
+		}
 		for (int i = 0; i < numblocks; ++i) {
 			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
@@ -191,11 +200,7 @@ int main()
 
 
 					if (blocktype[i] == 'b' && CheckCollisionRecs(Reina.checker, block[i].box)) {
-						block[i].active = false;
-
-						Reina.gravity = 2.4f;
-						Reina.jumps = 0;
-
+						
 
 						if (block[i - 1].box.x + 64 == block[i].box.x) {
 
