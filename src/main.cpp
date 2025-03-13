@@ -82,7 +82,7 @@ int main()
 			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 
 	}
@@ -98,7 +98,7 @@ int main()
 			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 
 	}
