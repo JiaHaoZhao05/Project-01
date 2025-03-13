@@ -65,7 +65,7 @@ int main()
 	// game loop
 
 	//Map generation
-	int numblocks = 12;
+	int numblocks = 13;
 	blocks block[100];
 	int colisionvalue[100];
 	colisionvalue[0] = -1;
@@ -75,7 +75,7 @@ int main()
 	colisionvalue[4] = 0;
 	colisionvalue[5] = 1;
 	
-	char blocktype[12] = { 'b', 'b', 'm', 'm', 'b', 'm', 'b', 'b', 'm', 'm', 'm', 'b'};
+	char blocktype[13] = { 'b', 'b', 'm', 'm', 'b', 'm', 'b', 'b', 'm', 'm', 'm', 'b', 'b'};
 	for (int i = 0; i < 6; ++i) {
 
 		if (blocktype[i] == 'm') {
@@ -102,6 +102,9 @@ int main()
 		}
 
 	}
+
+	block[12] = { 800.0f, 464.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
+	colisionvalue[12] = 2;
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
