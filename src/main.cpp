@@ -65,7 +65,7 @@ int main()
 	// game loop
 
 	//Map generation
-	int numblocks = 13;
+	int numblocks = 12;
 	blocks block[100];
 	int colisionvalue[100];
 	colisionvalue[0] = -1;
@@ -75,14 +75,14 @@ int main()
 	colisionvalue[4] = 0;
 	colisionvalue[5] = 1;
 	
-	char blocktype[13] = { 'b', 'b', 'm', 'm', 'b', 'm', 'b', 'b', 'm', 'm', 'm', 'b', 'b'};
+	char blocktype[12] = { 'b', 'b', 'm', 'm', 'b', 'm', 'b', 'b', 'm', 'm', 'm', 'b'};
 	for (int i = 0; i < 6; ++i) {
 
 		if (blocktype[i] == 'm') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
+			block[i] = { 800.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
 		}
 
 	}
@@ -95,16 +95,16 @@ int main()
 	for (int i = 6; i < 12; ++i) {
 
 		if (blocktype[i] == 'm') {
-			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Suelo_prueba.png"), true, false };
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
 		}
 		if (blocktype[i] == 'b') {
-			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
+			block[i] = { 1400.0f + i * 64, 400.0f, 64, 64, LoadTexture("Break_block.png"), true, false };
 		}
 
 	}
 
-	block[12] = { 800.0f, 464.0f, 64, 64, LoadTexture("SOILBLOCK.png"), true, false };
-	colisionvalue[12] = 2;
+	
+	
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -177,7 +177,7 @@ int main()
 			}
 		}
 		for (int i = 0; i < numblocks; ++i) {
-			if (CheckCollisionRecs(Reina.checker, block[i].box) && block[i].active) {
+			if (CheckCollisionRecs(Reina.box, block[i].box) && block[i].active) {
 				Reina.jumps = 2;
 				if (Reina.box.y <= block[i].box.y + Reina.box.height + 64 && (Reina.box.x + 48 >= block[i].box.x && Reina.box.x + Reina.box.width - 48 <= block[i].box.x + block[i].box.width)) {
 					if (Reina.box.y <= block[i].box.y) {
@@ -190,7 +190,7 @@ int main()
 				if (Reina.box.y >= block[i].box.y) {
 
 
-					if (blocktype[i] == 'b' && Reina.gravity < 0) {
+					if (blocktype[i] == 'b' && CheckCollisionRecs(Reina.checker, block[i].box)) {
 						block[i].active = false;
 
 						Reina.gravity = 2.4f;
@@ -279,7 +279,7 @@ int main()
 
 			}
 
-		Reina.checker.x = Reina.box.x + 32;
+		Reina.checker.x = Reina.box.x + 32.0f;
 		Reina.checker.y = Reina.box.y;
 
 
