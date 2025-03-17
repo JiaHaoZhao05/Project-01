@@ -26,8 +26,11 @@ int main() {
 		BeginDrawing();
 		ClearBackground(WHITE);
 
+
 		Mario.Draw();
 
+		
+
 
 
 
@@ -35,10 +38,6 @@ int main() {
 
 		
 		
-		
-		
-		
-
 		
 
 		EndDrawing();
