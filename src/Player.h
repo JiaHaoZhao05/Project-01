@@ -13,6 +13,8 @@ public:
 	Texture2D image;
 	Vector2 position;
 
+	void Frames();
+
 	float speedx;
 	float gravity;
 

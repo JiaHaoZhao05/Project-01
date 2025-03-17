@@ -25,10 +25,10 @@ int main() {
 	{
 		BeginDrawing();
 		ClearBackground(WHITE);
-
-
-		Mario.Draw();
 		Mario.Movement();
+		//Mario.Frames(); // animation
+		Mario.Draw();
+		
 
 
 
@@ -42,7 +42,7 @@ int main() {
 	// cleanup
 	// unload our texture so it can be cleaned up
 
-	
+
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
 	return 0;
