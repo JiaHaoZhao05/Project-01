@@ -177,7 +177,7 @@ int main()
 			}
 		}
 		for (int a = 0; a < numblocks; ++a) {
-			if (Reina.box.y >= block[a].box.y + block[a].box.height - 20 && blocktype[a] == 'b' && CheckCollisionRecs(Reina.checker, block[a].box) && block[a].active == true) {
+			if (Reina.box.y >= block[a].box.y + block[a].box.height - 20 && blocktype[a] == 'b' && CheckCollisionRecs(Reina.box, block[a].box) && block[a].active == true) {
 				if (Reina.gravity < 0) {
 					block[a].active = false;
 				}
