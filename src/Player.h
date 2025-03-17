@@ -9,8 +9,15 @@ public:
 	~Player();
 	void Draw();
 	void Update();
+	void Movement();
 	Texture2D image;
 	Vector2 position;
+
+	float speedx;
+	float speedy;
+	float gravity;
+
+	int jumps;
 
 private:
 
