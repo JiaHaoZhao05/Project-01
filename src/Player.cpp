@@ -41,22 +41,19 @@ void Player::Movement() {
 		jumps = 1;
 	}
 	
-
-	if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) speedx = 5.0f;
-	else {
-		if ((IsKeyDown('A') || IsKeyDown(KEY_LEFT)) == 0) {
-			speedx = .0f;
-
-		}
+	if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) && (IsKeyDown('A') || IsKeyDown(KEY_LEFT))) {
+		speedx = 0;
 	}
-	if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) speedx = -5.0f;
-	else {
-		if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) == 0) {
-			speedx = .0f;
-
-		}
+	else if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) { 
+		speedx = 5.0f; 
 	}
-	if ((IsKeyDown('W') || IsKeyDown(KEY_UP)) && gravity >= 0 && jumps == 1) {
+	else if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) {
+		speedx = -5.0f;
+	}
+	else {
+		speedx = 0;
+	}
+	if ((IsKeyDown('W') || IsKeyDown(KEY_UP)) && gravity >= 0 && jumps > 0) {
 		
 		gravity = -10.0f;
 		jumps--;
@@ -69,4 +66,7 @@ void Player::Movement() {
 	DrawText(TextFormat("Speed (y): %s", "useless"), 10, 70, 20, BLACK);
 	DrawText(TextFormat("Jumps: %i", jumps), 10, 90, 20, BLACK);
 
+}
+void Frames() {
+	
 }
