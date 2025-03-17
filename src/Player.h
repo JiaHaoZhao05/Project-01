@@ -14,7 +14,6 @@ public:
 	Vector2 position;
 
 	float speedx;
-	float speedy;
 	float gravity;
 
 	int jumps;

@@ -29,7 +29,6 @@ int main() {
 
 		Mario.Draw();
 		Mario.Movement();
-		
 
 
 
