@@ -8,10 +8,18 @@ public:
 	Player();
 	~Player();
 	void Draw();
-	void Update();
 	void Movement();
 	Texture2D image;
 	Vector2 position;
+
+
+	int righttoleft; //<--
+	int downtoup;//A
+	int ontop;
+	int lefttoright;
+
+
+	Rectangle GetRect(); //get the hitbox of the player
 
 	void Frames();
 
@@ -19,6 +27,11 @@ public:
 	float gravity;
 
 	int jumps;
+
+
+	//pollas negras?
+
+	void Colliding();
 
 private:
 

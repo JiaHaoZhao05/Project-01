@@ -130,4 +130,74 @@ void Player::Frames() { // Mario frames when he has 1 life left
 	if (framecounter > 15) {
 		framecounter = 0; // reset the variable to maintain the animation cycle 
 	}
+
+
+}
+
+
+Rectangle Player::GetRect()
+{
+	return Rectangle{ position.x, position.y, float(image.width), float(image.height) };
+}
+
+
+void Player::Colliding()
+{
+	
+	Rectangle obstacle2 = Rectangle{ 200, 570, 50, 50 };
+
+	if (!CheckCollisionRecs(GetRect(), obstacle2)) {
+		righttoleft = 0;
+		downtoup = 0;
+		lefttoright = 0;
+		ontop = 0;
+	}
+	//ontop
+	else if (CheckCollisionRecs(GetRect(), obstacle2) && righttoleft == 0 && downtoup == 0 && lefttoright == 0 && (position.y < obstacle2.y)) {
+
+		position.y = obstacle2.y - image.height;
+		jumps = 1;
+		gravity = 0;
+		ontop = 1;
+		righttoleft = 0;
+		downtoup = 0;
+		lefttoright = 0;
+	}
+	//righttoleft
+	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && downtoup == 0 && lefttoright == 0 && (position.x > obstacle2.x + obstacle2.width)) {
+		position.x = obstacle2.x + obstacle2.width;
+		righttoleft = 1;
+		downtoup = 0;
+		lefttoright = 0;
+		ontop = 0;
+	}
+	//lefttoright
+	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && downtoup == 0 && righttoleft == 0 && (position.x < obstacle2.x)) {
+		position.x = obstacle2.x - image.width;
+		lefttoright = 1;
+		righttoleft = 0;
+		downtoup = 0;
+		ontop = 0;
+	}
+	//down
+	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && righttoleft == 0 && lefttoright == 0 && (position.y > obstacle2.y)) {
+		position.y = obstacle2.y - image.height;
+		jumps = 0;
+		gravity = 0.5f;
+		ontop = 0;
+		righttoleft = 0;
+		downtoup = 1;
+		lefttoright = 0;
+	}
+	
+	
+	
+
+	DrawText(TextFormat("righttoleft: %i", righttoleft), 10, 100, 20, BLACK);
+	DrawText(TextFormat("downtoup: %i", downtoup), 10, 120, 20, BLACK);
+	DrawText(TextFormat("ontop: %i", ontop), 10, 140, 20, BLACK);
+	DrawText(TextFormat("lefttoright: %i", lefttoright), 10, 160, 20, BLACK);
+
+
+
 }

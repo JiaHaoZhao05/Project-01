@@ -15,22 +15,26 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 	
 int main() {
 
+	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 
+
 	Player Mario;
-	
+	Rectangle obstacle = Rectangle{ 0, 700, 700, 175 };
+	Rectangle obstacle2 = Rectangle{ 200, 570, 50, 50 };
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		BeginDrawing();
 		ClearBackground(WHITE);
 		Mario.Movement();
-		//Mario.Frames(); // animation
+		Mario.Frames(); // animation
 		Mario.Draw();
-		
+		Mario.Colliding();
 
-
+		DrawRectangleLinesEx(obstacle, 5, BLACK);
+		DrawRectangleLinesEx(obstacle2, 5, BLACK);
 
 
 		
