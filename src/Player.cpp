@@ -1,9 +1,19 @@
 #include "Player.h"
 #include <Raylib.h>
-
+#include <iostream>
+#include <vector>
 Player::Player() {
 
-	image = LoadTexture("resources/mario_static_live1.png");
+	currentframe = { LoadTexture("resources/mario_death.png"), // mario with 1 life left
+		LoadTexture("resources/mario_static_live1.png"),
+		LoadTexture("resources/mario_walking1_live1.png"),
+		LoadTexture("resources/mario_walking2_live1.png"), 
+		LoadTexture("resources/mario_walking3_live1.png"),
+		LoadTexture("resources/LEFT_mario_walking1_live1.png"),
+		LoadTexture("resources/LEFT_mario_walking2_live1.png"), 
+		LoadTexture("resources/LEFT_mario_walking3_live1.png"), 
+		LoadTexture("resources/mario_jumping_live1.png"),
+		LoadTexture("resources/LEFT_mario_jumping_live1.png") };
 	position.x = 100;
 	position.y = 100;
 	gravity = 0.0f;
@@ -12,8 +22,8 @@ Player::Player() {
 
 }
 Player::~Player() {
-	gravity = -20.0f;
-	image = LoadTexture("resources/mario_death.png");
+	/*gravity = -20.0f;
+	Draw(0);
 	while (position.y < 1000) { // death animation
 		position.y += gravity;
 		if (gravity < 15) {
@@ -22,15 +32,15 @@ Player::~Player() {
 		else {
 			gravity = 15;
 		}
-		DrawTextureV(image, position, WHITE);
-	}
-	UnloadTexture(image);
+		DrawTextureV(currentframe[0], position, WHITE);
+	} */
+	//UnloadTexture(currentframe[0]);
 
 
 }
-void Player::Draw() {
+void Player::Draw(int a) {
 
-	DrawTextureV(image, position, WHITE);
+	DrawTextureV(currentframe[a], position, WHITE);
 
 }
 void Player::Movement() {
@@ -78,66 +88,56 @@ void Player::Movement() {
 	DrawText(TextFormat("Jumps: %i", jumps), 10, 90, 20, BLACK);
 
 }
-void Player::Frames() { // Mario frames when he has 1 life left
+int Player::Frames() { // Mario frames when he has 1 life left
 	static int framecounter = 0; // variable that marks the frame of the character
+	if (framecounter > 44) {
+		framecounter = 0; // reset the variable to maintain the animation cycle 
+	}
+	if (gravity < 0) { // jumping
+		if (speedx < 0) {
+			return 9; // jumping facing left frame
+		}
+		else if (speedx >= 0) {
+			return 8; // jumping facing right frame
+		}
+	}
 	if (speedx > 0) {
-		switch (framecounter) { // activate frame sorter if Mario is running right
-		case 0:
-			image = LoadTexture("resources/mario_walking1_live1.png"); // running right frame 1
+		if(framecounter >= 0 && framecounter < 15) { // activate frame sorter if Mario is running right
 			framecounter++;
-			break;
-		case 5:
-			image = LoadTexture("resources/mario_walking2_live1.png"); // running right frame 2
+			return 2; // running right frame 1
+		}
+		else if (framecounter >= 15 && framecounter < 30) {
 			framecounter++;
-			break;
-		case 10:
-			image = LoadTexture("resources/mario_walking3_live1.png"); // running right frame 3
+			return 3; // running right frame 2
+		}
+		else if (framecounter >= 30 && framecounter <= 45) {
 			framecounter++;
-			break;
-		default:
-			framecounter++; // keep updating the variable if none of the case above met
+			return 4; // running right frame 3
 		}
 	}
 	if (speedx < 0) { 
-		switch (framecounter) { // activate frame sorter if Mario is running left
-		case 0:
-			image = LoadTexture("resources/LEFT_mario_walking1_live1.png"); // running left frame 1
+		if (framecounter >= 0 && framecounter < 15) { // activate frame sorter if Mario is running left
 			framecounter++;
-			break;
-		case 5:
-			image = LoadTexture("resources/LEFT_mario_walking2_live1.png"); // running left frame 2
+			return 5; // running left frame 1
+		}
+		else if (framecounter >= 15 && framecounter < 30) {
 			framecounter++;
-			break;
-		case 10:
-			image = LoadTexture("resources/LEFT_mario_walking3_live1.png"); // running left frame 3
+			return 6; // running left frame 2
+		}
+		else if (framecounter >= 30 && framecounter <= 45) {
 			framecounter++;
-			break;
-		default:
-			framecounter++; // keep updating the variable if none of the case above met
+			return 7; // running left frame 3
 		}
 	}
 	if (speedx == 0) { // if mario is not moving, set the static frame
-		image = LoadTexture("resources/mario_static_live1.png"); 
+		return 1;
 	}
-	if (gravity < 0) { // jumping
-		if (speedx < 0) { 
-			image = LoadTexture("resources/LEFT_mario_jumping_live1.png"); // jumping facing left frame
-		}
-		else if (speedx >= 0) {
-			image = LoadTexture("resources/mario_jumping_live1.png"); // jumping facing right frame
-		}
-	}
-	if (framecounter > 15) {
-		framecounter = 0; // reset the variable to maintain the animation cycle 
-	}
-
-
 }
 
 
 Rectangle Player::GetRect()
 {
-	return Rectangle{ position.x, position.y, float(image.width), float(image.height) };
+	return Rectangle{ position.x, position.y, float (currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
 
 
@@ -155,7 +155,7 @@ void Player::Colliding()
 	//ontop
 	else if (CheckCollisionRecs(GetRect(), obstacle2) && righttoleft == 0 && downtoup == 0 && lefttoright == 0 && (position.y < obstacle2.y)) {
 
-		position.y = obstacle2.y - image.height;
+		position.y = obstacle2.y - currentframe[Frames()].height;
 		jumps = 1;
 		gravity = 0;
 		ontop = 1;
@@ -173,7 +173,7 @@ void Player::Colliding()
 	}
 	//lefttoright
 	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && downtoup == 0 && righttoleft == 0 && (position.x < obstacle2.x)) {
-		position.x = obstacle2.x - image.width;
+		position.x = obstacle2.x - currentframe[Frames()].width;
 		lefttoright = 1;
 		righttoleft = 0;
 		downtoup = 0;
@@ -181,7 +181,7 @@ void Player::Colliding()
 	}
 	//down
 	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && righttoleft == 0 && lefttoright == 0 && (position.y > obstacle2.y)) {
-		position.y = obstacle2.y - image.height;
+		position.y = obstacle2.y - currentframe[Frames()].height;
 		jumps = 0;
 		gravity = 0.5f;
 		ontop = 0;

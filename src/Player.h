@@ -1,15 +1,16 @@
 #pragma once
 #include <raylib.h>
-
+#include <iostream>
+#include <vector>
 class Player {
 
 public:
 
 	Player();
 	~Player();
-	void Draw();
+	void Draw(int a);
 	void Movement();
-	Texture2D image;
+	std::vector <Texture2D> currentframe;
 	Vector2 position;
 
 
@@ -21,7 +22,7 @@ public:
 
 	Rectangle GetRect(); //get the hitbox of the player
 
-	void Frames();
+	int Frames();
 
 	float speedx;
 	float gravity;

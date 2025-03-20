@@ -8,7 +8,8 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 */
 
 #include "raylib.h"
-
+#include <iostream>
+#include <vector>
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 #include "Player.h"
 
@@ -28,9 +29,9 @@ int main() {
 	{
 		BeginDrawing();
 		ClearBackground(WHITE);
+		Mario.Draw(Mario.Frames()); // animation
 		Mario.Movement();
-		Mario.Frames(); // animation
-		Mario.Draw();
+		
 		Mario.Colliding();
 
 		DrawRectangleLinesEx(obstacle, 5, BLACK);
