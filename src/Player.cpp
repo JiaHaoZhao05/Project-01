@@ -14,6 +14,7 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_walking3_live1.png"), 
 		LoadTexture("resources/mario_jumping_live1.png"),
 		LoadTexture("resources/LEFT_mario_jumping_live1.png") };
+	lives = 1;
 	position.x = 100;
 	position.y = 100;
 	gravity = 0.0f;

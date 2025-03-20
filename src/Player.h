@@ -20,7 +20,7 @@ public:
 	Rectangle GetRect(); //get the hitbox of the player
 
 	int Frames();
-
+	int lives;
 	float speedx;
 	float gravity;
 
