@@ -14,10 +14,7 @@ public:
 	Vector2 position;
 
 
-	int righttoleft; //<--
-	int downtoup;//A
-	int ontop;
-	int lefttoright;
+	bool IsJumping;
 
 
 	Rectangle GetRect(); //get the hitbox of the player
