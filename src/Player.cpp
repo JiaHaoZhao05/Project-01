@@ -91,7 +91,7 @@ void Player::Movement() {
 }
 int Player::Frames() { // Mario frames when he has 1 life left
 	static int framecounter = 0; // variable that marks the frame of the character
-	if (framecounter > 44) {
+	if (framecounter > 14) {
 		framecounter = 0; // reset the variable to maintain the animation cycle 
 	}
 	if (gravity < 0) { // jumping
@@ -103,29 +103,29 @@ int Player::Frames() { // Mario frames when he has 1 life left
 		}
 	}
 	if (speedx > 0) {
-		if(framecounter >= 0 && framecounter < 15) { // activate frame sorter if Mario is running right
+		if(framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running right
 			framecounter++;
 			return 2; // running right frame 1
 		}
-		else if (framecounter >= 15 && framecounter < 30) {
+		else if (framecounter >= 5 && framecounter < 10) {
 			framecounter++;
 			return 3; // running right frame 2
 		}
-		else if (framecounter >= 30 && framecounter <= 45) {
+		else if (framecounter >= 10 && framecounter <= 15) {
 			framecounter++;
 			return 4; // running right frame 3
 		}
 	}
 	if (speedx < 0) { 
-		if (framecounter >= 0 && framecounter < 15) { // activate frame sorter if Mario is running left
+		if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running left
 			framecounter++;
 			return 5; // running left frame 1
 		}
-		else if (framecounter >= 15 && framecounter < 30) {
+		else if (framecounter >= 5 && framecounter < 10) {
 			framecounter++;
 			return 6; // running left frame 2
 		}
-		else if (framecounter >= 30 && framecounter <= 45) {
+		else if (framecounter >= 10 && framecounter <= 15) {
 			framecounter++;
 			return 7; // running left frame 3
 		}
@@ -154,7 +154,7 @@ void Player::Colliding()
 
 		}
 	}*/
-	
+	/*
 	if (CheckCollisionRecs(GetRect(), obstacle2)) {
 		if (IsKeyDown('D')) {
 			position.x = obstacle2.x - image.width;
@@ -212,7 +212,7 @@ void Player::Colliding()
 		lefttoright = 0;
 	}
 
-
+	*/
 
 
 }
