@@ -94,44 +94,46 @@ int Player::Frames() { // Mario frames when he has 1 life left
 	if (lives == 0) {
 		return 0;
 	}
-	if (gravity < 0) { // jumping
+	else if (lives == 1) {
+		if (gravity < 0) { // jumping
+			if (speedx < 0) {
+				return 9; // jumping facing left frame
+			}
+			else if (speedx >= 0) {
+				return 8; // jumping facing right frame
+			}
+		}
+		if (speedx > 0) {
+			if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running right
+				framecounter++;
+				return 2; // running right frame 1
+			}
+			else if (framecounter >= 5 && framecounter < 10) {
+				framecounter++;
+				return 3; // running right frame 2
+			}
+			else if (framecounter >= 10 && framecounter <= 15) {
+				framecounter++;
+				return 4; // running right frame 3
+			}
+		}
 		if (speedx < 0) {
-			return 9; // jumping facing left frame
+			if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running left
+				framecounter++;
+				return 5; // running left frame 1
+			}
+			else if (framecounter >= 5 && framecounter < 10) {
+				framecounter++;
+				return 6; // running left frame 2
+			}
+			else if (framecounter >= 10 && framecounter <= 15) {
+				framecounter++;
+				return 7; // running left frame 3
+			}
 		}
-		else if (speedx >= 0) {
-			return 8; // jumping facing right frame
+		if (speedx == 0) { // if mario is not moving, set the static frame
+			return 1;
 		}
-	}
-	if (speedx > 0) {
-		if(framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running right
-			framecounter++;
-			return 2; // running right frame 1
-		}
-		else if (framecounter >= 5 && framecounter < 10) {
-			framecounter++;
-			return 3; // running right frame 2
-		}
-		else if (framecounter >= 10 && framecounter <= 15) {
-			framecounter++;
-			return 4; // running right frame 3
-		}
-	}
-	if (speedx < 0) { 
-		if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running left
-			framecounter++;
-			return 5; // running left frame 1
-		}
-		else if (framecounter >= 5 && framecounter < 10) {
-			framecounter++;
-			return 6; // running left frame 2
-		}
-		else if (framecounter >= 10 && framecounter <= 15) {
-			framecounter++;
-			return 7; // running left frame 3
-		}
-	}
-	if (speedx == 0) { // if mario is not moving, set the static frame
-		return 1;
 	}
 }
 
