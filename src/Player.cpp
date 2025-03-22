@@ -4,16 +4,16 @@
 #include <vector>
 Player::Player() {
 
-	currentframe = { LoadTexture("resources/mario_death.png"), // mario 1 life left
-		LoadTexture("resources/mario_static_live1.png"),
-		LoadTexture("resources/mario_walking1_live1.png"),
-		LoadTexture("resources/mario_walking2_live1.png"), 
-		LoadTexture("resources/mario_walking3_live1.png"),
-		LoadTexture("resources/LEFT_mario_walking1_live1.png"), // left
-		LoadTexture("resources/LEFT_mario_walking2_live1.png"), 
-		LoadTexture("resources/LEFT_mario_walking3_live1.png"), 
-		LoadTexture("resources/mario_jumping_live1.png"), // jump
-		LoadTexture("resources/LEFT_mario_jumping_live1.png") }; // jump left
+	currentframe = { LoadTexture("resources/mario_death.png"), // 0 mario 1 life left
+		LoadTexture("resources/mario_static_live1.png"), // 1
+		LoadTexture("resources/mario_walking1_live1.png"), // 2
+		LoadTexture("resources/mario_walking2_live1.png"), // 3
+		LoadTexture("resources/mario_walking3_live1.png"), // 4
+		LoadTexture("resources/LEFT_mario_walking1_live1.png"), // 5 left
+		LoadTexture("resources/LEFT_mario_walking2_live1.png"), // 6
+		LoadTexture("resources/LEFT_mario_walking3_live1.png"), // 7
+		LoadTexture("resources/mario_jumping_live1.png"), // 8 jump
+		LoadTexture("resources/LEFT_mario_jumping_live1.png") }; // 9 jump left
 	lives = 1;
 	position.x = 100;
 	position.y = 100;
@@ -83,14 +83,16 @@ void Player::Movement() {
 	position.x += speedx;
 	position.y += gravity;
 	DrawText(TextFormat("Gravity: %f", gravity), 10, 50, 20, BLACK);
-	DrawText(TextFormat("Speed (y): %s", "useless"), 10, 70, 20, BLACK);
-	DrawText(TextFormat("Jumps: %i", jumps), 10, 90, 20, BLACK);
+	DrawText(TextFormat("Jumps: %i", jumps), 10, 70, 20, BLACK);
 
 }
 int Player::Frames() { // Mario frames when he has 1 life left
 	static int framecounter = 0; // variable that marks the frame of the character
 	if (framecounter > 14) {
 		framecounter = 0; // reset the variable to maintain the animation cycle 
+	}
+	if (lives == 0) {
+		return 0;
 	}
 	if (gravity < 0) { // jumping
 		if (speedx < 0) {
