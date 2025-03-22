@@ -4,16 +4,16 @@
 #include <vector>
 Player::Player() {
 
-	currentframe = { LoadTexture("resources/mario_death.png"), // mario with 1 life left
+	currentframe = { LoadTexture("resources/mario_death.png"), // mario 1 life left
 		LoadTexture("resources/mario_static_live1.png"),
 		LoadTexture("resources/mario_walking1_live1.png"),
 		LoadTexture("resources/mario_walking2_live1.png"), 
 		LoadTexture("resources/mario_walking3_live1.png"),
-		LoadTexture("resources/LEFT_mario_walking1_live1.png"),
+		LoadTexture("resources/LEFT_mario_walking1_live1.png"), // left
 		LoadTexture("resources/LEFT_mario_walking2_live1.png"), 
 		LoadTexture("resources/LEFT_mario_walking3_live1.png"), 
-		LoadTexture("resources/mario_jumping_live1.png"),
-		LoadTexture("resources/LEFT_mario_jumping_live1.png") };
+		LoadTexture("resources/mario_jumping_live1.png"), // jump
+		LoadTexture("resources/LEFT_mario_jumping_live1.png") }; // jump left
 	lives = 1;
 	position.x = 100;
 	position.y = 100;
@@ -23,8 +23,7 @@ Player::Player() {
 
 }
 Player::~Player() {
-	/*gravity = -20.0f;
-	Draw(0);
+	gravity = -20.0f;
 	while (position.y < 1000) { // death animation
 		position.y += gravity;
 		if (gravity < 15) {
@@ -34,10 +33,8 @@ Player::~Player() {
 			gravity = 15;
 		}
 		DrawTextureV(currentframe[0], position, WHITE);
-	} */
-	//UnloadTexture(currentframe[0]);
-
-
+	}
+	UnloadTexture(currentframe[0]);
 }
 void Player::Draw(int a) {
 
