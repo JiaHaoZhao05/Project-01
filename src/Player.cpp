@@ -23,7 +23,7 @@ Player::Player() {
 
 }
 Player::~Player() {
-	gravity = -20.0f;
+	/*gravity = -20.0f;
 	while (position.y < 1000) { // death animation
 		position.y += gravity;
 		if (gravity < 15) {
@@ -34,17 +34,15 @@ Player::~Player() {
 		}
 		DrawTextureV(currentframe[0], position, WHITE);
 	}
-	UnloadTexture(currentframe[0]);
+	UnloadTexture(currentframe[0]); */
 }
 void Player::Draw(int a) {
 
 	DrawTextureV(currentframe[a], position, WHITE);
 
 }
-void Player::Movement() {
-
+void Player::Gravedad() {
 	if (position.y < 700.0f) {
-
 		position.y += gravity;
 		if (gravity < 15) {
 			gravity += 0.5f;
@@ -52,15 +50,15 @@ void Player::Movement() {
 		else {
 			gravity = 15;
 		}
-
 	}
-	if (position.y > 700.0f) {
-		position.y = 700;
+	if (position.y >= 700.0f - currentframe[Frames()].height) {
+		position.y = 700 - currentframe[Frames()].height;
 		gravity = 0;
 		jumps = 1;
 		IsJumping = 0;
 	}
-	
+}
+void Player::Movement() {	
 	if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) && (IsKeyDown('A') || IsKeyDown(KEY_LEFT))) {
 		speedx = 0;
 	}
@@ -79,22 +77,20 @@ void Player::Movement() {
 		jumps--;
 
 	}
-
 	position.x += speedx;
 	position.y += gravity;
 	DrawText(TextFormat("Gravity: %f", gravity), 10, 50, 20, BLACK);
 	DrawText(TextFormat("Jumps: %i", jumps), 10, 70, 20, BLACK);
-
 }
-int Player::Frames() { // Mario frames when he has 1 life left
+int Player::Frames() { 
 	static int framecounter = 0; // variable that marks the frame of the character
-	if (framecounter > 14) {
+	if (framecounter > 29) {
 		framecounter = 0; // reset the variable to maintain the animation cycle 
 	}
-	if (lives == 0) {
+	if (lives == 0) { // Death.
 		return 0;
 	}
-	else if (lives == 1) {
+	else if (lives == 1) { // Mario frames when he has 1 life left
 		if (gravity < 0) { // jumping
 			if (speedx < 0) {
 				return 9; // jumping facing left frame
@@ -104,29 +100,29 @@ int Player::Frames() { // Mario frames when he has 1 life left
 			}
 		}
 		if (speedx > 0) {
-			if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running right
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running right
 				framecounter++;
 				return 2; // running right frame 1
 			}
-			else if (framecounter >= 5 && framecounter < 10) {
+			else if (framecounter >= 10 && framecounter < 20) {
 				framecounter++;
 				return 3; // running right frame 2
 			}
-			else if (framecounter >= 10 && framecounter <= 15) {
+			else if (framecounter >= 20 && framecounter <= 30) {
 				framecounter++;
 				return 4; // running right frame 3
 			}
 		}
 		if (speedx < 0) {
-			if (framecounter >= 0 && framecounter < 5) { // activate frame sorter if Mario is running left
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running left
 				framecounter++;
 				return 5; // running left frame 1
 			}
-			else if (framecounter >= 5 && framecounter < 10) {
+			else if (framecounter >= 10 && framecounter < 20) {
 				framecounter++;
 				return 6; // running left frame 2
 			}
-			else if (framecounter >= 10 && framecounter <= 15) {
+			else if (framecounter >= 20 && framecounter <= 30) {
 				framecounter++;
 				return 7; // running left frame 3
 			}
@@ -136,85 +132,36 @@ int Player::Frames() { // Mario frames when he has 1 life left
 		}
 	}
 }
-
-
-Rectangle Player::GetRect()
-{
-	return Rectangle{ position.x, position.y, float (currentframe[Frames()].width), float(currentframe[Frames()].height)};
+Rectangle Player::GetRect(){
+	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
-
-
-void Player::Colliding()
-{
-	
-	Rectangle obstacle2 = Rectangle{ 200, 570, 50, 50 };
-
-	/*if (IsKeyDown('D')) {
-		if (position.x + image.width + speedx > obstacle2.x && position.x < obstacle2.x + obstacle2.width && position.y < obstacle2.y + obstacle2.height && position.y + image.height > obstacle2.y) {
-
-			position.x = obstacle2.x - image.width;
-
-		}
-	}*/
-	/*
-	if (CheckCollisionRecs(GetRect(), obstacle2)) {
-		if (IsKeyDown('D')) {
-			position.x = obstacle2.x - image.width;
-		}
-		else if (IsKeyDown('A')) {
-			position.x = obstacle2.x + image.width;
-		}
-		else if (IsKeyDown('W') || IsJumping) {
-			position.y = obstacle2.y + image.height + 70;
-		}
-		else {
-			position.y = obstacle2.y - image.height;
-		}
-	if (!CheckCollisionRecs(GetRect(), obstacle2)) {
-		righttoleft = 0;
-		downtoup = 0;
-		lefttoright = 0;
-		ontop = 0;
-	}
-	//ontop
-	else if (CheckCollisionRecs(GetRect(), obstacle2) && righttoleft == 0 && downtoup == 0 && lefttoright == 0 && (position.y < obstacle2.y)) {
-
-		position.y = obstacle2.y - currentframe[Frames()].height;
+void Player::Colliding(Rectangle rec){
+	if (CheckCollisionRecs(GetRect(), rec)) {
 		jumps = 1;
-		gravity = 0;
-		ontop = 1;
-		righttoleft = 0;
-		downtoup = 0;
-		lefttoright = 0;
+		if (position.x + currentframe[Frames()].width <= rec.x + 5) { // horizontal left
+			position.x = rec.x - currentframe[Frames()].width;
+			if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) && (position.y + currentframe[Frames()].height < rec.y + 5)) {
+				speedx = 0;
+			}
+		}
+		if (position.x >= rec.x + rec.width - 5) { // horizontal right
+			position.x = rec.x + rec.width;
+			if ((IsKeyDown('A') || IsKeyDown(KEY_LEFT)) && (position.y + currentframe[Frames()].height < rec.y + 5)) {
+				speedx = 0;
+			}
+		}
+		if (position.x > rec.x - currentframe[Frames()].width && position.x < rec.x + rec.width) { // vertical
+			position.y++;
+			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + rec.height - 5) { // stand on top
+				position.y = rec.y - currentframe[Frames()].height;
+			}
+			if (position.y > rec.y + rec.height - 5) { // hitting from below
+				gravity = 2.4f;
+				jumps = 0;
+			}
+			else if (position.y + currentframe[Frames()].height >= rec.y) { // don't go through walls
+				gravity = 0;
+			}
+		}
 	}
-	//righttoleft
-	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && downtoup == 0 && lefttoright == 0 && (position.x > obstacle2.x + obstacle2.width)) {
-		position.x = obstacle2.x + obstacle2.width;
-		righttoleft = 1;
-		downtoup = 0;
-		lefttoright = 0;
-		ontop = 0;
-	}
-	//lefttoright
-	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && downtoup == 0 && righttoleft == 0 && (position.x < obstacle2.x)) {
-		position.x = obstacle2.x - currentframe[Frames()].width;
-		lefttoright = 1;
-		righttoleft = 0;
-		downtoup = 0;
-		ontop = 0;
-	}
-	//down
-	else if (CheckCollisionRecs(GetRect(), obstacle2) && ontop == 0 && righttoleft == 0 && lefttoright == 0 && (position.y > obstacle2.y)) {
-		position.y = obstacle2.y - currentframe[Frames()].height;
-		jumps = 0;
-		gravity = 0.5f;
-		ontop = 0;
-		righttoleft = 0;
-		downtoup = 1;
-		lefttoright = 0;
-	}
-
-	*/
-
-
 }

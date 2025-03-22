@@ -9,12 +9,13 @@ public:
 	Player();
 	~Player();
 	void Draw(int a);
+	void Gravedad();
 	void Movement();
 	std::vector <Texture2D> currentframe;
 	Vector2 position;
 
 
-	bool IsJumping;
+	bool IsJumping; // ?????
 
 
 	Rectangle GetRect(); //get the hitbox of the player
@@ -29,7 +30,7 @@ public:
 
 	//pollas negras?
 
-	void Colliding();
+	void Colliding(Rectangle rec);
 
 private:
 
