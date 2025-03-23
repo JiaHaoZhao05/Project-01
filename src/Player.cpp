@@ -137,30 +137,22 @@ Rectangle Player::GetRect(){
 }
 void Player::Colliding(Rectangle rec){
 	if (CheckCollisionRecs(GetRect(), rec)) {
-		jumps = 1;
 		if (position.x + currentframe[Frames()].width <= rec.x + 5) { // horizontal left
 			position.x = rec.x - currentframe[Frames()].width;
-			if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) && (position.y + currentframe[Frames()].height < rec.y + 5)) {
-				speedx = 0;
-			}
 		}
 		if (position.x >= rec.x + rec.width - 5) { // horizontal right
 			position.x = rec.x + rec.width;
-			if ((IsKeyDown('A') || IsKeyDown(KEY_LEFT)) && (position.y + currentframe[Frames()].height < rec.y + 5)) {
-				speedx = 0;
-			}
 		}
 		if (position.x > rec.x - currentframe[Frames()].width && position.x < rec.x + rec.width) { // vertical
-			position.y++;
 			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + rec.height - 5) { // stand on top
 				position.y = rec.y - currentframe[Frames()].height;
 			}
-			if (position.y > rec.y + rec.height - 5) { // hitting from below
+			if (position.y > rec.y + rec.height - 10) { // hitting from below
 				gravity = 2.4f;
-				jumps = 0;
 			}
-			else if (position.y + currentframe[Frames()].height >= rec.y) { // don't go through walls
+			else if (position.y + currentframe[Frames()].height >= rec.y) { // don't go through walls + reset jump
 				gravity = 0;
+				jumps = 1;
 			}
 		}
 	}
