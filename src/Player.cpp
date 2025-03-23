@@ -144,11 +144,12 @@ void Player::Colliding(Rectangle rec){
 			position.x = rec.x + rec.width;
 		}
 		if (position.x > rec.x - currentframe[Frames()].width && position.x < rec.x + rec.width) { // vertical
-			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + rec.height - 5) { // stand on top
+			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + 20) { // stand on top
 				position.y = rec.y - currentframe[Frames()].height;
 			}
-			if (position.y > rec.y + rec.height - 10) { // hitting from below
+			if (position.y > rec.y + rec.height - 20) { // hitting from below
 				gravity = 2.4f;
+				jumps =0;
 			}
 			else if (position.y + currentframe[Frames()].height >= rec.y) { // don't go through walls + reset jump
 				gravity = 0;
