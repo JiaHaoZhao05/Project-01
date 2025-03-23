@@ -34,7 +34,7 @@ Player::~Player() {
 		}
 		DrawTextureV(currentframe[0], position, WHITE);
 	}
-	UnloadTexture(currentframe[0]); */
+	UnloadTexture(currentframe[Frames()]); */
 }
 void Player::Draw(int a) {
 
