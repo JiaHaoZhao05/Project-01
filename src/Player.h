@@ -15,7 +15,7 @@ public:
 	Vector2 position;
 
 
-	bool IsJumping; // ?????
+	
 
 
 	Rectangle GetRect(); //get the hitbox of the player
@@ -28,7 +28,7 @@ public:
 	int jumps;
 
 
-	//pollas negras?
+	
 
 	void Colliding(Rectangle rec);
 
