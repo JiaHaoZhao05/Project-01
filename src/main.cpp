@@ -22,7 +22,7 @@ int main() {
 
 
 	Player Mario;
-	Rectangle obstacle = Rectangle{ 0, 700, 700, 175 };
+	Rectangle obstacle = Rectangle{ 0, 700, 1200, 50 };
 	Rectangle obstacle2 = Rectangle{ 200, 500, 50, 50 };
 	Rectangle obstacle3 = Rectangle{ 250, 500, 50, 50 };
 	Rectangle obstacle4 = Rectangle{ 300, 500, 50, 50 };
@@ -34,6 +34,9 @@ int main() {
 	Rectangle obstacle10 = Rectangle{ 500, 450, 50, 50 };
 	Rectangle obstacle11 = Rectangle{ 550, 550, 50, 50 };
 	Rectangle obstacle12 = Rectangle{ 600, 550, 50, 50 };
+	Rectangle obstacle13 = Rectangle{ 700, 300, 50, 50 };
+	Rectangle obstacle14 = Rectangle{ 750, 300, 50, 50 };
+	Rectangle obstacle15 = Rectangle{ 800, 300, 50, 50 };
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		BeginDrawing();
@@ -52,6 +55,9 @@ int main() {
 		Mario.Colliding(obstacle10);
 		Mario.Colliding(obstacle11);
 		Mario.Colliding(obstacle12);
+		Mario.Colliding(obstacle13);
+		Mario.Colliding(obstacle14);
+		Mario.Colliding(obstacle15);
 		
 		Mario.Movement();
 		DrawRectangleLinesEx(obstacle, 5, BLACK);
@@ -66,6 +72,9 @@ int main() {
 		DrawRectangleLinesEx(obstacle10, 5, BLACK);
 		DrawRectangleLinesEx(obstacle11, 5, BLACK);
 		DrawRectangleLinesEx(obstacle12, 5, BLACK);
+		DrawRectangleLinesEx(obstacle13, 5, BLACK);
+		DrawRectangleLinesEx(obstacle14, 5, BLACK);
+		DrawRectangleLinesEx(obstacle15, 5, BLACK);
 
 		EndDrawing();
 	}
