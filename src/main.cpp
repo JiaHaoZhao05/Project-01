@@ -20,7 +20,7 @@ int main() {
 	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
-	char* map = LoadFileText("resources/mapa.txt");
+	char* map = LoadFileText("resources\\mapa.txt");
 	
 	Player Mario;
 	

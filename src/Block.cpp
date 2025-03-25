@@ -6,7 +6,7 @@ using namespace std;
 
 void Block :: SpawnMap() {
 	
-	char* map = LoadFileText("map.txt");
+	char* map = LoadFileText("mapa.txt");
 
 	
 	
