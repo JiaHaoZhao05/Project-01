@@ -5,42 +5,56 @@
 
 class Block {
 public:
-	Block();
+	Block(float x, float y) {
+
+			hitbox.x = x;
+			hitbox.y = y;
+			hitbox.height = 64;
+			hitbox.width = 64;
+
+	};
 	~Block();
 
 	Rectangle hitbox;
 	Texture2D texture;
 
-	void Spawn(float x, float y) {
-
-		hitbox.x = x;
-		hitbox.y = y;
-		hitbox.height = 64;
-		hitbox.width = 64;
-
-	}
+	
 
 	void Draw() {
 
 		DrawTexture(texture, hitbox.x, hitbox.y, WHITE);
 	}
 
+	void SpawnMap();
+
 };
 
 class Break : public Block {
 public:
+	bool Active;
 	Break();
 	~Break();
-
-	texture = LoadTexture("block_brick.png");
-	bool Active;
+	Break(float x, float y) : Block(x, y) {
+		texture = LoadTexture("block_brick.png");
+		Active = true;
+		hitbox.x = x;
+		hitbox.y = y;
+		hitbox.height = 64;
+		hitbox.width = 64;
+	}
 	
-
 };
 
 class Floor : public Block {
 public:
-	texture = LoadTexture("block_floor.png");
-
-
+	Floor();
+	~Floor();
+	Floor(float x, float y) : Block(x, y) {
+		texture = LoadTexture("block_floor.png");
+		hitbox.x = x;
+		hitbox.y = y;
+		hitbox.height = 64;
+		hitbox.width = 64;
+	}
+	
 };

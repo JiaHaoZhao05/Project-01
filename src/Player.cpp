@@ -2,6 +2,7 @@
 #include <Raylib.h>
 #include <iostream>
 #include <vector>
+
 Player::Player() {
 
 	currentframe = { LoadTexture("resources/mario_death.png"), // 0 mario 1 life left
@@ -55,7 +56,7 @@ void Player::Gravedad() {
 		position.y = 700 - currentframe[Frames()].height;
 		gravity = 0;
 		jumps = 1;
-		IsJumping = 0;
+		
 	}
 }
 void Player::Movement() {	
@@ -72,7 +73,7 @@ void Player::Movement() {
 		speedx = 0;
 	}
 	if ((IsKeyDown('W') || IsKeyDown(KEY_UP)) && gravity >= 0 && jumps > 0) {
-		IsJumping = 1;
+		
 		gravity = -10.0f;
 		jumps--;
 
