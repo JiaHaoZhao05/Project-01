@@ -2,59 +2,84 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
+using namespace std;
 
-class Block {
+
+
+class Bloque {
 public:
-	Block(float x, float y) {
+	Rectangle rect;
+	Color color;
 
-			hitbox.x = x;
-			hitbox.y = y;
-			hitbox.height = 64;
-			hitbox.width = 64;
+	Bloque(float x, float y, float width, float height, Color color) : rect({ x, y, width, height }), color(color) {}
 
-	};
-	~Block();
-
-	Rectangle hitbox;
-	Texture2D texture;
-
-	
-
-	void Draw() {
-
-		DrawTexture(texture, hitbox.x, hitbox.y, WHITE);
+	virtual void Dibujar() {
+		DrawRectangleRec(rect, color);
 	}
 
-	void SpawnMap();
+	void GenerateMap(char* map) {
+	
+
+
+		const char* mapaTexto = map;
+
+		if (mapaTexto != nullptr) {
+			string mapa(mapaTexto); // Convertir a std::string para trabajar más fácilmente
+
+			int y = 0;
+
+			for (int i = 0; i < mapa.length(); ++i) {
+
+				char tipoBloque = mapa[i];
+				float x = i * 64;
+				float ypos = y * (64);
+
+
+				if (tipoBloque == '\n') {
+					y++;  // Cambiar de fila cuando se encuentra un salto de línea
+				}
+
+				
+				if (tipoBloque == 'f') { // Suelo
+					Bloque suelo(x, ypos, 64, 64, BROWN);  // Bloque de suelo marrón
+					suelo.Dibujar();
+				}
+				else if (tipoBloque == 'b') { // Bloque rompible
+					Bloque rompible(x, ypos, 64, 64, RED);  // Bloque de color rojo
+					rompible.Dibujar();
+				}
+				// Puedes agregar más tipos de bloques aquí con más condicionales si es necesario
+			}
+
+
+		}
+
+
+
+
+	}
 
 };
 
-class Break : public Block {
+class BloqueRompible : public Bloque {
 public:
-	bool Active;
-	Break();
-	~Break();
-	Break(float x, float y) : Block(x, y) {
-		texture = LoadTexture("block_brick.png");
-		Active = true;
-		hitbox.x = x;
-		hitbox.y = y;
-		hitbox.height = 64;
-		hitbox.width = 64;
+	BloqueRompible(float x, float y)
+		: Bloque(x, y, 50, 50, RED) {
+	} // Bloque rojo rompible
+
+
+	void Dibujar() override {
+		DrawRectangleRec(rect, color);
 	}
-	
 };
 
-class Floor : public Block {
+class BloqueSuelo : public Bloque {
 public:
-	Floor();
-	~Floor();
-	Floor(float x, float y) : Block(x, y) {
-		texture = LoadTexture("block_floor.png");
-		hitbox.x = x;
-		hitbox.y = y;
-		hitbox.height = 64;
-		hitbox.width = 64;
+	BloqueSuelo(float x, float y)
+		: Bloque(x, y, 50, 50, BROWN) {
+	} // Bloque de suelo marrón
+
+	void Dibujar() override {
+		DrawRectangleRec(rect, color);
 	}
-	
 };

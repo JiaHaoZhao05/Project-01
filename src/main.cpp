@@ -20,7 +20,9 @@ int main() {
 	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
-	char* map = LoadFileText("resources\\mapa.txt");
+	char* map = ("\n\n\n\nffff\nffbbbff");
+	Rectangle rectangle1 = { 0, 0, 64, 64 };
+	Bloque level1(0, 0, 64, 64, WHITE);
 	
 	Player Mario;
 	
@@ -32,7 +34,7 @@ int main() {
 		Mario.Draw(Mario.Frames()); // animation
 		
 		Mario.Gravedad();
-		
+		level1.GenerateMap(map);
 		
 		Mario.Movement();
 		
