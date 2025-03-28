@@ -27,28 +27,37 @@ public:
 			string mapa(mapaTexto); // Convertir a std::string para trabajar más fácilmente
 
 			int y = 0;
+			int counter = 0;
 
 			for (int i = 0; i < mapa.length(); ++i) {
 
+				
 				char tipoBloque = mapa[i];
-				float x = i * 64;
+				float x = counter * 64;
 				float ypos = y * (64);
 
 
-				if (tipoBloque == '\n') {
+				if (tipoBloque == '0') {
 					y++;  // Cambiar de fila cuando se encuentra un salto de línea
+					counter = 0;
 				}
-
+				else {
+					counter++;
+				}
 				
 				if (tipoBloque == 'f') { // Suelo
+
 					Bloque suelo(x, ypos, 64, 64, BROWN);  // Bloque de suelo marrón
 					suelo.Dibujar();
+				
 				}
 				else if (tipoBloque == 'b') { // Bloque rompible
+
 					Bloque rompible(x, ypos, 64, 64, RED);  // Bloque de color rojo
 					rompible.Dibujar();
+				
 				}
-				// Puedes agregar más tipos de bloques aquí con más condicionales si es necesario
+				
 			}
 
 

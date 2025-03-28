@@ -20,7 +20,20 @@ int main() {
 	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
-	char* map = ("\n\n\n\nffff\nffbbbff");
+	char* map = (
+		"······0"
+		"······0"
+		"······0"
+		"······0"
+		"······0"
+		"······0"
+		"······fff0"
+		"······0"
+		"···fbf··fff·0"
+		"······0"
+		"······0"
+		"ffffffffffffffff"
+		);
 	Rectangle rectangle1 = { 0, 0, 64, 64 };
 	Bloque level1(0, 0, 64, 64, WHITE);
 	
