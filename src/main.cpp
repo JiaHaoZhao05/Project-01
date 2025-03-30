@@ -13,13 +13,20 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 #include "Player.h"
 #include "Block.h"
+#include "AudioManager.h"
 using namespace std;
 	
 int main() {
 
-	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
+
+	// Load the music
+	AudioManager audioManager;
+	audioManager.LoadMusic(SearchAndSetResourceDir("resources/Music/Ground Theme.mp3"));
+	audioManager.SetVolume(0.4f);
+	audioManager.PlayMusic();
+
 	char* map = (
 		"······0"
 		"······0"
@@ -29,7 +36,7 @@ int main() {
 		"······0"
 		"······fff0"
 		"······0"
-		"···fbf··fff·0"
+		"···fbf··fff?"
 		"······0"
 		"······0"
 		"ffffffffffffffff"
