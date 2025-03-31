@@ -254,11 +254,13 @@ Rectangle Player::GetRect(){
 }
 void Player::Colliding(Rectangle rec){
 	if (CheckCollisionRecs(GetRect(), rec)) {
-		if (position.x + currentframe[Frames()].width <= rec.x + 5) { // horizontal left
-			position.x = rec.x - currentframe[Frames()].width;
-		}
-		if (position.x >= rec.x + rec.width - 5) { // horizontal right
-			position.x = rec.x + rec.width;
+		if (position.y - currentframe[Frames()].height < rec.y && position.y > rec.y + rec.height) {
+			if (position.x + currentframe[Frames()].width <= rec.x + 5) { // horizontal left
+				position.x = rec.x - currentframe[Frames()].width;
+			}
+			if (position.x >= rec.x + rec.width - 5) { // horizontal right
+				position.x = rec.x + rec.width;
+			}
 		}
 		if (position.x > rec.x - currentframe[Frames()].width && position.x < rec.x + rec.width) { // vertical
 			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + 20) { // stand on top
