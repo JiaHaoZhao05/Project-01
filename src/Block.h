@@ -17,10 +17,9 @@ public:
 		DrawRectangleRec(rect, color);
 	}
 
-	void GenerateMap(char* map) {
-	
-
-
+	vector <Rectangle> GenerateMap(char* map) {
+		
+		vector <Rectangle> aux;
 		const char* mapaTexto = map;
 
 		if (mapaTexto != nullptr) {
@@ -36,7 +35,7 @@ public:
 				float x = counter * 64;
 				float ypos = y * (64);
 
-
+				
 				if (tipoBloque == '0') {
 					y++;  // Cambiar de fila cuando se encuentra un salto de línea
 					counter = 0;
@@ -49,12 +48,14 @@ public:
 
 					Bloque suelo(x, ypos, 64, 64, BROWN);  // Bloque de suelo marrón
 					suelo.Dibujar();
+					aux.push_back(suelo.rect);
 				
 				}
 				else if (tipoBloque == 'b') { // Bloque rompible
 
 					Bloque rompible(x, ypos, 64, 64, RED);  // Bloque de color rojo
 					rompible.Dibujar();
+					aux.push_back(rompible.rect);
 				
 				}
 				
@@ -63,7 +64,7 @@ public:
 
 		}
 
-
+		return aux;
 
 
 	}

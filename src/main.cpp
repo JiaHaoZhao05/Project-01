@@ -23,8 +23,8 @@ int main() {
 
 	// Load the music
 	AudioManager audioManager;
-	audioManager.LoadMusic(SearchAndSetResourceDir("resources/Music/Ground Theme.mp3"));
-	audioManager.SetVolume(0.4f);
+	audioManager.LoadMusic("resources/Music/Ground Theme.mp3");
+	audioManager.SetVolume(55.4f);
 	audioManager.PlayMusic();
 
 	char* map = (
@@ -36,9 +36,10 @@ int main() {
 		"······0"
 		"······fff0"
 		"······0"
-		"···fbf··fff?"
+		"···fbf··fff"
 		"······0"
 		"······0"
+		"················0"
 		"ffffffffffffffff"
 		);
 	Rectangle rectangle1 = { 0, 0, 64, 64 };
@@ -48,6 +49,7 @@ int main() {
 	
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
+
 		BeginDrawing();
 		DrawText(TextFormat("Map: %c", map), 10, 90, 20, BLACK);
 		ClearBackground(WHITE);
@@ -57,9 +59,14 @@ int main() {
 		level1.GenerateMap(map);
 		
 		Mario.Movement();
-		
+
+
+		for (int i = 0; i < 10; ++i) {
+			Mario.Colliding(level1.GenerateMap(map)[i]);
+		}
 
 		EndDrawing();
+
 	}
 	// cleanup
 	// unload our texture so it can be cleaned up
