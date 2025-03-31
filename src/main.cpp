@@ -22,24 +22,27 @@ int main() {
 	SetTargetFPS(60);
 
 	// Load the music
+	
 	AudioManager audioManager;
-	audioManager.LoadMusic("resources/Music/Ground Theme.mp3");
-	audioManager.SetVolume(55.4f);
+	if (SearchAndSetResourceDir("resources/Music/Ground Theme.mp3")) {
+		audioManager.LoadMusic("resources/Music/Ground Theme.mp3");
+	}
+	audioManager.SetVolume(0.4f);
 	audioManager.PlayMusic();
 
 	char* map = (
-		"······0"
-		"······0"
-		"······0"
-		"······0"
-		"······0"
-		"······0"
-		"······fff0"
-		"······0"
-		"···fbf··fff"
-		"······0"
-		"······0"
-		"················0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fff0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½fbfï¿½ï¿½fff"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
+		"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0"
 		"ffffffffffffffff"
 		);
 	Rectangle rectangle1 = { 0, 0, 64, 64 };

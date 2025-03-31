@@ -14,8 +14,29 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_walking2_live1.png"), // 6
 		LoadTexture("resources/LEFT_mario_walking3_live1.png"), // 7
 		LoadTexture("resources/mario_jumping_live1.png"), // 8 jump
-		LoadTexture("resources/LEFT_mario_jumping_live1.png") }; // 9 jump left
-	lives = 1;
+		LoadTexture("resources/LEFT_mario_jumping_live1.png"), // 9
+		LoadTexture("resources/mario_static_live2.png"), // 10 mario 2 live left
+		LoadTexture("resources/mario_walking1_live2.png"), // 11
+		LoadTexture("resources/mario_walking2_live2.png"), // 12
+		LoadTexture("resources/mario_walking3_live2.png"), // 13
+		LoadTexture("resources/LEFT_mario_walking1_live2.png"), // 14 left
+		LoadTexture("resources/LEFT_mario_walking2_live2.png"), // 15
+		LoadTexture("resources/LEFT_mario_walking3_live2.png"), // 16
+		LoadTexture("resources/mario_jumping_live2.png"), // 17 jump
+		LoadTexture("resources/LEFT_mario_jumping_live2.png"), // 18 jump left
+		LoadTexture("resources/mario_static_live3.png"), // 19 mario 3 lives left
+		LoadTexture("resources/mario_walking1_live3.png"), // 20
+		LoadTexture("resources/mario_walking2_live3.png"), // 21
+		LoadTexture("resources/mario_walking3_live3.png"), // 22
+		LoadTexture("resources/LEFT_mario_walking1_live3.png"), // 23 left
+		LoadTexture("resources/LEFT_mario_walking2_live3.png"), // 24
+		LoadTexture("resources/LEFT_mario_walking3_live3.png"), // 25
+		LoadTexture("resources/mario_jumping_live3.png"), // 26 jump
+		LoadTexture("resources/LEFT_mario_jumping_live3.png"),// 27 jump left
+		LoadTexture("resources/mario_shoot.png"), // 28 shoot
+		LoadTexture("resources/LEFT_mario_shoot.png") // 29 shoot left
+	};
+	lives = 3;
 	position.x = 100;
 	position.y = 100;
 	gravity = 0.0f;
@@ -132,6 +153,101 @@ int Player::Frames() {
 			return 1;
 		}
 	}
+	else if (lives == 2) { // Mario frames when he has 2 life left
+		if (gravity < 0) { // jumping
+			if (speedx < 0) {
+				return 18; // jumping facing left frame
+			}
+			else if (speedx >= 0) {
+				return 17; // jumping facing right frame
+			}
+		}
+		if (speedx > 0) {
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running right
+				framecounter++;
+				return 11; // running right frame 1
+			}
+			else if (framecounter >= 10 && framecounter < 20) {
+				framecounter++;
+				return 12; // running right frame 2
+			}
+			else if (framecounter >= 20 && framecounter <= 30) {
+				framecounter++;
+				return 13; // running right frame 3
+			}
+		}
+		if (speedx < 0) {
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running left
+				framecounter++;
+				return 14; // running left frame 1
+			}
+			else if (framecounter >= 10 && framecounter < 20) {
+				framecounter++;
+				return 15; // running left frame 2
+			}
+			else if (framecounter >= 20 && framecounter <= 30) {
+				framecounter++;
+				return 16; // running left frame 3
+			}
+		}
+		if (speedx == 0) { // if mario is not moving, set the static frame
+			return 10;
+		}
+	}
+	else if (lives == 3) { // Mario frames when he has 3 lives left
+		if (IsKeyDown(KEY_SPACE)) {
+			static int cd = 0;
+			if (speedx < 0 && cd > 0) {
+				cd = 1;
+				return 29;
+			}
+			else if (speedx > 0) {
+				cd = 1;
+				return 28;
+			}
+			cd = -1;
+		}
+		if (gravity < 0) { // jumping
+			if (speedx < 0) {
+				return 27; // jumping facing left frame
+			}
+			else if (speedx >= 0) {
+				return 26; // jumping facing right frame
+			}
+		}
+		if (speedx > 0) {
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running right
+				framecounter++;
+				return 20; // running right frame 1
+			}
+			else if (framecounter >= 10 && framecounter < 20) {
+				framecounter++;
+				return 21; // running right frame 2
+			}
+			else if (framecounter >= 20 && framecounter <= 30) {
+				framecounter++;
+				return 22; // running right frame 3
+			}
+		}
+		if (speedx < 0) {
+			if (framecounter >= 0 && framecounter < 10) { // activate frame sorter if Mario is running left
+				framecounter++;
+				return 23; // running left frame 1
+			}
+			else if (framecounter >= 10 && framecounter < 20) {
+				framecounter++;
+				return 24; // running left frame 2
+			}
+			else if (framecounter >= 20 && framecounter <= 30) {
+				framecounter++;
+				return 25; // running left frame 3
+			}
+		}
+		if (speedx == 0) { // if mario is not moving, set the static frame
+			return 19;
+		}
+	}
+
 }
 Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
