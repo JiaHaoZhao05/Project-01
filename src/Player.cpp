@@ -36,7 +36,7 @@ Player::Player() {
 		LoadTexture("resources/mario_shoot.png"), // 28 shoot
 		LoadTexture("resources/LEFT_mario_shoot.png") // 29 shoot left
 	};
-	lives = 3;
+	lives = 1;
 	position.x = 100;
 	position.y = 100;
 	gravity = 0.0f;
