@@ -22,8 +22,11 @@ int main() {
 	SetTargetFPS(60);
 
 	// Load the music
+	
 	AudioManager audioManager;
-	audioManager.LoadMusic(SearchAndSetResourceDir("resources/Music/Ground Theme.mp3"));
+	if (SearchAndSetResourceDir("resources/Music/Ground Theme.mp3")) {
+		audioManager.LoadMusic("resources/Music/Ground Theme.mp3");
+	}
 	audioManager.SetVolume(0.4f);
 	audioManager.PlayMusic();
 
