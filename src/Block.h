@@ -9,12 +9,12 @@ using namespace std;
 class Bloque {
 public:
 	Rectangle rect;
-	Color color;
+	Texture2D texture;
 
-	Bloque(float x, float y, float width, float height, Color color) : rect({ x, y, width, height }), color(color) {}
+	Bloque(float x, float y, float width, float height, Texture2D texture) : rect({ x, y, width, height }), texture(texture) {}
 
 	virtual void Dibujar() {
-		DrawRectangleRec(rect, color);
+		DrawTexture(texture, rect.x, rect.y, WHITE);
 	}
 
 	vector <Rectangle> GenerateMap(char* map) {
@@ -45,15 +45,15 @@ public:
 				}
 				
 				if (tipoBloque == 'f') { // Suelo
-
-					Bloque suelo(x, ypos, 64, 64, BROWN);  // Bloque de suelo marrón
+					Texture2D aux = LoadTexture("block_floor.png");
+					BloqueSuelo suelo(aux, rect.x, rect.y, WHITE);  // Bloque de suelo marrón
 					suelo.Dibujar();
 					aux.push_back(suelo.rect);
 				
 				}
 				else if (tipoBloque == 'b') { // Bloque rompible
 
-					Bloque rompible(x, ypos, 64, 64, RED);  // Bloque de color rojo
+					BloqueRompible rompible(texture, rect.x, rect.y, WHITE);  // Bloque de color rojo
 					rompible.Dibujar();
 					aux.push_back(rompible.rect);
 				
@@ -74,22 +74,22 @@ public:
 class BloqueRompible : public Bloque {
 public:
 	BloqueRompible(float x, float y)
-		: Bloque(x, y, 50, 50, RED) {
+		: Bloque(texture, rect.x, rect.y, WHITE) {
 	} // Bloque rojo rompible
 
 
 	void Dibujar() override {
-		DrawRectangleRec(rect, color);
+		DrawTexture(texture, rect.x, rect.y, WHITE);
 	}
 };
 
 class BloqueSuelo : public Bloque {
 public:
 	BloqueSuelo(float x, float y)
-		: Bloque(x, y, 50, 50, BROWN) {
+		: Bloque(texture, rect.x, rect.y, WHITE) {
 	} // Bloque de suelo marrón
 
 	void Dibujar() override {
-		DrawRectangleRec(rect, color);
+		DrawRectangleRec(texture, rect.x, rect.y, WHITE);
 	}
 };
