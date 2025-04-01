@@ -39,17 +39,22 @@ int main() {
 		".........fff0"
 		"0"
 		"......0"
-		"......fbf..fff0"
+		".f..f..f.fbf..fff0"
 		"......0"
 		"......0"
 		"......0"
 		"ffffffffffffffff"
 		);
+
 	Rectangle rectangle1 = { 0, 0, 64, 64 };
-	Bloque level1(0, 0, 64, 64, WHITE);
+	Texture2D texture1= LoadTexture("block_empty.png");
+	Bloque level1(0, 0, 64, 64, texture1);
 	
 	Player Mario;
 	
+	
+
+
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 
@@ -59,13 +64,13 @@ int main() {
 		Mario.Draw(Mario.Frames()); // animation
 		
 		Mario.Gravedad();
-		level1.GenerateMap(map);
+		
 		
 		Mario.Movement();
+		level1.GenerateMap(map);
 
-
-		for (int i = 0; i < 10; ++i) {
-			Mario.Colliding(level1.GenerateMap(map)[i]);
+		for (int i = 0; i < 20; ++i) {
+			Mario.Colliding(level1.GenerateCollisions(map)[i]);
 		}
 
 		EndDrawing();

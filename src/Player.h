@@ -15,8 +15,6 @@ public:
 	Vector2 position;
 
 
-	
-
 
 	Rectangle GetRect(); //get the hitbox of the player
 
