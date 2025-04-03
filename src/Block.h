@@ -24,8 +24,6 @@ public:
 
 		if (mapaTexto != nullptr) {
 
-
-
 			string mapa(mapaTexto); // Convertir a std::string para trabajar más fácilmente
 
 			int y = 0;
@@ -105,7 +103,7 @@ public:
 					rect.y = ypos;
 					rect.width = 64;
 					rect.height = 64;
-					//texture = LoadTexture("resources/block_floor.png");
+					texture = LoadTexture("resources/block_floor.png");
 
 
 					Dibujar();
@@ -117,7 +115,7 @@ public:
 					rect.y = ypos;
 					rect.width = 64;
 					rect.height = 64;
-					//texture = LoadTexture("resources/block_brick.png");
+					texture = LoadTexture("resources/block_brick.png");
 
 
 

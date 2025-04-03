@@ -254,25 +254,21 @@ Rectangle Player::GetRect(){
 }
 void Player::Colliding(Rectangle rec){
 	if (CheckCollisionRecs(GetRect(), rec)) {
-		if (position.y - currentframe[Frames()].height < rec.y && position.y > rec.y + rec.height) {
-			if (position.x + currentframe[Frames()].width <= rec.x + 5) { // horizontal left
-				position.x = rec.x - currentframe[Frames()].width;
-			}
-			if (position.x >= rec.x + rec.width - 5) { // horizontal right
-				position.x = rec.x + rec.width;
-			}
+		if (position.x + currentframe[Frames()].width <= rec.x + 5) {
+			position.x = rec.x - currentframe[Frames()].width;
 		}
-		if (position.x > rec.x - currentframe[Frames()].width && position.x < rec.x + rec.width) { // vertical
-			if (position.y - currentframe[Frames()].height < rec.y + 5 && position.y < rec.y + 20) { // stand on top
+		if (position.x >= rec.x + rec.width - 5) {
+			position.x = rec.x + rec.width;
+		}
+		if (position.x + currentframe[Frames()].width > rec.x + 5 && position.x < rec.x + rec.width - 5) {
+			if (position.y + currentframe[Frames()].height <= rec.y + 30) {
 				position.y = rec.y - currentframe[Frames()].height;
-			}
-			if (position.y > rec.y + rec.height - 20) { // hitting from below
-				gravity = 2.4f;
-				jumps =0;
-			}
-			else if (position.y + currentframe[Frames()].height >= rec.y) { // don't go through walls + reset jump
 				gravity = 0;
 				jumps = 1;
+			}
+			if (position.y > rec.y + rec.height - 30) {
+				position.y = rec.y + rec.height;
+				gravity = 2.4f;
 			}
 		}
 	}

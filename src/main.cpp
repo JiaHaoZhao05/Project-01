@@ -14,12 +14,15 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "Player.h"
 #include "Block.h"
 #include "AudioManager.h"
+#include <string>
 using namespace std;
 	
 int main() {
 
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
+
+	string m = LoadFileText("resources/mapa.txt");
 
 	// Load the music
 	
@@ -35,14 +38,13 @@ int main() {
 		"......0"
 		"......0"
 		"......0"
-		"......0"
 		"....fff0"
+		"0"
 		"0"
 		"......0"
 		"..fbf..fff0"
 		"......0"
-		"......0"
-		"......0"
+		"0"
 		"ffffffffffffffff"
 		);
 
@@ -59,19 +61,24 @@ int main() {
 	{
 
 		BeginDrawing();
-		DrawText(TextFormat("Map: %c", map), 10, 90, 20, BLACK);
+		DrawText(TextFormat("Map: %c", m), 10, 90, 20, BLACK);
 		ClearBackground(WHITE);
 		Mario.Draw(Mario.Frames()); // animation
 		
 		Mario.Gravedad();
-		
-		
-		Mario.Movement();
-		level1.GenerateMap(map);
+
+		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ
 
 		for (int i = 0; i < 20; ++i) {
 			Mario.Colliding(level1.GenerateCollisions(map)[i]);
 		}
+		
+
+		// NO MAS COLISIONES A PARTIR DE AQUI
+		Mario.Movement();
+		level1.GenerateMap(map);
+
+		
 
 		EndDrawing();
 
