@@ -48,7 +48,7 @@ int main() {
 		"ffffffffffffffff"
 		);
 
-	Rectangle rectangle1 = { 0, 0, 64, 64 };
+	Rectangle rectangle1 = { 0, 500, 64, 64 };
 	Texture2D texture1= LoadTexture("block_empty.png");
 	Map level1;
 	level1.LoadMap(map);
@@ -71,13 +71,13 @@ int main() {
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ
 
 		for (int i = 0; i < 20; ++i) {
-			Mario.Colliding(level1.GenerateCollisions(map)[i]);
+			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec);
 		}
 		
 
 		// NO MAS COLISIONES A PARTIR DE AQUI
 		Mario.Movement();
-		level1.GenerateMap(map);
+		//level1.GenerateMap(map);
 
 		
 

@@ -59,6 +59,12 @@ public:
 			float ypos = y * (height);
 
 
+			hitbox.x = x;
+			hitbox.y = ypos;
+			hitbox.width = width;
+			hitbox.height = height;
+
+
 			if (tipoBloque == '0') {
 				y++;  // Cambiar de fila cuando se encuentra un salto de línea
 				counter = 0;
@@ -69,11 +75,7 @@ public:
 			}
 
 			if (tipoBloque == 'f') { // Suelo
-
-				hitbox.x = x;
-				hitbox.y = ypos;	
-				hitbox.width = width;					
-				hitbox.height = height;		
+	
 
 				collisions.push_back(new Block_floor(x, ypos, hitbox));
 
