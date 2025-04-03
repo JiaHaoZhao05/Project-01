@@ -33,7 +33,7 @@ int main() {
 	audioManager.SetVolume(0.4f);
 	audioManager.PlayMusic();
 
-	char* map = (
+	string map = (
 		"......0"
 		"......0"
 		"......0"
@@ -50,7 +50,8 @@ int main() {
 
 	Rectangle rectangle1 = { 0, 0, 64, 64 };
 	Texture2D texture1= LoadTexture("block_empty.png");
-	Bloque level1(0, 0, 64, 64, texture1);
+	Map level1;
+	level1.LoadMap(map);
 	
 	Player Mario;
 	
