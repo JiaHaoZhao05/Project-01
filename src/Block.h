@@ -105,7 +105,7 @@ public:
 					rect.y = ypos;
 					rect.width = 64;
 					rect.height = 64;
-					texture = LoadTexture("resources/block_floor.png");
+					//texture = LoadTexture("resources/block_floor.png");
 
 
 					Dibujar();
@@ -117,7 +117,9 @@ public:
 					rect.y = ypos;
 					rect.width = 64;
 					rect.height = 64;
-					texture = LoadTexture("resources/block_brick.png");
+					//texture = LoadTexture("resources/block_brick.png");
+
+
 
 					Dibujar();
 
@@ -137,13 +139,10 @@ class BloqueRompible : public Bloque {
 public:
 	BloqueRompible(float x, float y, float width, float height, Texture2D texture) : Bloque(x, y, width, height, texture){
 		this->rect = rect;
-		this->texture = texture;
+		this->texture = LoadTexture("resources/block_brick.png");
 	
 	}
 
-	void setBreakTexture() {
-		texture = LoadTexture("block_brick.png");
-	}
 
 	void Dibujar() override {
 		DrawTexture(texture, rect.x, rect.y, WHITE);
@@ -153,7 +152,10 @@ public:
 class BloqueSuelo : public Bloque {
 public:
 
-	BloqueSuelo(float x, float y, float width, float height, Texture2D texture) : Bloque(x, y, width, height, texture) {}
+	BloqueSuelo(float x, float y, float width, float height, Texture2D texture) : Bloque(x, y, width, height, texture) {
+		this->rect = rect;
+		this->texture = LoadTexture("resources/block_brick.png");
+	}
 	void setFloorTexture() {
 		texture = LoadTexture("block_floor.png");
 	}
