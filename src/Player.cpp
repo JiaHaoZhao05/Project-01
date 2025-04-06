@@ -45,18 +45,7 @@ Player::Player() {
 
 }
 Player::~Player() {
-	/*gravity = -20.0f;
-	while (position.y < 1000) { // death animation
-		position.y += gravity;
-		if (gravity < 15) {
-			gravity += 0.5f;
-		}
-		else {
-			gravity = 15;
-		}
-		DrawTextureV(currentframe[0], position, WHITE);
-	}
-	UnloadTexture(currentframe[Frames()]); */
+	UnloadTexture(currentframe[Frames()]);
 }
 void Player::Draw(int a) {
 
@@ -225,7 +214,7 @@ Rectangle Player::GetRect(){
 }
 void Player::Colliding(Rectangle rec){
 	if (CheckCollisionRecs(GetRect(), rec)) {
-		if (position.x + currentframe[Frames()].width <= rec.x + 5) {
+		if (position.x + currentframe[Frames()].width <= rec.x + 10) {
 			position.x = rec.x - currentframe[Frames()].width;
 		}
 		if (position.x >= rec.x + rec.width - 5) {

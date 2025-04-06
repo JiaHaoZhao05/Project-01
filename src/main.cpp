@@ -18,7 +18,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 using namespace std;
 int framecounter = 0; // variable that marks the frame of the characters
 int main() {
-	
+	int distance = 0;
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 
@@ -37,14 +37,14 @@ int main() {
 		"0"
 		"0"
 		"0"
-		"f............................................................................................................................................................................................ll0"
-		"f......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
-		"f..........................................................................................................................................................................................llll0"
-		"f................................................................q........................................................................................................................lllll0"
-		"f................q...bqbqq.....................ll.........ll..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
-		"f......................................ll......ll.........ll.............................................................................ll..ll........lll..ll..........................lllllll0"
-		"f............................ll........ll......ll.........ll............................................................................lll..lll......llll..lll.....ll..............ll.llllllll0"
-		"f............................ll........ll......ll.........ll...........................................................................llll..llll....lllll..llll....ll..............lllllllllll........l0"
+		".............................................................................................................................................................................................ll0"
+		".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
+		"...........................................................................................................................................................................................llll0"
+		".................................................................q........................................................................................................................lllll0"
+		".................q...bqbqb.....................ll.........ll..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
+		".......................................ll......ll.........ll.............................................................................ll..ll........lll..ll..........................lllllll0"
+		".............................ll........ll......ll.........ll............................................................................lll..lll......llll..lll.....ll..............ll.llllllll0"
+		".............................ll........ll......ll.........ll...........................................................................llll..llll....lllll..llll....ll..............lllllllllll........l0"
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
@@ -66,6 +66,17 @@ int main() {
 		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
 
+		if (Mario.position.x > 500 && distance < 12300) {
+			distance += Mario.position.x - 500; // tracker
+			Mario.position.x = 500;
+			for (int a = 0; a < level1.collisions.size(); ++a) { // camera
+				level1.collisions[a]->pos.x -= 5;
+				level1.collisions[a]->rec.x -= 5;
+			}
+		}
+		if (Mario.position.x < 0) { // border left
+			Mario.position.x = 0;
+		}
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
@@ -74,6 +85,7 @@ int main() {
 		
 
 		// NO MAS COLISIONES A PARTIR DE AQUI
+		
 		Mario.Movement();
 		//level1.GenerateMap(map);
 
@@ -81,6 +93,7 @@ int main() {
 		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
 			DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 		}
+		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		EndDrawing();
 
 	}
