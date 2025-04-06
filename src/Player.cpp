@@ -2,7 +2,7 @@
 #include <Raylib.h>
 #include <iostream>
 #include <vector>
-
+extern int framecounter;
 Player::Player() {
 
 	currentframe = { LoadTexture("resources/mario_death.png"), // 0 mario 1 life left
@@ -87,7 +87,12 @@ void Player::Movement() {
 		speedx = 0;
 	}
 	if ((IsKeyDown('W') || IsKeyDown(KEY_UP)) && gravity >= 0 && jumps > 0) {
-		gravity = -10.0f;
+		if (lives == 1) {
+			gravity = -11.1f;
+		}
+		else if (lives > 1) {
+			gravity = -13.5f;
+		}
 		jumps--;
 	}
 	position.x += speedx;
@@ -96,10 +101,8 @@ void Player::Movement() {
 	DrawText(TextFormat("Jumps: %i", jumps), 10, 70, 20, BLACK);
 }
 int Player::Frames() { 
-	static int framecounter = 0; // variable that marks the frame of the character
 	static int frame = 1;
-	framecounter++;
-	if (framecounter >= (60 / 1)) // timing 1
+	if (framecounter >= (60 / 12)) // timing 1
 	{
 		framecounter = 0;
 		frame++;
@@ -156,24 +159,24 @@ int Player::Frames() {
 		}
 		if (speedx > 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running right
-				return 13; // running right frame 1
+				return 11; // running right frame 1
 			}
 			else if (frame == 2) {
 				return 12; // running right frame 2
 			}
 			else if (frame == 3) {
-				return 11; // running right frame 3
+				return 13; // running right frame 3
 			}
 		}
 		if (speedx < 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running left
-				return 16; // running left frame 1
+				return 14; // running left frame 1
 			}
 			else if (frame == 2) {
 				return 15; // running left frame 2
 			}
 			else if (frame == 3) {
-				return 14; // running left frame 3
+				return 16; // running left frame 3
 			}
 		}
 		if (speedx == 0) { // if mario is not moving, set the static frame
@@ -191,24 +194,24 @@ int Player::Frames() {
 		}
 		if (speedx > 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running right
-				return 22; // running right frame 1
+				return 20; // running right frame 1
 			}
 			else if (frame == 2) {
 				return 21; // running right frame 2
 			}
 			else if (frame == 3) {
-				return 20; // running right frame 3
+				return 22; // running right frame 3
 			}
 		}
 		if (speedx < 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running left
-				return 25; // running left frame 1
+				return 23; // running left frame 1
 			}
 			else if (frame == 2) {
 				return 24; // running left frame 2
 			}
 			else if (frame == 3) {
-				return 23; // running left frame 3
+				return 25; // running left frame 3
 			}
 		}
 		if (speedx == 0) { // if mario is not moving, set the static frame

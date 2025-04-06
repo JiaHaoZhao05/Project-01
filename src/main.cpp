@@ -16,9 +16,9 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "AudioManager.h"
 #include <string>
 using namespace std;
-	
+int framecounter = 0; // variable that marks the frame of the characters
 int main() {
-
+	
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 
@@ -35,18 +35,18 @@ int main() {
 
 	string map = (
 		"0"
-		"......0"
-		"......0"
-		"......0"
-		"............ffff0"
-		"....fff....f0"
-		"f0"
-		"f......0"
-		"f..fbf..fff0"
-		"f......0"
-		"f0"
-		"ffffffffffffffffffffffffffffff0"
-		"ffffffffffffffffffffffffffffff0"
+		"0"
+		"0"
+		"f............................................................................................................................................................................................ll0"
+		"f......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
+		"f..........................................................................................................................................................................................llll0"
+		"f................................................................q........................................................................................................................lllll0"
+		"f................q...bqbqq.....................ll.........ll..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
+		"f......................................ll......ll.........ll.............................................................................ll..ll........lll..ll..........................lllllll0"
+		"f............................ll........ll......ll.........ll............................................................................lll..lll......llll..lll.....ll..............ll.llllllll0"
+		"f............................ll........ll......ll.........ll...........................................................................llll..llll....lllll..llll....ll..............lllllllllll........l0"
+		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
+		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
 
 	Rectangle rectangle1 = { 0, 500, 64, 64 };
@@ -61,7 +61,7 @@ int main() {
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
-
+		framecounter++; // timing of the animation
 		BeginDrawing();
 		ClearBackground(WHITE);
 		Mario.Draw(Mario.Frames()); // animation

@@ -29,12 +29,31 @@ public:
 
 };
 
+class Block_question : public Block {
+public:
+	Block_question(float x, float y, Rectangle rec) : Block(x, y, rec) {
+		texture = LoadTexture("resources/block_question.png");
+	}
+	~Block_question() {};
+	bool active = 1;
+
+};
+
 class Block_floor : public Block {
 public:
 	Block_floor(float x, float y, Rectangle rec) : Block(x, y, rec) {
 		texture = LoadTexture("resources/block_floor.png");
 	}
 	~Block_floor() {};
+
+};
+
+class Block_ladder : public Block {
+public:
+	Block_ladder(float x, float y, Rectangle rec) : Block(x, y, rec) {
+		texture = LoadTexture("resources/block_ladder.png");
+	}
+	~Block_ladder() {};
 
 };
 
@@ -82,6 +101,16 @@ public:
 			else if (tipoBloque == 'b') { // Bloque rompible
 
 				collisions.push_back(new Block_break(x, ypos, hitbox));
+
+			}
+			else if (tipoBloque == 'q') { // Bloque pregunta
+
+				collisions.push_back(new Block_question(x, ypos, hitbox));
+
+			}
+			else if (tipoBloque == 'l') { // Bloque escalera
+
+				collisions.push_back(new Block_ladder(x, ypos, hitbox));
 
 			}
 
