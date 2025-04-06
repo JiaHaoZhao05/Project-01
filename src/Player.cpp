@@ -239,5 +239,10 @@ void Player::Colliding(Rectangle rec){
 				gravity = 2.4f;
 			}
 		}
+		/*
+		if (goingToHitStuff()) {
+			dont();
+		}
+		*/
 	}
 }
