@@ -49,7 +49,6 @@ int main() {
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
 
-	Rectangle rectangle1 = { 0, 500, 64, 64 };
 	Texture2D texture1= LoadTexture("resources/block_empty.png");
 	Map level1;
 	level1.LoadMap(map);

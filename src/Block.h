@@ -25,7 +25,7 @@ public:
 		texture = LoadTexture("resources/block_brick.png");
 	}
 	~Block_break() {};
-	bool active = 1;
+	bool active = true;
 
 };
 
@@ -35,7 +35,7 @@ public:
 		texture = LoadTexture("resources/block_question.png");
 	}
 	~Block_question() {};
-	bool active = 1;
+	bool active = true;
 
 };
 
@@ -56,6 +56,7 @@ public:
 	~Block_ladder() {};
 
 };
+//missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}
 
 class Map {
 public:
