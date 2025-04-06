@@ -22,7 +22,7 @@ int main() {
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 
-	string m = LoadFileText("resources/mapa.txt");
+	// string m = LoadFileText("resources/mapa.txt");
 
 	// Load the music
 	
@@ -34,22 +34,23 @@ int main() {
 	audioManager.PlayMusic();
 
 	string map = (
-		"......0"
-		"......0"
-		"......0"
-		"......0"
-		"....fff0"
-		"0"
 		"0"
 		"......0"
-		"..fbf..fff0"
 		"......0"
-		"0"
-		"ffffffffffffffff"
+		"......0"
+		"............ffff0"
+		"....fff....f0"
+		"f0"
+		"f......0"
+		"f..fbf..fff0"
+		"f......0"
+		"f0"
+		"ffffffffffffffffffffffffffffff0"
+		"ffffffffffffffffffffffffffffff0"
 		);
 
 	Rectangle rectangle1 = { 0, 500, 64, 64 };
-	Texture2D texture1= LoadTexture("block_empty.png");
+	Texture2D texture1= LoadTexture("resources/block_empty.png");
 	Map level1;
 	level1.LoadMap(map);
 	
@@ -62,15 +63,13 @@ int main() {
 	{
 
 		BeginDrawing();
-		DrawText(TextFormat("Map: %c", m), 10, 90, 20, BLACK);
 		ClearBackground(WHITE);
 		Mario.Draw(Mario.Frames()); // animation
-		
 		Mario.Gravedad();
 
-		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ
+		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
 			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec);
 		}
 		
@@ -80,7 +79,9 @@ int main() {
 		//level1.GenerateMap(map);
 
 		
-
+		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
+			DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
+		}
 		EndDrawing();
 
 	}
