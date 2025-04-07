@@ -3,36 +3,44 @@
 #include <iostream>
 #include <vector>
 #define side 64
+
 using namespace std;
 
 
 class Block {
 public:
-	Block(float x, float y, Rectangle rec) : rec(rec) {
+	Block(float x, float y, Rectangle rec, string type) : rec(rec), texture{} {
 		pos.x = x;
 		pos.y = y;
+		this-> type = type;
 	}
-	~Block();
+	virtual ~Block() {};
 	Rectangle rec;
 	Texture2D texture;
 	Vector2 pos;
+	string type;
 
 };
 
 class Block_break : public Block {
 public:
-	Block_break(float x, float y, Rectangle rec) : Block(x, y, rec) {
+	Block_break(float x, float y, Rectangle rec) : Block(x, y, rec, "break") {
 		texture = LoadTexture("resources/block_brick.png");
+
 	}
-	~Block_break() {};
+	~Block_break() {
+		active = 0;
+		
+	};
 	bool active = true;
 
 };
 
 class Block_question : public Block {
 public:
-	Block_question(float x, float y, Rectangle rec) : Block(x, y, rec) {
+	Block_question(float x, float y, Rectangle rec) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
+
 	}
 	~Block_question() {};
 	bool active = true;
@@ -41,7 +49,7 @@ public:
 
 class Block_floor : public Block {
 public:
-	Block_floor(float x, float y, Rectangle rec) : Block(x, y, rec) {
+	Block_floor(float x, float y, Rectangle rec) : Block(x, y, rec, "floor") {
 		texture = LoadTexture("resources/block_floor.png");
 	}
 	~Block_floor() {};
@@ -50,8 +58,9 @@ public:
 
 class Block_ladder : public Block {
 public:
-	Block_ladder(float x, float y, Rectangle rec) : Block(x, y, rec) {
+	Block_ladder(float x, float y, Rectangle rec) : Block(x, y, rec, "ladder") {
 		texture = LoadTexture("resources/block_ladder.png");
+
 	}
 	~Block_ladder() {};
 

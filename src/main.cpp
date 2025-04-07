@@ -85,7 +85,7 @@ int main() {
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
-			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec);
+			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
 		}
 		
 

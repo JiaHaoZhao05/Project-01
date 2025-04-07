@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
+#include "Block.h"
 class Player {
 
 public:
@@ -28,7 +29,7 @@ public:
 
 	
 
-	void Colliding(Rectangle rec);
+	void Colliding(Block block);
 
 private:
 
