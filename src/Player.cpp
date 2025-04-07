@@ -213,7 +213,7 @@ int Player::Frames() {
 Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
-void Player::Colliding(Block block){
+void Player::Colliding(Block &block){
 	if (CheckCollisionRecs(GetRect(), block.rec)) {
 		if (position.x + currentframe[Frames()].width <= block.rec.x + 10) {
 			position.x = block.rec.x - currentframe[Frames()].width;
@@ -229,11 +229,12 @@ void Player::Colliding(Block block){
 			}
 			if (position.y > block.rec.y + block.rec.height - 30) {
 				position.y = block.rec.y + block.rec.height;
-				gravity = 2.4f;
-				if (block.type == "break") {
-					block.~Block();
+				if (block.type == "break" && gravity < 0) {
+					delete block;
 
 				}
+				gravity = 2.4f;
+				
 			}
 		}
 		/*

@@ -24,12 +24,13 @@ public:
 
 class Block_break : public Block {
 public:
-	Block_break(float x, float y, Rectangle rec) : Block(x, y, rec, "break") {
+	Block_break(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "break") {
 		texture = LoadTexture("resources/block_brick.png");
 
 	}
 	~Block_break() {
 		active = 0;
+		UnloadTexture(texture);
 		
 	};
 	bool active = true;
@@ -38,7 +39,7 @@ public:
 
 class Block_question : public Block {
 public:
-	Block_question(float x, float y, Rectangle rec) : Block(x, y, rec, "question") {
+	Block_question(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
 
 	}
@@ -49,7 +50,7 @@ public:
 
 class Block_floor : public Block {
 public:
-	Block_floor(float x, float y, Rectangle rec) : Block(x, y, rec, "floor") {
+	Block_floor(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "floor") {
 		texture = LoadTexture("resources/block_floor.png");
 	}
 	~Block_floor() {};
@@ -58,7 +59,7 @@ public:
 
 class Block_ladder : public Block {
 public:
-	Block_ladder(float x, float y, Rectangle rec) : Block(x, y, rec, "ladder") {
+	Block_ladder(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "ladder") {
 		texture = LoadTexture("resources/block_ladder.png");
 
 	}
@@ -105,22 +106,22 @@ public:
 
 			if (tipoBloque == 'f') { // Suelo
 	
-				collisions.push_back(new Block_floor(x, ypos, hitbox));
+				collisions.push_back(new Block_floor(x, ypos, hitbox, "floor"));
 
 			}
 			else if (tipoBloque == 'b') { // Bloque rompible
 
-				collisions.push_back(new Block_break(x, ypos, hitbox));
+				collisions.push_back(new Block_break(x, ypos, hitbox, "break"));
 
 			}
 			else if (tipoBloque == 'q') { // Bloque pregunta
 
-				collisions.push_back(new Block_question(x, ypos, hitbox));
+				collisions.push_back(new Block_question(x, ypos, hitbox, "question"));
 
 			}
 			else if (tipoBloque == 'l') { // Bloque escalera
 
-				collisions.push_back(new Block_ladder(x, ypos, hitbox));
+				collisions.push_back(new Block_ladder(x, ypos, hitbox, "ladder"));
 
 			}
 
