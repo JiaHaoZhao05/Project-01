@@ -15,7 +15,12 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "Block.h"
 #include "AudioManager.h"
 #include <string>
+#define SKY { 135, 206, 235, 255}
 using namespace std;
+
+
+
+
 int framecounter = 0; // variable that marks the frame of the characters
 int main() {
 	int distance = 0;
@@ -62,7 +67,7 @@ int main() {
 	{
 		framecounter++; // timing of the animation
 		BeginDrawing();
-		ClearBackground(WHITE);
+		ClearBackground(SKY);
 		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
 
