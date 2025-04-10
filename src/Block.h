@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
+#include "Player.h"
 #define side 64
 
 using namespace std;
@@ -20,6 +21,8 @@ public:
 	Vector2 pos;
 	string type;
 
+	virtual void CollidingWithPlayer(Rectangle rec) = 0;
+
 };
 
 class Block_break : public Block {
@@ -28,14 +31,19 @@ public:
 		texture = LoadTexture("resources/block_brick.png");
 
 	}
-	~Block_break() {
-		active = 0;
-		UnloadTexture(texture);
-
-	};
+	~Block_break() {};
 	bool active = true;
 
-	
+	void CollidingWithPlayer(Rectangle player) override {
+		if (CheckCollisionRecs(rec, player) && active) {
+			if (rec.y > player.y + player.height - 30) {
+				active = 0;
+				texture = LoadTexture("resources/block_invisible.png");
+
+			}
+		}
+
+	}
 
 };
 
@@ -45,8 +53,22 @@ public:
 		texture = LoadTexture("resources/block_question.png");
 
 	}
-	~Block_question() {};
+	~Block_question() {
+	
+	};
+
 	bool active = true;
+
+	void CollidingWithPlayer(Rectangle player) override {
+		if (CheckCollisionRecs(rec, player) && active) {
+			if (player.y > rec.y + rec.height - 30) {
+				active = false;
+				texture = LoadTexture("resources/block_empty.png");
+
+			}
+		}
+
+	}
 
 };
 
@@ -56,6 +78,8 @@ public:
 		texture = LoadTexture("resources/block_floor.png");
 	}
 	~Block_floor() {};
+
+	void CollidingWithPlayer(Rectangle player) override {}
 
 };
 
@@ -67,6 +91,8 @@ public:
 	}
 	~Block_ladder() {};
 
+	void CollidingWithPlayer(Rectangle player) override {}
+
 };
 //missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}
 
@@ -75,7 +101,9 @@ public:
 
 	string world;
 	vector <Block*> collisions;
-
+	vector <Block*> blocks;
+	vector <Block_break*> block_break;
+	vector <Block_question*> block_question;
 
 	void LoadMap(string mapa) {
 
@@ -107,27 +135,32 @@ public:
 			}
 
 			if (tipoBloque == 'f') { // Suelo
-	
+
 				collisions.push_back(new Block_floor(x, ypos, hitbox, "floor"));
+				/*blocks.push_back(&Block_floor(x, ypos, hitbox, "floor"));*/
 
 			}
 			else if (tipoBloque == 'b') { // Bloque rompible
 
 				collisions.push_back(new Block_break(x, ypos, hitbox, "break"));
+				/*block_break.push_back(&Block_break(x, ypos, hitbox, "break"));*/
 
 			}
 			else if (tipoBloque == 'q') { // Bloque pregunta
 
 				collisions.push_back(new Block_question(x, ypos, hitbox, "question"));
+				/*block_question.push_back(&Block_question(x, ypos, hitbox, "question"));*/
 
 			}
 			else if (tipoBloque == 'l') { // Bloque escalera
 
 				collisions.push_back(new Block_ladder(x, ypos, hitbox, "ladder"));
+				/*blocks.push_back(&Block_ladder(x, ypos, hitbox, "ladder"));*/
 
 			}
 
 		}
+
 
 	}
 
