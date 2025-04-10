@@ -71,6 +71,7 @@ int main() {
 		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
 
+
 		if (Mario.position.x > 500 && distance < 12300) {
 			distance += Mario.position.x - 500; // tracker
 			Mario.position.x = 500;
@@ -84,8 +85,16 @@ int main() {
 		}
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
+		for (int i = 0; i < level1.block_break.size(); ++i) {
+			level1.block_break[i]->CollidingWithPlayer(Mario.GetRect());
+		}
+
+		/*for (int i = 0; i < level1.block_question.size(); ++i) {
+			level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());
+		}*/
+
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
-			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
+			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec);
 		}
 		
 

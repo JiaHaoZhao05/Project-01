@@ -26,10 +26,7 @@ public:
 
 	int jumps;
 
-
-	
-
-	void Colliding(Block &block);
+	void Colliding(Rectangle rec);
 
 private:
 
