@@ -86,7 +86,7 @@ int main() {
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
-			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect());
+			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity);
 		}
 
 		/*for (int i = 0; i < level1.block_question.size(); ++i) {
@@ -94,9 +94,8 @@ int main() {
 		}*/
 
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
-			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec);
+			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec, level1.collisions[i]->returnActive(), level1.collisions[i]->returnType());
 		}
-		
 
 		// NO MAS COLISIONES A PARTIR DE AQUI
 		

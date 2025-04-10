@@ -3,6 +3,9 @@
 #include <iostream>
 #include <vector>
 #include "Block.h"
+#include <string>
+using namespace std;
+
 class Player {
 
 public:
@@ -26,7 +29,7 @@ public:
 
 	int jumps;
 
-	void Colliding(Rectangle rec);
+	void Colliding(Rectangle rec, bool active, string type);
 
 private:
 

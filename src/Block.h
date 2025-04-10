@@ -21,7 +21,17 @@ public:
 	Vector2 pos;
 	string type;
 
-	virtual void CollidingWithPlayer(Rectangle rec) = 0;
+	bool active = true;
+
+	virtual void CollidingWithPlayer(Rectangle rec, float gravity) = 0;
+
+	bool returnActive() {
+		return active;
+	}
+
+	string returnType() {
+		return type;
+	}
 
 };
 
@@ -32,11 +42,10 @@ public:
 
 	}
 	~Block_break() {};
-	bool active = true;
 
-	void CollidingWithPlayer(Rectangle player) override {
+	void CollidingWithPlayer(Rectangle player, float gravity) override {
 		if (CheckCollisionRecs(rec, player) && active) {
-			if (rec.y > player.y + player.height - 30) {
+			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				active = 0;
 				texture = LoadTexture("resources/block_invisible.png");
 
@@ -57,11 +66,10 @@ public:
 	
 	};
 
-	bool active = true;
 
-	void CollidingWithPlayer(Rectangle player) override {
+	void CollidingWithPlayer(Rectangle player, float gravity) override {
 		if (CheckCollisionRecs(rec, player) && active) {
-			if (player.y > rec.y + rec.height - 30) {
+			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
 
@@ -79,7 +87,7 @@ public:
 	}
 	~Block_floor() {};
 
-	void CollidingWithPlayer(Rectangle player) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
 
 };
 
@@ -91,7 +99,7 @@ public:
 	}
 	~Block_ladder() {};
 
-	void CollidingWithPlayer(Rectangle player) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
 
 };
 //missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}

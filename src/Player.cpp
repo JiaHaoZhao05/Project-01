@@ -213,8 +213,8 @@ int Player::Frames() {
 Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
-void Player::Colliding(Rectangle rec){
-	if (CheckCollisionRecs(GetRect(), rec)) {
+void Player::Colliding(Rectangle rec, bool active, string type){
+	if (CheckCollisionRecs(GetRect(), rec) && (active || type != "break")) {
 		if (position.x + currentframe[Frames()].width <= rec.x + 10) {
 			position.x = rec.x - currentframe[Frames()].width;
 		}
