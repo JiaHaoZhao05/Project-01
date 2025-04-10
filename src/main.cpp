@@ -12,8 +12,8 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include <vector>
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 #include "Player.h"
-//#include "Enemy.h"
-//#include "PowerUp.h"
+#include "Enemy.h"
+#include "PowerUp.h"
 #include "Block.h"
 #include "AudioManager.h"
 #include <string>

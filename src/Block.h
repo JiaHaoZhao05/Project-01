@@ -46,9 +46,8 @@ public:
 	void CollidingWithPlayer(Rectangle player, float gravity) override {
 		if (CheckCollisionRecs(rec, player) && active) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
-				active = 0;
 				texture = LoadTexture("resources/block_invisible.png");
-
+				active = 0; //Esto provoca que se desactive antes y el player no lo "detecte" justo al desactivarse
 			}
 		}
 
