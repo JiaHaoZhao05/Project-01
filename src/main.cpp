@@ -85,8 +85,8 @@ int main() {
 		}
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
 
-		for (int i = 0; i < level1.block_break.size(); ++i) {
-			level1.block_break[i]->CollidingWithPlayer(Mario.GetRect());
+		for (int i = 0; i < level1.collisions.size(); ++i) {
+			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect());
 		}
 
 		/*for (int i = 0; i < level1.block_question.size(); ++i) {

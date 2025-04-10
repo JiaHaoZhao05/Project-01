@@ -56,11 +56,12 @@ public:
 	~Block_question() {
 	
 	};
+
 	bool active = true;
 
 	void CollidingWithPlayer(Rectangle player) override {
 		if (CheckCollisionRecs(rec, player) && active) {
-			if (rec.y > player.y + player.height - 30) {
+			if (rec.y < player.y) {
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
 
