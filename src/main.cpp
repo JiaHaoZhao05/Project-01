@@ -11,7 +11,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include <iostream>
 #include <vector>
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
-#include "Player.h"
+//#include "Player.h" //No se incluye para que no se genere una inclusión circular
 #include "Enemy.h"
 #include "PowerUp.h"
 #include "Block.h"
@@ -96,7 +96,7 @@ int main() {
 		}*/
 
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
-			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */level1.collisions[i]->rec, level1.collisions[i]->returnActive(), level1.collisions[i]->returnType());
+			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
 		}
 
 		// NO MAS COLISIONES A PARTIR DE AQUI

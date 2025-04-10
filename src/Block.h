@@ -47,7 +47,7 @@ public:
 		if (CheckCollisionRecs(rec, player) && active) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				texture = LoadTexture("resources/block_invisible.png");
-				active = 0; //Esto provoca que se desactive antes y el player no lo "detecte" justo al desactivarse
+				/*active = 0;*/ //Esto provoca que se desactive antes y el player no lo "detecte" justo al desactivarse
 			}
 		}
 

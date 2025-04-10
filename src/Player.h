@@ -2,9 +2,10 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
-#include "Block.h"
 #include <string>
 using namespace std;
+
+class Block; //ChatGPT dice que esto es una declaración adelantada. Si ponemos include Block.h, se crea una inclusión circular, provocando errores.
 
 class Player {
 
@@ -29,7 +30,7 @@ public:
 
 	int jumps;
 
-	void Colliding(Rectangle rec, bool active, string type);
+	void Colliding(Block &block);
 
 private:
 

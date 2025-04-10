@@ -213,24 +213,26 @@ int Player::Frames() {
 Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
-void Player::Colliding(Rectangle rec, bool active, string type){
-	if (CheckCollisionRecs(GetRect(), rec) && (active || type != "break")) {
-		if (position.x + currentframe[Frames()].width <= rec.x + 10) {
-			position.x = rec.x - currentframe[Frames()].width;
+void Player::Colliding(Block &block){
+	if (CheckCollisionRecs(GetRect(), block.rec) && (block.active || block.type != "break")) {
+		if (position.x + currentframe[Frames()].width <= block.rec.x + 10) {
+			position.x = block.rec.x - currentframe[Frames()].width;
 		}
-		if (position.x >= rec.x + rec.width - 5) {
-			position.x = rec.x + rec.width;
+		if (position.x >= block.rec.x + block.rec.width - 5) {
+			position.x = block.rec.x + block.rec.width;
 		}
-		if (position.x + currentframe[Frames()].width > rec.x + 5 && position.x < rec.x + rec.width - 5) {
-			if (position.y + currentframe[Frames()].height <= rec.y + 30) {
-				position.y = rec.y - currentframe[Frames()].height;
+		if (position.x + currentframe[Frames()].width > block.rec.x + 5 && position.x < block.rec.x + block.rec.width - 5) {
+			if (position.y + currentframe[Frames()].height <= block.rec.y + 30) {
+				position.y = block.rec.y - currentframe[Frames()].height;
 				gravity = 0;
 				jumps = 1;
 			}
-			if (position.y > rec.y + rec.height - 30) {
-				position.y = rec.y + rec.height;
+			if (position.y > block.rec.y + block.rec.height - 30) {
+				position.y = block.rec.y + block.rec.height;
 				gravity = 2.4f;
-				
+				if (block.type == "break") {
+					block.active = false;
+				}
 			}
 		}
 		/*
