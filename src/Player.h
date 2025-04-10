@@ -29,7 +29,7 @@ public:
 
 	
 
-	void Colliding(Block block);
+	void Colliding(Block &block);
 
 private:
 

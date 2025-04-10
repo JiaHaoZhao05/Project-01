@@ -31,9 +31,11 @@ public:
 	~Block_break() {
 		active = 0;
 		UnloadTexture(texture);
-		
+
 	};
 	bool active = true;
+
+	
 
 };
 
