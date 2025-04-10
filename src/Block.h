@@ -61,7 +61,7 @@ public:
 
 	void CollidingWithPlayer(Rectangle player) override {
 		if (CheckCollisionRecs(rec, player) && active) {
-			if (rec.y < player.y) {
+			if (player.y > rec.y + rec.height - 30) {
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
 
