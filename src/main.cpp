@@ -31,6 +31,54 @@ int main() {
 
 	// string m = LoadFileText("resources/mapa.txt");
 
+	Texture2D startScreen = LoadTexture("resources/InicialScreen.png");
+
+	int alpha = 255;
+	bool fadeInDone = false;
+	bool fadeOutStarted = false;
+	bool fadeOutDone = false;
+	int frameCounter = 0;
+
+	Color fadeColor = { 0, 0, 0, 255 };
+
+	const int waitFrames = 360;
+
+	while (!WindowShouldClose() && !fadeOutDone) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawTexture(startScreen, 0, 0, WHITE);
+
+		if (!fadeInDone) {
+			fadeColor.a = alpha;
+			DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
+			alpha -= 3;
+			if (alpha <= 0) {
+				alpha = 0;
+				fadeInDone = true;
+			}
+		}
+		else {
+			if (!fadeOutStarted && frameCounter >= waitFrames) {
+				fadeOutStarted = true;
+				alpha = 0;
+			}
+
+			if (fadeOutStarted) {
+				fadeColor.a = alpha;
+				DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
+				alpha += 3;
+				if (alpha >= 255) {
+					alpha = 255;
+					fadeOutDone = true;
+				}
+			}
+		}
+
+		EndDrawing();
+		frameCounter++;
+	}
+
 	// Load the music
 	
 	AudioManager audioManager;
@@ -85,7 +133,7 @@ int main() {
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
 		}
-		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQUÍ 
+		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity);
@@ -114,7 +162,7 @@ int main() {
 	}
 	// cleanup
 	// unload our texture so it can be cleaned up
-
+	UnloadTexture(startScreen);
 
 	// destroy the window and cleanup the OpenGL context
 	CloseWindow();
