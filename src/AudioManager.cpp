@@ -34,22 +34,3 @@ void AudioManager::StopMusic() {
 void AudioManager::SetBGMVolume(float vol) {
     SetMusicVolume(bgMusic, vol);
 }
-//
-//void AudioManager::PlaySFX(const std::string& name) {
-//    if (sfx.count(name)) {
-//        PlaySound(sfx[name]);
-//    }
-//}
-//
-//void AudioManager::Unload() {
-//    StopMusicStream(bgMusic);
-//    UnloadMusicStream(bgMusic);
-//
-//    for (auto& pair : sfx) {
-//        UnloadSound(pair.second);
-//    }
-//    sfx.clear();
-//
-//    CloseAudioDevice();
-//    initialized = false;
-//}

@@ -18,7 +18,6 @@ public:
 
 private:
     static Music bgMusic;
-    //static std::unordered_map<std::string, Sound> sfx;
     static bool initialized;
 };
 
