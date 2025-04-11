@@ -1,20 +1,25 @@
-#pragma once
+#ifndef AUDIOMANAGER_H
+#define AUDIOMANAGER_H
+
 #include "raylib.h"
 #include <string>
 
-class AudioManager
-{
+class AudioManager {
 public:
-	AudioManager();
-	~AudioManager();
+    static void Init();
+    static void PlayMusic();
+    static void Update();
+    static void StopMusic();
+    void AudioManager::SetBGMVolume(float vol);
 
-	void LoadMusic(const std::string& filePath);
-	void PlayMusic();
-	void StopMusic();
-	void SetVolume(float volume);
-	void UpdateMusic();
+    static void PlaySFX(const std::string& name);
+
+    static void Unload();
 
 private:
-	Music music;
-	bool musicLoaded;
+    static Music bgMusic;
+    //static std::unordered_map<std::string, Sound> sfx;
+    static bool initialized;
 };
+
+#endif

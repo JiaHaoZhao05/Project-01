@@ -24,10 +24,12 @@ using namespace std;
 
 
 int framecounter = 0; // variable that marks the frame of the characters
+
 int main() {
 	int distance = 0;
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
+	AudioManager::Init();
 
 	// string m = LoadFileText("resources/mapa.txt");
 
@@ -79,15 +81,6 @@ int main() {
 		frameCounter++;
 	}
 
-	// Load the music
-	
-	AudioManager audioManager;
-	if (SearchAndSetResourceDir("resources/Music/Ground Theme.mp3")) {
-		audioManager.LoadMusic("resources/Music/Ground Theme.mp3");
-	}
-	audioManager.SetVolume(0.4f);
-	audioManager.PlayMusic();
-
 	string map = (
 		"0"
 		"0"
@@ -120,7 +113,7 @@ int main() {
 		ClearBackground(SKY);
 		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
-
+		//SetMusicVolume(bgMusic, 0.5f);
 
 		if (Mario.position.x > 500 && distance < 12300) {
 			distance += Mario.position.x - 500; // tracker

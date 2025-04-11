@@ -1,44 +1,55 @@
 #include "AudioManager.h"
 
-AudioManager::AudioManager()
-{
+Music AudioManager::bgMusic;
+bool AudioManager::initialized = false;
+
+void AudioManager::Init() {
+    if (initialized) return;
+
     InitAudioDevice();
-    musicLoaded = false;
+
+    // Load music
+    bgMusic = LoadMusicStream("resources/Music/Ground Theme.mp3");
+    PlayMusicStream(bgMusic);
+
+    // Load SFX (add more as needed)
+    //sfx["jump"] = LoadSound("resources/SFX/jump-small.wav");
+    //sfx["coin"] = LoadSound("resources/SFX/coin.wav");
+
+    initialized = true;
 }
 
-AudioManager::~AudioManager()
-{
-    if (musicLoaded)
-        UnloadMusicStream(music);
-    CloseAudioDevice();
+void AudioManager::PlayMusic() {
+    PlayMusicStream(bgMusic);
 }
 
-void AudioManager::LoadMusic(const std::string& filePath)
-{
-    music = LoadMusicStream(filePath.c_str());
-    musicLoaded = true;
+void AudioManager::Update() {
+    UpdateMusicStream(bgMusic);
 }
 
-void AudioManager::PlayMusic()
-{
-    if (musicLoaded)
-        PlayMusicStream(music);
+void AudioManager::StopMusic() {
+    StopMusicStream(bgMusic);
 }
 
-void AudioManager::StopMusic()
-{
-    if (musicLoaded)
-        StopMusicStream(music);
+void AudioManager::SetBGMVolume(float vol) {
+    SetMusicVolume(bgMusic, vol);
 }
-
-void AudioManager::SetVolume(float volume)
-{
-    if (musicLoaded)
-        SetMusicVolume(music, volume);
-}
-
-void AudioManager::UpdateMusic()
-{
-    if (musicLoaded)
-        UpdateMusicStream(music);
-}
+//
+//void AudioManager::PlaySFX(const std::string& name) {
+//    if (sfx.count(name)) {
+//        PlaySound(sfx[name]);
+//    }
+//}
+//
+//void AudioManager::Unload() {
+//    StopMusicStream(bgMusic);
+//    UnloadMusicStream(bgMusic);
+//
+//    for (auto& pair : sfx) {
+//        UnloadSound(pair.second);
+//    }
+//    sfx.clear();
+//
+//    CloseAudioDevice();
+//    initialized = false;
+//}
