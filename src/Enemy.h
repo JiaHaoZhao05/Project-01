@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
+#include "Player.h"
 
 class Enemy {
 public:
@@ -14,9 +15,11 @@ public:
 
 	Texture2D texture;
 
-	bool active = false;
+	Rectangle hitbox;
 
-	Enemy(float xpos, float ypos, float xspeed, float yspeed) {
+	bool active;
+
+	Enemy(float xpos, float ypos, float xspeed, float yspeed, Rectangle hitbox) {
 		this->xpos = xpos;
 		this->ypos = ypos;
 		this->xspeed = xspeed;
@@ -31,11 +34,11 @@ public:
 class Plant : public Enemy {
 public:
 
-	Plant(float xpos, float ypos, float xspeed, float yspeed) : Enemy(xpos, ypos, xspeed, yspeed) {
-		texture = LoadTexture("resources/plant_frame1");
-	}
+	//Plant(float xpos, float ypos, float xspeed, float yspeed) : Enemy(xpos, ypos, xspeed, yspeed) {
+	//	texture = LoadTexture("resources/plant_frame1.png");
+	//}
 
-	~Plant() {}
+	//~Plant() {}
 
 
 };
@@ -43,8 +46,37 @@ public:
 class Goomba : public Enemy {
 public:
 
-	Goomba(float xpos, float ypos, float xspeed, float yspeed) : Enemy(xpos, ypos, xspeed, yspeed) {
-		texture = LoadTexture("resources/goomba_frame1");
+	Goomba(float xpos, float ypos, float xspeed, float yspeed) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {
+		texture = LoadTexture("resources/goomba_frame1.png");
+		hitbox = {xpos, ypos, 64, 64};
+	}
+	void Draw() {
+		DrawTextureV(texture, {xpos, ypos}, WHITE);
+	}
+
+	void CollidingWithPlayer(Player &player) {
+		if (CheckCollisionRecs(player.GetRect(), hitbox)) {
+			//check if the player is colliding on top of the goomba
+			if ((player.position.x >= xpos  || player.position.x + player.GetRect().width >= xpos ) && (player.position.y + player.GetRect().height >= ypos)) {
+				if (player.lives == 1) {
+					player.gravity = -11.1f;
+				}
+				else if (player.lives > 1) {
+					player.gravity = -13.5f;
+				}
+			}
+			//if not colliding lives-- but we have to add a timer so the game doesn't crash
+			//else {
+				//player.lives--;
+				//~Goomba(); --> or active = 0;
+			//}
+			
+		}
+		
+	}
+
+	void movement() {
+
 	}
 
 	~Goomba() {}

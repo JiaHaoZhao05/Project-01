@@ -102,7 +102,7 @@ int main() {
 	level1.LoadMap(map);
 	
 	Player Mario;
-	
+	Goomba goomba(300, 500, 0, 0);
 	
 
 
@@ -110,8 +110,10 @@ int main() {
 	{
 		framecounter++; // timing of the animation
 		BeginDrawing();
+		
 		ClearBackground(SKY);
 		Mario.Draw(Mario.Frames()); // animation
+		goomba.Draw();
 		Mario.Gravedad();
 		//SetMusicVolume(bgMusic, 0.5f);
 
@@ -127,6 +129,8 @@ int main() {
 			Mario.position.x = 0;
 		}
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
+
+		goomba.CollidingWithPlayer(Mario);
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity);
@@ -150,6 +154,7 @@ int main() {
 			DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 		}
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
+		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
 		EndDrawing();
 
 	}
