@@ -102,7 +102,7 @@ int main() {
 	level1.LoadMap(map);
 	
 	Player Mario;
-	Goomba goomba(300, 500, 0, 0);
+	Goomba goomba(300, 500);
 	
 
 
