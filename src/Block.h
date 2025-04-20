@@ -87,7 +87,7 @@ public:
 	}
 	~Block_floor() {};
 
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 
 };
 
@@ -99,7 +99,7 @@ public:
 	}
 	~Block_ladder() {};
 
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 
 };
 //missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}
@@ -109,7 +109,7 @@ public:
 		texture = LoadTexture("resources/pipe_head_left.png");
 	}
 	~Block_pipetl() {};
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 };
 class Block_pipetr : public Block {
 public:
@@ -117,7 +117,7 @@ public:
 		texture = LoadTexture("resources/pipe_head_right.png");
 	}
 	~Block_pipetr() {};
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 };
 class Block_pipebl : public Block {
 public:
@@ -125,7 +125,7 @@ public:
 		texture = LoadTexture("resources/pipe_body_left.png");
 	}
 	~Block_pipebl() {};
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 };
 class Block_pipebr : public Block {
 public:
@@ -133,7 +133,7 @@ public:
 		texture = LoadTexture("resources/pipe_body_right.png");
 	}
 	~Block_pipebr() {};
-	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 };
 class Map {
 public:
