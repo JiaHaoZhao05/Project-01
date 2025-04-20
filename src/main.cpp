@@ -30,7 +30,9 @@ int main() {
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 	InitAudioDevice();
-	AudioManager::Init();
+	AudioManager bgm;
+	bgm.bgMusic = LoadSound("resources/Music/Ground Theme.mp3");
+	PlaySound(bgm.bgMusic);
 
 	// string m = LoadFileText("resources/mapa.txt");
 

@@ -6,19 +6,18 @@
 
 class AudioManager {
 public:
-    static void Init();
-    static void PlayMusic();
-    static void Update();
-    static void StopMusic();
+    void Init();
+    void PlayMusic();
+    void Update();
+    void StopMusic();
     void AudioManager::SetBGMVolume(float vol);
 
-    static void PlaySFX(const std::string& name);
+    void PlaySFX(const std::string& name);
 
-    static void Unload();
+    void Unload();
 
-private:
-    static Music bgMusic;
-    static bool initialized;
+    Sound bgMusic;
+    bool initialized;
 };
 
 #endif
