@@ -103,7 +103,38 @@ public:
 
 };
 //missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}
-
+class Block_pipetl : public Block {
+public:
+	Block_pipetl(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "pipetl") {
+		texture = LoadTexture("resources/pipe_head_left.png");
+	}
+	~Block_pipetl() {};
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+};
+class Block_pipetr : public Block {
+public:
+	Block_pipetr(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "pipetr") {
+		texture = LoadTexture("resources/pipe_head_right.png");
+	}
+	~Block_pipetr() {};
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+};
+class Block_pipebl : public Block {
+public:
+	Block_pipebl(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "pipebl") {
+		texture = LoadTexture("resources/pipe_body_left.png");
+	}
+	~Block_pipebl() {};
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+};
+class Block_pipebr : public Block {
+public:
+	Block_pipebr(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "pipebr") {
+		texture = LoadTexture("resources/pipe_body_right.png");
+	}
+	~Block_pipebr() {};
+	void CollidingWithPlayer(Rectangle player, float gravity) override {}
+};
 class Map {
 public:
 
@@ -166,7 +197,18 @@ public:
 				/*blocks.push_back(&Block_ladder(x, ypos, hitbox, "ladder"));*/
 
 			}
-
+			else if (tipoBloque == 'h') { // tubo
+				collisions.push_back(new Block_pipetl(x, ypos, hitbox, "pipetl"));
+			}
+			else if (tipoBloque == 'j') { // tubo
+				collisions.push_back(new Block_pipetr(x, ypos, hitbox, "pipetr"));
+			}
+			else if (tipoBloque == 'n') { // tubo
+				collisions.push_back(new Block_pipebl(x, ypos, hitbox, "pipebl"));
+			}
+			else if (tipoBloque == 'm') { // tubo
+				collisions.push_back(new Block_pipebr(x, ypos, hitbox, "pipebr"));
+			}
 		}
 
 

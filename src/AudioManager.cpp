@@ -6,8 +6,6 @@ bool AudioManager::initialized = false;
 void AudioManager::Init() {
     if (initialized) return;
 
-    InitAudioDevice();
-
     // Load music
     bgMusic = LoadMusicStream("resources/Music/Ground Theme.mp3");
     PlayMusicStream(bgMusic);

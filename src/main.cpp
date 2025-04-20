@@ -29,6 +29,7 @@ int main() {
 	int distance = 0;
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
+	InitAudioDevice();
 	AudioManager::Init();
 
 	// string m = LoadFileText("resources/mapa.txt");
@@ -89,10 +90,10 @@ int main() {
 		".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
 		"...........................................................................................................................................................................................llll0"
 		".................................................................q........................................................................................................................lllll0"
-		".................q...bqbqb.....................ll.........ll..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
-		".......................................ll......ll.........ll.............................................................................ll..ll........lll..ll..........................lllllll0"
-		".............................ll........ll......ll.........ll............................................................................lll..lll......llll..lll.....ll..............ll.llllllll0"
-		".............................ll........ll......ll.........ll...........................................................................llll..llll....lllll..llll....ll..............lllllllllll........l0"
+		".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
+		".......................................hj......nm.........nm.............................................................................ll..ll........lll..ll..........................lllllll0"
+		".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj.llllllll0"
+		".............................nm........nm......nm.........nm...........................................................................llll..llll....lllll..llll....nm..............nmlllllllll........l0"
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
@@ -170,6 +171,7 @@ int main() {
 	UnloadTexture(startScreen);
 
 	// destroy the window and cleanup the OpenGL context
+	CloseAudioDevice();
 	CloseWindow();
 	return 0;
 }

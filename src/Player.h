@@ -17,6 +17,7 @@ public:
 	void Gravedad();
 	void Movement();
 	std::vector <Texture2D> currentframe;
+	std::vector <Sound> soundeffect;
 	Vector2 position;
 
 
