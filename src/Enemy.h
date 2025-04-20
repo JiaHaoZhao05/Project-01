@@ -86,7 +86,7 @@ public:
 	}
 
 	void CollidingWithBlock(Block& block) {
-		if (CheckCollisionRecs(block.rec, hitbox) && block.type == "ladder") {
+		if (CheckCollisionRecs(block.rec, hitbox)) {
 			//change direction of movement
 			xspeed *= -1;
 			xpos += xspeed*1.2;

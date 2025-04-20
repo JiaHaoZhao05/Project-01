@@ -110,12 +110,11 @@ int main() {
 	Goomba goomba(900, 644);
 	Goomba goomba1(900, 644);
 	Goomba goomba2(900, 644);
-	Plant plant(1850, 508);
+	/*Plant plant(1920, 480);*/
 
 	EnemiesLvl1.goombas.push_back(goomba);
 	EnemiesLvl1.goombas.push_back(goomba1);
 	EnemiesLvl1.goombas.push_back(goomba2);
-
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
@@ -134,6 +133,10 @@ int main() {
 				level1.collisions[a]->pos.x -= Mario.position.x - 500;
 				level1.collisions[a]->rec.x -= Mario.position.x - 500;
 			}
+			for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) {
+				EnemiesLvl1.goombas[a].xpos -= Mario.position.x - 500;
+				EnemiesLvl1.goombas[a].hitbox.x -= Mario.position.x - 500;
+			}
 			Mario.position.x = 500;
 			goomba.xpos -= 5;
 		}
@@ -145,7 +148,7 @@ int main() {
 		goomba.CollidingWithPlayer(Mario);
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
-			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity);
+			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
 		}
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {

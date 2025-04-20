@@ -23,7 +23,7 @@ public:
 
 	bool active = true;
 
-	virtual void CollidingWithPlayer(Rectangle rec, float gravity) = 0;
+	virtual void CollidingWithPlayer(Rectangle rec, float gravity, int lives) = 0;
 
 	bool returnActive() {
 		return active;
@@ -43,8 +43,8 @@ public:
 	}
 	~Block_break() {};
 
-	void CollidingWithPlayer(Rectangle player, float gravity) override {
-		if (CheckCollisionRecs(rec, player) && active) {
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				texture = LoadTexture("resources/block_invisible.png");
 				active = false;
@@ -67,8 +67,8 @@ public:
 	};
 
 
-	void CollidingWithPlayer(Rectangle player, float gravity) override {
-		if (CheckCollisionRecs(rec, player) && active) {
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
