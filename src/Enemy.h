@@ -36,11 +36,18 @@ public:
 class Plant : public Enemy {
 public:
 
-	//Plant(float xpos, float ypos, float xspeed, float yspeed) : Enemy(xpos, ypos, xspeed, yspeed) {
-	//	texture = LoadTexture("resources/plant_frame1.png");
-	//}
-
-	//~Plant() {}
+	Plant(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {
+		texture = LoadTexture("resources/plant_frame1.png");
+		hitbox = { xpos, ypos, 64 , 64 };
+		xspeed = 0;
+		yspeed = 2;
+	}
+	void Draw() {
+		DrawTextureV(texture, { xpos, ypos }, WHITE);
+	}
+	
+	
+	~Plant() {}
 
 
 };
@@ -91,5 +98,13 @@ public:
 	}
 	~Goomba() {}
 	
+
+};
+
+class Enemies {
+public:
+
+	vector <Goomba> goombas;
+	vector <Plant> plants;
 
 };

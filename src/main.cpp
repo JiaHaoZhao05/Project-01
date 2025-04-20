@@ -104,9 +104,17 @@ int main() {
 	Map level1;
 	level1.LoadMap(map);
 	
+	Enemies EnemiesLvl1;
+
 	Player Mario;
 	Goomba goomba(900, 644);
-	
+	Goomba goomba1(900, 644);
+	Goomba goomba2(900, 644);
+	Plant plant(1850, 508);
+
+	EnemiesLvl1.goombas.push_back(goomba);
+	EnemiesLvl1.goombas.push_back(goomba1);
+	EnemiesLvl1.goombas.push_back(goomba2);
 
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
