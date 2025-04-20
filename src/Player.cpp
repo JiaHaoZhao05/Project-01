@@ -235,10 +235,5 @@ void Player::Colliding(Block &block){
 				}*/
 			}
 		}
-		/*
-		if (goingToHitStuff()) {
-			dont();
-		}
-		*/
 	}
 }

@@ -119,13 +119,12 @@ int main() {
 
 		if (Mario.position.x > 500 && distance < 12300) {
 			distance += Mario.position.x - 500; // tracker
+			for (int a = 0; a < level1.collisions.size(); ++a) { // camera
+				level1.collisions[a]->pos.x -= Mario.position.x - 500;
+				level1.collisions[a]->rec.x -= Mario.position.x - 500;
+			}
 			Mario.position.x = 500;
 			goomba.xpos -= 5;
-			for (int a = 0; a < level1.collisions.size(); ++a) { // camera
-				level1.collisions[a]->pos.x -= 5;
-				level1.collisions[a]->rec.x -= 5;
-				
-			}
 		}
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
