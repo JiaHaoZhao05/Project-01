@@ -147,8 +147,8 @@ int main() {
 		}
 
 		//Resolver bug de break_block
-		for (int i = 0; i < level1.block_break.size(); ++i) {
-			level1.block_break[i]->SolveBreakBug();
+		for (int i = 0; i < level1.collisions.size(); ++i) {
+			level1.collisions[i]->SolveBreakBug();
 		}
 
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
