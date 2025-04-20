@@ -45,7 +45,7 @@ int main() {
 
 	const int waitFrames = 360;
 
-	while (!WindowShouldClose() && !fadeOutDone) {
+	/*while (!WindowShouldClose() && !fadeOutDone) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -79,7 +79,7 @@ int main() {
 
 		EndDrawing();
 		frameCounter++;
-	}
+	}*/
 
 	string map = (
 		"0"
@@ -102,7 +102,7 @@ int main() {
 	level1.LoadMap(map);
 	
 	Player Mario;
-	Goomba goomba(300, 500);
+	Goomba goomba(900, 644);
 	
 
 
@@ -120,9 +120,11 @@ int main() {
 		if (Mario.position.x > 500 && distance < 12300) {
 			distance += Mario.position.x - 500; // tracker
 			Mario.position.x = 500;
+			goomba.xpos -= 5;
 			for (int a = 0; a < level1.collisions.size(); ++a) { // camera
 				level1.collisions[a]->pos.x -= 5;
 				level1.collisions[a]->rec.x -= 5;
+				
 			}
 		}
 		if (Mario.position.x < 0) { // border left
@@ -134,6 +136,10 @@ int main() {
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity);
+		}
+
+		for (int i = 0; i < level1.collisions.size(); ++i) {
+			goomba.CollidingWithBlock(*level1.collisions[i]);
 		}
 
 		/*for (int i = 0; i < level1.block_question.size(); ++i) {
@@ -148,6 +154,8 @@ int main() {
 		
 		Mario.Movement();
 		//level1.GenerateMap(map);
+
+		goomba.movement();
 
 		
 		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map

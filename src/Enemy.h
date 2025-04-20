@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
+#include "Block.h"
 
 class Enemy {
 public:
@@ -50,7 +51,7 @@ public:
 	Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {	
 		texture = LoadTexture("resources/goomba_frame1.png");
 		hitbox = {xpos, ypos, 64, 64};
-		xspeed = 10;
+		xspeed = 3;
 		yspeed = 0;
 	}
 	void Draw() {
@@ -77,10 +78,17 @@ public:
 		}
 	}
 
-	void movement() {
-
+	void CollidingWithBlock(Block& block) {
+		if (CheckCollisionRecs(block.rec, hitbox) && block.type == "ladder") {
+			//change direction of movement
+			xspeed *= -1;
+			xpos += xspeed*1.2;
+		}
 	}
-
+	
+	void movement() {
+		xpos += xspeed;
+	}
 	~Goomba() {}
 	
 

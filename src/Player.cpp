@@ -230,9 +230,9 @@ void Player::Colliding(Block &block){
 			if (position.y > block.rec.y + block.rec.height - 30) {
 				position.y = block.rec.y + block.rec.height;
 				gravity = 2.4f;
-				if (block.type == "break") {
+				/*if (block.type == "break") {
 					block.active = false;
-				}
+				}*/
 			}
 		}
 		/*
