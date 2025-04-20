@@ -13,7 +13,7 @@ public:
 
 	Texture2D texture;
 
-	PowerUp(int durability, bool invencibility, bool increaseLives) : texture{} {
+	PowerUp(int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
 		this->durability = durability;
 		this->invencibility = invencibility;
 		this->increaseLives = increaseLives;

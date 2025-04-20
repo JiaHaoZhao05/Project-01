@@ -100,3 +100,11 @@ public:
 	
 
 };
+
+class Enemies {
+public:
+
+	vector <Goomba> goombas;
+	vector <Plant> plants;
+
+};
