@@ -116,6 +116,8 @@ int main() {
 	EnemiesLvl1.goombas.push_back(goomba1);
 	EnemiesLvl1.goombas.push_back(goomba2);
 
+
+	Mario.lives = 2;
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		framecounter++; // timing of the animation
@@ -143,6 +145,12 @@ int main() {
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
 		}
+
+		//Resolver bug de break_block
+		for (int i = 0; i < level1.block_break.size(); ++i) {
+			level1.block_break[i]->SolveBreakBug();
+		}
+
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
 
 		goomba.CollidingWithPlayer(Mario);

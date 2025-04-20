@@ -21,6 +21,8 @@ public:
 	Vector2 pos;
 	string type;
 
+	string textureName;
+
 	bool active = true;
 
 	virtual void CollidingWithPlayer(Rectangle rec, float gravity, int lives) = 0;
@@ -39,7 +41,7 @@ class Block_break : public Block {
 public:
 	Block_break(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "break") {
 		texture = LoadTexture("resources/block_brick.png");
-
+		textureName = "block_brick";
 	}
 	~Block_break() {};
 
@@ -47,11 +49,18 @@ public:
 		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				texture = LoadTexture("resources/block_invisible.png");
-				active = false;
+				textureName = "block_invisible";
+				/*active = false;*/
 				/*active = 0;*/ //Esto provoca que se desactive antes y el player no lo "detecte" justo al desactivarse
 			}
 		}
 
+	}
+
+	void SolveBreakBug() {
+		if (textureName == "block_invisible") {
+			active = false;
+		}
 	}
 
 };
