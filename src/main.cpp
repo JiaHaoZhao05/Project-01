@@ -137,7 +137,6 @@ int main() {
 				EnemiesLvl1.goombas[a]->xpos -= 5;
 				EnemiesLvl1.goombas[a]->hitbox.x -= 5;
 			}
-			goomba.xpos -= Mario.position.x - 500;
 			Mario.position.x = 500;
 		}
 		if (Mario.position.x < 0) { // border left
