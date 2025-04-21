@@ -79,9 +79,9 @@ public:
 				texture = LoadTexture("resources/block_invisible.png");
 			}
 			//if not colliding: lives-- but we have to add a timer of invulnerability so the game doesn't crash
-			//else {
-				//player.lives--;
-			//}
+			else {
+				player.lives--;
+			}
 		}
 	}
 
@@ -90,6 +90,10 @@ public:
 			//change direction of movement
 			xspeed *= -1;
 			xpos += xspeed*1.2;
+			ypos = block.rec.y + block.rec.height;
+		}
+		else if (ypos < 640) {
+			ypos += 1;
 		}
 	}
 	
