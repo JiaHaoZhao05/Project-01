@@ -86,8 +86,6 @@ public:
 				}
 
 				active = false;
-				texture = LoadTexture("resources/block_invisible.png");
-				active = false;
 			}
 			else {
 				// Mario choca desde el lado: perder vida
@@ -134,28 +132,6 @@ public:
 		hitbox.y = ypos; // �por si acaso tambi�n cambia en Y!
 	}
 
-<<<<<<< HEAD
-=======
-
-	int frameCounter = 1;
-
-	void Animation() {
-		if (frameCounter == 12) {
-			texture = LoadTexture("resources/goomba_frame1.png");
-			frameCounter++;
-		}
-		if (frameCounter == 24) {
-			texture = LoadTexture("resources/goomba_frame2.png");
-			frameCounter = 1;
-		}
-		if (frameCounter == 0) {
-			texture = LoadTexture("resources/goomba_death.png");
-		}
-
-	}
-
-
->>>>>>> 41afb9aebdea8d3b9936e0d306820f5b0ba9e059
 	~Goomba() {}
 	int Frames() {
 		static int frame = 1;
