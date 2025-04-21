@@ -90,7 +90,65 @@ public:
 			}
 			else{
 				// Mario choca desde el lado: perder vida
-				player.lives--;
+				if (player.lives == 3) {
+					player.lives = 2;
+				}
+				else if (player.lives == 2) {
+					player.lives = 1;
+				}
+				else if (player.lives == 1) {
+
+					int alpha = 255;
+					bool fadeInDone = false;
+					bool fadeOutStarted = false;
+					bool fadeOutDone = false;
+					int frameCounter = 0;
+
+					Color fadeColor = { 0, 0, 0, 255 };
+
+					const int waitFrames = 180;
+
+					Texture2D startScreen = LoadTexture("resources/gameover_screen.png");
+
+					while (!WindowShouldClose() && !fadeOutDone) {
+						BeginDrawing();
+						ClearBackground(RAYWHITE);
+
+						DrawTexture(startScreen, 0, 0, WHITE);
+
+						if (!fadeInDone) {
+							fadeColor.a = alpha;
+							DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
+							alpha -= 3;
+							if (alpha <= 0) {
+								alpha = 0;
+								fadeInDone = true;
+							}
+						}
+						else {
+							if (!fadeOutStarted && frameCounter >= waitFrames) {
+								fadeOutStarted = true;
+								alpha = 0;
+							}
+
+							if (fadeOutStarted) {
+								fadeColor.a = alpha;
+								DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
+								alpha += 3;
+								if (alpha >= 255) {
+									alpha = 255;
+									fadeOutDone = true;
+								}
+							}
+						}
+
+						EndDrawing();
+						
+						frameCounter++;
+					}
+					CloseAudioDevice();
+					CloseWindow();
+				}
 
 			}
 		}

@@ -115,6 +115,7 @@ int main() {
 
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
+		float deltaTime = GetFrameTime();
 		framecounter++; // timing of the animation
 		BeginDrawing();
 
