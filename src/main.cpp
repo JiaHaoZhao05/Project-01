@@ -104,9 +104,9 @@ int main() {
 	Enemies EnemiesLvl1;
 
 	Player Mario;
-	Goomba goomba(400, 600);
-	Goomba goomba1(900, 644);
-	Goomba goomba2(1200, 644);
+	Goomba goomba(1200, 644);
+	Goomba goomba1(10734, 644);
+	Goomba goomba2(2134, 644);
 	/*Plant plant(1920, 480);*/
 
 	EnemiesLvl1.goombas.push_back(&goomba);
