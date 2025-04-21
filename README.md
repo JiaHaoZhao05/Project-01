@@ -31,7 +31,7 @@ Movement of the player + animation
 3 Goombas
 Player to Goombas interaction
 1 win screen at the end of the level
-1 lose screen when dying to goomas or falling out of the map
+1 lose screen when dying to Goombas or falling out of the map
 Music and sound effects
 1 menu screen
 
