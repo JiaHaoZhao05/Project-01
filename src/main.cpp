@@ -82,7 +82,8 @@ int main() {
 	AudioManager bgm;
 	bgm.bgMusic = LoadSound("resources/Music/Ground Theme.mp3");
 	bool music = false;
-	while (!WindowShouldClose()) {
+	bool quit = false;
+	while (!WindowShouldClose() && !quit) {
 		if (!music) {
 			PlaySound(bgm.bgMusic);
 			music = true;
@@ -91,8 +92,12 @@ int main() {
 		ClearBackground(RAYWHITE);
 		DrawTexture(menuScreen, 0, 0, WHITE);
 		DrawText(TextFormat("Press P to"), 130, 500, 50, WHITE);
+		DrawText(TextFormat("Press Q to"), 130, 550, 50, WHITE);
 		if (IsKeyDown('P')) {
 			menu = false;
+		}
+		if (IsKeyDown('Q')) {
+			quit = true;
 		}
 		EndDrawing();
 		if (!menu) {
