@@ -177,7 +177,7 @@ int main() {
 		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 			for (int j = 0; j < level1.collisions.size(); ++j) {
 				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
-				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
+				/*EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);*/
 
 				// Verificamos si hay bloque debajo
 				Rectangle blockRec = level1.collisions[j]->rec;
@@ -226,6 +226,10 @@ int main() {
 				DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 		}
 		
+		if (distance >= 12254) {
+
+		}
+
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
 		EndDrawing();
