@@ -145,7 +145,9 @@ int main() {
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
 		}
-
+		if (Mario.position.x > 1200) { // border right
+			Mario.position.x = 1200;
+		}
 		//Resolver bug de break_block
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->SolveBreakBug();
