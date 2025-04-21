@@ -165,11 +165,32 @@ int main() {
 			level1.collisions[i]->SolveBreakBug();
 		}
 
+		bool goombaOnGround = false;
 		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 			for (int j = 0; j < level1.collisions.size(); ++j) {
 				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
+				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
+
+				// Verificamos si hay bloque debajo
+				Rectangle blockRec = level1.collisions[j]->rec;
+				Rectangle goombaHit = EnemiesLvl1.goombas[i]->hitbox;
+
+				if (goombaHit.y + goombaHit.height == blockRec.y &&
+					goombaHit.x + goombaHit.width > blockRec.x &&
+					goombaHit.x < blockRec.x + blockRec.width)
+				{
+					goombaOnGround = true;
+				}
+
 			}
+			if (!goombaOnGround) {
+				EnemiesLvl1.goombas[i]->ypos += 2; // gravedad simple
+				EnemiesLvl1.goombas[i]->hitbox.y = EnemiesLvl1.goombas[i]->ypos;
+			}
+
 		}
+
+
 
 		/*for (int i = 0; i < level1.block_question.size(); ++i) {
 			level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());

@@ -65,51 +65,71 @@ public:
 		DrawTextureV(texture, {xpos, ypos}, WHITE);
 	}
 
-	void CollidingWithPlayer(Player &player) {
-		if (CheckCollisionRecs(player.GetRect(), hitbox)) {
-			//check if the player is colliding on top of the goomba
-			if ((player.position.x >= xpos  || player.position.x + player.GetRect().width >= xpos ) && (player.position.y + player.GetRect().height >= ypos) && active == 1) {
+	void CollidingWithPlayer(Player& player) {
+		if (!active) return;
+
+		Rectangle playerRect = player.GetRect();
+
+		if (CheckCollisionRecs(playerRect, hitbox)) {
+			bool playerFromAbove = playerRect.y + playerRect.height <= hitbox.y + 10 && player.gravity > 0;
+
+			if (playerFromAbove) {
+				// Mario cae sobre el Goomba y lo aplasta
 				if (player.lives == 1) {
 					player.gravity = -11.1f;
 				}
 				else if (player.lives > 1) {
 					player.gravity = -13.5f;
 				}
-				active = 0;
+
+				active = false;
 				texture = LoadTexture("resources/block_invisible.png");
 			}
-			//if not colliding: lives-- but we have to add a timer of invulnerability so the game doesn't crash
 			else {
+				// Mario choca desde el lado: perder vida
 				player.lives--;
 			}
 		}
 	}
 
+
 	int direction = 1;
 	void CollidingWithBlock(Block& block) {
-		bool isOnTop = hitbox.y + hitbox.height <= block.rec.y + 5; // viene desde arriba
-		bool isHittingSide =
-			(hitbox.x + hitbox.width > block.rec.x && hitbox.x < block.rec.x && direction == 1) ||
-			(hitbox.x < block.rec.x + block.rec.width && hitbox.x + hitbox.width > block.rec.x + block.rec.width && direction == -1);
+		Rectangle blockRec = block.rec;
 
-		if (CheckCollisionRecs(block.rec, hitbox)) {
-			if (isHittingSide) {
+		// Si está justo encima del bloque, lo consideramos suelo
+		if (CheckCollisionRecs(hitbox, blockRec)) {
+
+			// DETECCIÓN DE COLISIÓN DESDE ARRIBA
+			if (hitbox.y + hitbox.height >= blockRec.y &&
+				hitbox.y + hitbox.height <= blockRec.y + 10 &&  // margen de 10px
+				hitbox.x + hitbox.width > blockRec.x &&
+				hitbox.x < blockRec.x + blockRec.width)
+			{
+				// Detener caída
+				ypos = blockRec.y - hitbox.height;
+				yspeed = 0;
+			}
+
+			// DETECCIÓN DE COLISIÓN LATERAL
+			if (hitbox.x < blockRec.x + blockRec.width &&
+				hitbox.x + hitbox.width > blockRec.x &&
+				hitbox.y + hitbox.height > blockRec.y + 5)  // para no activarlo si es desde arriba
+			{
 				direction *= -1;
-				xpos -= xspeed * direction; // retrocede un poco
-			}
-			else if (isOnTop) {
-				ypos = block.rec.y - hitbox.height; // mantenerlo sobre el bloque
 			}
 		}
-		else {
-			// solo cae si no hay bloque debajo
-			ypos += 0; // simula gravedad
-		}
+
+		// Simulación de gravedad si no está tocando bloque (esto se mueve fuera luego)
 	}
+
 	
 	void movement() {
 		xpos += xspeed * direction;
+		hitbox.x = xpos;
+		hitbox.y = ypos; // ¡por si acaso también cambia en Y!
 	}
+
 
 	int frameCounter = 1;
 
