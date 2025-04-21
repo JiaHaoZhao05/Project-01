@@ -27,9 +27,6 @@ int main() {
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 	InitAudioDevice();
-	AudioManager bgm;
-	bgm.bgMusic = LoadSound("resources/Music/Ground Theme.mp3");
-	PlaySound(bgm.bgMusic);
 
 	// string m = LoadFileText("resources/mapa.txt");
 
@@ -80,7 +77,21 @@ int main() {
 		EndDrawing();
 		frameCounter++;
 	}
-
+	bool menu = true;
+	Texture2D menuScreen = LoadTexture("resources/menu_screen.png");
+	AudioManager bgm;
+	bgm.bgMusic = LoadSound("resources/Music/Ground Theme.mp3");
+	PlaySound(bgm.bgMusic);
+	while (!WindowShouldClose() && menu) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+		DrawTexture(menuScreen, 0, 0, WHITE);
+		DrawText(TextFormat("Press P to"), 130, 500, 50, WHITE);
+		if(IsKeyDown('P')){
+			menu = false;
+		}
+		EndDrawing();
+	}
 	string map = (
 		"0"
 		"0"
