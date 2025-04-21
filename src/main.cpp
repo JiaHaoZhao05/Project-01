@@ -123,7 +123,7 @@ int main() {
 		
 		ClearBackground(SKY);
 		Mario.Draw(Mario.Frames()); // animation
-		goomba.Draw();
+		goomba.Draw(goomba.Frames());
 		Mario.Gravedad();
 		//SetMusicVolume(bgMusic, 0.5f);
 
