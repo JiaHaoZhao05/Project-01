@@ -107,7 +107,7 @@ int main() {
 	Enemies EnemiesLvl1;
 
 	Player Mario;
-	Goomba goomba(900, 644);
+	Goomba goomba(400, 300);
 	Goomba goomba1(900, 644);
 	Goomba goomba2(900, 644);
 	/*Plant plant(1920, 480);*/
@@ -157,6 +157,7 @@ int main() {
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
+			level1.collisions[i]->SolveBreakBug();
 		}
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
