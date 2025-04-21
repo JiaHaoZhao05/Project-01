@@ -107,16 +107,15 @@ int main() {
 	Enemies EnemiesLvl1;
 
 	Player Mario;
-	/*Goomba goomba(400, 300);
-	Goomba goomba1(900, 300);
-	Goomba goomba2(1100, 300);*/
+	Goomba goomba(400, 300);
+	Goomba goomba1(900, 644);
+	Goomba goomba2(900, 644);
 	/*Plant plant(1920, 480);*/
 
-	EnemiesLvl1.goombas.push_back(new Goomba(300, 300));
-	EnemiesLvl1.goombas.push_back(new Goomba(600, 300));
-	EnemiesLvl1.goombas.push_back(new Goomba(1200, 300));
+	EnemiesLvl1.goombas.push_back(goomba);
+	EnemiesLvl1.goombas.push_back(goomba1);
+	EnemiesLvl1.goombas.push_back(goomba2);
 
-	Mario.lives = 2;
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		framecounter++; // timing of the animation
@@ -124,6 +123,7 @@ int main() {
 		
 		ClearBackground(SKY);
 		Mario.Draw(Mario.Frames()); // animation
+		goomba.Draw(goomba.Frames());
 		Mario.Gravedad();
 		//SetMusicVolume(bgMusic, 0.5f);
 
@@ -134,9 +134,10 @@ int main() {
 				level1.collisions[a]->rec.x -= Mario.position.x - 500;
 			}
 			for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) {
-				EnemiesLvl1.goombas[a]->xpos -= 5;
-				EnemiesLvl1.goombas[a]->hitbox.x -= 5;
+				EnemiesLvl1.goombas[a].xpos -= Mario.position.x - 500;
+				EnemiesLvl1.goombas[a].hitbox.x -= Mario.position.x - 500;
 			}
+			goomba.xpos -= Mario.position.x - 500;
 			Mario.position.x = 500;
 		}
 		if (Mario.position.x < 0) { // border left
@@ -145,10 +146,6 @@ int main() {
 		if (Mario.position.x > 1200 - Mario.GetRect().width) { // border right
 			Mario.position.x = 1200 - Mario.GetRect().width;
 		}
-
-		for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) {
-			EnemiesLvl1.goombas[a]->movement();
-		}
 		//Resolver bug de break_block
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->SolveBreakBug();
@@ -156,9 +153,7 @@ int main() {
 
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
 
-		for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) {
-			EnemiesLvl1.goombas[a]->CollidingWithPlayer(Mario);
-		}
+		goomba.CollidingWithPlayer(Mario);
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
@@ -188,6 +183,8 @@ int main() {
 				EnemiesLvl1.goombas[i]->hitbox.y = EnemiesLvl1.goombas[i]->ypos;
 			}
 
+		for (int i = 0; i < level1.collisions.size(); ++i) {
+			goomba.CollidingWithBlock(*level1.collisions[i]);
 		}
 
 
@@ -205,13 +202,11 @@ int main() {
 		Mario.Movement();
 		//level1.GenerateMap(map);
 
+		goomba.movement();
 
 		
 		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
 			DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
-		}
-		for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) { // draw goombas
-			EnemiesLvl1.goombas[a]->Draw();
 		}
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);

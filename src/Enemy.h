@@ -4,7 +4,7 @@
 #include <vector>
 #include "Player.h"
 #include "Block.h"
-
+extern int framecounter;
 class Enemy {
 public:
 
@@ -14,7 +14,7 @@ public:
 	float xspeed;
 	float yspeed;
 
-	Texture2D texture;
+	vector <Texture2D> texture;
 
 	Rectangle hitbox;
 
@@ -37,13 +37,13 @@ class Plant : public Enemy {
 public:
 
 	Plant(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {
-		texture = LoadTexture("resources/plant_frame1.png");
+		texture = { LoadTexture("resources/plant_frame1.png") };
 		hitbox = { xpos, ypos, 64 , 64 };
 		xspeed = 0;
 		yspeed = 2;
 	}
 	void Draw() {
-		DrawTextureV(texture, { xpos, ypos }, WHITE);
+		DrawTextureV(texture[0], {xpos, ypos}, WHITE);
 	}
 	
 	
@@ -56,13 +56,16 @@ class Goomba : public Enemy {
 public:
 
 	Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {	
-		texture = LoadTexture("resources/goomba_frame1.png");
+		texture = { LoadTexture("resources/goomba_death.png"), // 0 death
+			LoadTexture("resources/goomba_frame1.png"), // 1 walk
+			LoadTexture("resources/goomba_frame2.png") // 2 walk
+		};
 		hitbox = {xpos, ypos, 64, 64};
 		xspeed = 3;
 		yspeed = 0;
 	}
-	void Draw() {
-		DrawTextureV(texture, {xpos, ypos}, WHITE);
+	void Draw(int a) {
+		DrawTextureV(texture[a], {xpos, ypos}, WHITE);
 	}
 
 	void CollidingWithPlayer(Player& player) {
@@ -84,6 +87,7 @@ public:
 
 				active = false;
 				texture = LoadTexture("resources/block_invisible.png");
+				active = false;
 			}
 			else {
 				// Mario choca desde el lado: perder vida
@@ -97,21 +101,21 @@ public:
 	void CollidingWithBlock(Block& block) {
 		Rectangle blockRec = block.rec;
 
-		// Si está justo encima del bloque, lo consideramos suelo
+		// Si estï¿½ justo encima del bloque, lo consideramos suelo
 		if (CheckCollisionRecs(hitbox, blockRec)) {
 
-			// DETECCIÓN DE COLISIÓN DESDE ARRIBA
+			// DETECCIï¿½N DE COLISIï¿½N DESDE ARRIBA
 			if (hitbox.y + hitbox.height >= blockRec.y &&
 				hitbox.y + hitbox.height <= blockRec.y + 10 &&  // margen de 10px
 				hitbox.x + hitbox.width > blockRec.x &&
 				hitbox.x < blockRec.x + blockRec.width)
 			{
-				// Detener caída
+				// Detener caï¿½da
 				ypos = blockRec.y - hitbox.height;
 				yspeed = 0;
 			}
 
-			// DETECCIÓN DE COLISIÓN LATERAL
+			// DETECCIï¿½N DE COLISIï¿½N LATERAL
 			if (hitbox.x < blockRec.x + blockRec.width &&
 				hitbox.x + hitbox.width > blockRec.x &&
 				hitbox.y + hitbox.height > blockRec.y + 5)  // para no activarlo si es desde arriba
@@ -120,14 +124,14 @@ public:
 			}
 		}
 
-		// Simulación de gravedad si no está tocando bloque (esto se mueve fuera luego)
+		// Simulaciï¿½n de gravedad si no estï¿½ tocando bloque (esto se mueve fuera luego)
 	}
 
 	
 	void movement() {
 		xpos += xspeed * direction;
 		hitbox.x = xpos;
-		hitbox.y = ypos; // ¡por si acaso también cambia en Y!
+		hitbox.y = ypos; // ï¿½por si acaso tambiï¿½n cambia en Y!
 	}
 
 
@@ -150,7 +154,25 @@ public:
 
 
 	~Goomba() {}
-	
+	int Frames() {
+		static int frame = 1;
+		if (framecounter >= (60 / 8)) // timing 1
+		{
+			frame++;
+			if (frame > 2) {
+				frame = 1;
+			}
+		}
+		if (active == false) {
+			return 0;
+		}
+		if (frame == 1) {
+			return 1;
+		}
+		else if (frame == 2) {
+			return 2;
+		}
+	}
 
 };
 
