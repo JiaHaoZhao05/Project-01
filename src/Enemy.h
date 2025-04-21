@@ -54,7 +54,7 @@ public:
 
 class Goomba : public Enemy {
 public:
-
+	Sound squash = LoadSound("resources/audio_step.mp3"); // 1 step
 	Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {	
 		texture = { LoadTexture("resources/goomba_death.png"), // 0 death
 			LoadTexture("resources/goomba_frame1.png"), // 1 walk
@@ -86,7 +86,7 @@ public:
 				}
 				xspeed = 0;
 				active = false;
-				
+				PlaySound(squash);
 			}
 			else{
 				// Mario choca desde el lado: perder vida
@@ -97,55 +97,7 @@ public:
 					player.lives = 1;
 				}
 				else if (player.lives == 1) {
-
-					int alpha = 255;
-					bool fadeInDone = false;
-					bool fadeOutStarted = false;
-					bool fadeOutDone = false;
-					int frameCounter = 0;
-
-					Color fadeColor = { 0, 0, 0, 255 };
-
-					const int waitFrames = 180;
-
-					Texture2D startScreen = LoadTexture("resources/gameover_screen.png");
-
-					while (!WindowShouldClose() && !fadeOutDone) {
-						BeginDrawing();
-						ClearBackground(RAYWHITE);
-
-						DrawTexture(startScreen, 0, 0, WHITE);
-
-						if (!fadeInDone) {
-							fadeColor.a = alpha;
-							DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
-							alpha -= 3;
-							if (alpha <= 0) {
-								alpha = 0;
-								fadeInDone = true;
-							}
-						}
-						else {
-							if (!fadeOutStarted && frameCounter >= waitFrames) {
-								fadeOutStarted = true;
-								alpha = 0;
-							}
-
-							if (fadeOutStarted) {
-								fadeColor.a = alpha;
-								DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), fadeColor);
-								alpha += 3;
-								if (alpha >= 255) {
-									alpha = 255;
-									fadeOutDone = true;
-								}
-							}
-						}
-
-						EndDrawing();
-						
-						frameCounter++;
-					}
+					player.lives = 0;
 				}
 			}
 		}

@@ -38,7 +38,6 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_shoot.png") // 29 shoot left
 	};
 	soundeffect = { LoadSound("resources/audio_jump.mp3"), // 0 jump
-		LoadSound("resources/audio_step.mp3") // 1 step
 	};
 	lives = 1;
 	position.x = 100;
@@ -71,11 +70,9 @@ void Player::Movement() {
 		speedx = 0;
 	}
 	else if (IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) { 
-		PlaySound(soundeffect[1]);
 		speedx = 5.0f; 
 	}
 	else if (IsKeyDown('A') || IsKeyDown(KEY_LEFT)) {
-		PlaySound(soundeffect[1]);
 		speedx = -5.0f;
 	}
 	else {

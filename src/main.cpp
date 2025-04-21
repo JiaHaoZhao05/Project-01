@@ -23,7 +23,7 @@ using namespace std;
 int framecounter = 0; // variable that marks the frame of the characters
 
 int main() {
-	int distance = 0;
+	int distance;
 	InitWindow(1200, 800, "Super Mario");
 	SetTargetFPS(60);
 	InitAudioDevice();
@@ -107,7 +107,7 @@ int main() {
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
-
+	distance = 0;
 	Texture2D texture1 = LoadTexture("resources/block_empty.png");
 	Map level1;
 	level1.LoadMap(map);
@@ -123,8 +123,8 @@ int main() {
 	EnemiesLvl1.goombas.push_back(&goomba);
 	EnemiesLvl1.goombas.push_back(&goomba1);
 	EnemiesLvl1.goombas.push_back(&goomba2);
-
-	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
+	PlaySound(bgm.bgMusic);
+	while (!WindowShouldClose() && Mario.lives > 0 && distance < 12300)// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		float deltaTime = GetFrameTime();
 		framecounter++; // timing of the animation
@@ -232,6 +232,33 @@ int main() {
 
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
+		EndDrawing();
+	}
+	StopSound(bgm.bgMusic);
+	Texture2D overScreen = LoadTexture("resources/gameover_screen.png");
+	Sound over = LoadSound("resources/Music/Game Over.mp3");
+	if (Mario.lives <= 0) {
+		PlaySound(over);
+	}
+	while (!WindowShouldClose() && Mario.lives <= 0) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawTexture(overScreen, 0, 0, WHITE);
+
+		EndDrawing();
+	}
+	Texture2D winScreen = LoadTexture("resources/win_screen.png");
+	Sound win = LoadSound("resources/Music/Level Complete.mp3");
+	if (distance >= 12300) {
+		PlaySound(win);
+	}
+	while (!WindowShouldClose() && distance>=12300) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawTexture(winScreen, 0, 0, WHITE);
+
 		EndDrawing();
 	}
 	// cleanup
