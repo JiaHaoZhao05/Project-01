@@ -161,7 +161,7 @@ int main() {
 				if (Mario.position.x > 1200 - Mario.GetRect().width) { // border right
 					Mario.position.x = 1200 - Mario.GetRect().width;
 				}
-				if (Mario.position.y < 0) { //death by falling
+				if (Mario.position.y >= 800) { //death by falling
 					Mario.lives = 0;
 				}
 				//Resolver bug de break_block
