@@ -46,9 +46,9 @@ int main() {
 
 	Color fadeColor = { 0, 0, 0, 255 };
 
-	const int waitFrames = 360;
+	const int waitFrames = 180;
 
-	/*while (!WindowShouldClose() && !fadeOutDone) {
+	while (!WindowShouldClose() && !fadeOutDone) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -82,7 +82,7 @@ int main() {
 
 		EndDrawing();
 		frameCounter++;
-	}*/
+	}
 
 	string map = (
 		"0"
@@ -116,8 +116,6 @@ int main() {
 	EnemiesLvl1.goombas.push_back(goomba1);
 	EnemiesLvl1.goombas.push_back(goomba2);
 
-
-	Mario.lives = 2;
 	while (!WindowShouldClose())// run the loop untill the user presses ESCAPE or presses the Close button on the window
 	{
 		framecounter++; // timing of the animation
@@ -139,14 +137,14 @@ int main() {
 				EnemiesLvl1.goombas[a].xpos -= Mario.position.x - 500;
 				EnemiesLvl1.goombas[a].hitbox.x -= Mario.position.x - 500;
 			}
+			goomba.xpos -= Mario.position.x - 500;
 			Mario.position.x = 500;
-			goomba.xpos -= 5;
 		}
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
 		}
-		if (Mario.position.x > 1200) { // border right
-			Mario.position.x = 1200;
+		if (Mario.position.x > 1200 - Mario.GetRect().width) { // border right
+			Mario.position.x = 1200 - Mario.GetRect().width;
 		}
 		//Resolver bug de break_block
 		for (int i = 0; i < level1.collisions.size(); ++i) {
