@@ -164,7 +164,9 @@ int main() {
 
 		// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
 
-		goomba.CollidingWithPlayer(Mario);
+		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+			EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
+		}
 
 		for (int i = 0; i < level1.collisions.size(); ++i) {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
