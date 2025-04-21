@@ -177,7 +177,7 @@ int main() {
 		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 			for (int j = 0; j < level1.collisions.size(); ++j) {
 				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
-				/*EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);*/
+				EnemiesLvl1.goombas[i]->CollidingWithBlock(*level1.collisions[j]);
 
 				// Verificamos si hay bloque debajo
 				Rectangle blockRec = level1.collisions[j]->rec;
