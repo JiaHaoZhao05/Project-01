@@ -146,10 +146,7 @@ public:
 						
 						frameCounter++;
 					}
-					CloseAudioDevice();
-					CloseWindow();
 				}
-
 			}
 		}
 	}
