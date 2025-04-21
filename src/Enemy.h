@@ -113,24 +113,6 @@ public:
 		xpos += xspeed * direction;
 	}
 
-	int frameCounter = 1;
-
-	void Animation() {
-		if (frameCounter == 12) {
-			texture = LoadTexture("resources/goomba_frame1.png");
-			frameCounter++;
-		}
-		if (frameCounter == 24) {
-			texture = LoadTexture("resources/goomba_frame2.png");
-			frameCounter = 1;
-		}
-		if (frameCounter == 0) {
-			texture = LoadTexture("resources/goomba_death.png");
-		}
-
-	}
-
-
 	~Goomba() {}
 	int Frames() {
 		static int frame = 1;
