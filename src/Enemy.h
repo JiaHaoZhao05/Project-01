@@ -135,7 +135,7 @@ public:
 	~Goomba() {}
 	int Frames() {
 		static int frame = 1;
-		if (framecounter >= (60 / 8)) // timing 1
+		if (framecounter >= (60 / 12)) // timing 1
 		{
 			frame++;
 			if (frame > 2) {
@@ -152,7 +152,6 @@ public:
 			return 2;
 		}
 	}
-
 };
 
 class Enemies {

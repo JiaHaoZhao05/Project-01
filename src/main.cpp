@@ -20,9 +20,6 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #define SKY { 135, 206, 235, 255}
 using namespace std;
 
-
-
-
 int framecounter = 0; // variable that marks the frame of the characters
 
 int main() {
@@ -100,10 +97,10 @@ int main() {
 		"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 		);
 
-	Texture2D texture1= LoadTexture("resources/block_empty.png");
+	Texture2D texture1 = LoadTexture("resources/block_empty.png");
 	Map level1;
 	level1.LoadMap(map);
-	
+
 	Enemies EnemiesLvl1;
 
 	Player Mario;
@@ -120,10 +117,10 @@ int main() {
 	{
 		framecounter++; // timing of the animation
 		BeginDrawing();
-		
+
 		ClearBackground(SKY);
-		Mario.Draw(Mario.Frames()); // animation
 		goomba.Draw(goomba.Frames());
+		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
 		//SetMusicVolume(bgMusic, 0.5f);
 
@@ -159,7 +156,7 @@ int main() {
 			level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
 			level1.collisions[i]->SolveBreakBug();
 		}
-
+		
 		bool goombaOnGround = false;
 		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 			for (int j = 0; j < level1.collisions.size(); ++j) {
@@ -183,35 +180,34 @@ int main() {
 				EnemiesLvl1.goombas[i]->hitbox.y = EnemiesLvl1.goombas[i]->ypos;
 			}
 
-		for (int i = 0; i < level1.collisions.size(); ++i) {
-			goomba.CollidingWithBlock(*level1.collisions[i]);
+			for (int i = 0; i < level1.collisions.size(); ++i) {
+				goomba.CollidingWithBlock(*level1.collisions[i]);
+			}
 		}
 
-
-
+			
 		/*for (int i = 0; i < level1.block_question.size(); ++i) {
-			level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());
+				level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());
 		}*/
 
 		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
-			Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
+				Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
 		}
 
 		// NO MAS COLISIONES A PARTIR DE AQUI
-		
+
 		Mario.Movement();
 		//level1.GenerateMap(map);
 
 		goomba.movement();
 
-		
+
 		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
-			DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
+				DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 		}
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
 		EndDrawing();
-
 	}
 	// cleanup
 	// unload our texture so it can be cleaned up
@@ -222,6 +218,3 @@ int main() {
 	CloseWindow();
 	return 0;
 }
-
-
-
