@@ -106,7 +106,7 @@ int main() {
 	Player Mario;
 	Goomba goomba(400, 600);
 	Goomba goomba1(900, 644);
-	Goomba goomba2(900, 644);
+	Goomba goomba2(1200, 644);
 	/*Plant plant(1920, 480);*/
 
 	EnemiesLvl1.goombas.push_back(&goomba);
@@ -120,7 +120,9 @@ int main() {
 		BeginDrawing();
 
 		ClearBackground(SKY);
-		goomba.Draw(goomba.Frames());
+		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+			EnemiesLvl1.goombas[i]->Draw(EnemiesLvl1.goombas[i]->Frames());
+		}
 		Mario.Draw(Mario.Frames()); // animation
 		Mario.Gravedad();
 		//SetMusicVolume(bgMusic, 0.5f);
@@ -182,7 +184,9 @@ int main() {
 			}
 
 			for (int i = 0; i < level1.collisions.size(); ++i) {
-				goomba.CollidingWithBlock(*level1.collisions[i]);
+				for (int j = 0; j < EnemiesLvl1.goombas.size(); ++j) {
+					EnemiesLvl1.goombas[j]->CollidingWithBlock(*level1.collisions[i]);
+				}
 			}
 		}
 
@@ -200,12 +204,15 @@ int main() {
 		Mario.Movement();
 		//level1.GenerateMap(map);
 
-		goomba.movement();
+		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+			EnemiesLvl1.goombas[i]->movement();
+		}
 
 
 		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
 				DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 		}
+		
 		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
 		EndDrawing();
