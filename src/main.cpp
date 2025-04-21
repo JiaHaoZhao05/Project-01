@@ -11,7 +11,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include <iostream>
 #include <vector>
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
-//#include "Player.h" //No se incluye para que no se genere una inclusión circular
+//#include "Player.h" //No se incluye para que no se genere una inclusiï¿½n circular
 #include "Enemy.h"
 #include "PowerUp.h"
 #include "Block.h"
@@ -46,9 +46,9 @@ int main() {
 
 	Color fadeColor = { 0, 0, 0, 255 };
 
-	const int waitFrames = 360;
+	const int waitFrames = 180;
 
-	/*while (!WindowShouldClose() && !fadeOutDone) {
+	while (!WindowShouldClose() && !fadeOutDone) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -82,7 +82,7 @@ int main() {
 
 		EndDrawing();
 		frameCounter++;
-	}*/
+	}
 
 	string map = (
 		"0"
@@ -137,13 +137,14 @@ int main() {
 				EnemiesLvl1.goombas[a]->xpos -= 5;
 				EnemiesLvl1.goombas[a]->hitbox.x -= 5;
 			}
+			goomba.xpos -= Mario.position.x - 500;
 			Mario.position.x = 500;
 		}
 		if (Mario.position.x < 0) { // border left
 			Mario.position.x = 0;
 		}
-		if (Mario.position.x > 1200) { // border right
-			Mario.position.x = 1200;
+		if (Mario.position.x > 1200 - Mario.GetRect().width) { // border right
+			Mario.position.x = 1200 - Mario.GetRect().width;
 		}
 
 		for (int a = 0; a < EnemiesLvl1.goombas.size(); ++a) {
