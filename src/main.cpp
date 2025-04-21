@@ -270,6 +270,67 @@ int main() {
 				EndDrawing();
 			}
 		}
+<<<<<<< HEAD
+=======
+
+			
+		/*for (int i = 0; i < level1.block_question.size(); ++i) {
+				level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());
+		}*/
+
+		for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
+				Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
+		}
+
+		// NO MAS COLISIONES A PARTIR DE AQUI
+
+		Mario.Movement();
+		//level1.GenerateMap(map);
+
+		for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+			EnemiesLvl1.goombas[i]->movement();
+		}
+
+
+		for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
+				DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
+		}
+		
+		if (distance >= 12254) {
+
+		}
+
+		DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
+		DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
+		EndDrawing();
+	}
+	StopSound(bgm.bgMusic);
+	Texture2D overScreen = LoadTexture("resources/gameover_screen.png");
+	Sound over = LoadSound("resources/Music/Game Over.mp3");
+	if (Mario.lives <= 0) {
+		PlaySound(over);
+	}
+	while (!WindowShouldClose() && Mario.lives <= 0) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawTexture(overScreen, 0, 0, WHITE);
+
+		EndDrawing();
+	}
+	Texture2D winScreen = LoadTexture("resources/win_screen.png");
+	Sound win = LoadSound("resources/Music/Level Complete.mp3");
+	if (distance >= 12300) {
+		PlaySound(win);
+	}
+	while (!WindowShouldClose() && distance>=12300) {
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawTexture(winScreen, 0, 0, WHITE);
+
+		EndDrawing();
+>>>>>>> 7e84f5345a5b5dd832e6abdaac1a3c0b301eb68d
 	}
 	// cleanup
 	// unload our texture so it can be cleaned up
