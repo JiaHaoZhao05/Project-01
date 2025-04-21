@@ -74,7 +74,7 @@ public:
 		Rectangle playerRect = player.GetRect();
 
 		if (CheckCollisionRecs(playerRect, hitbox)) {
-			bool playerFromAbove = (player.position.x >= xpos || player.position.x + playerRect.width >= xpos) && (player.position.y + playerRect.height >= ypos);
+			bool playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
 
 			if (playerFromAbove) {
 				// Mario cae sobre el Goomba y lo aplasta
@@ -84,12 +84,14 @@ public:
 				else if (player.lives > 1) {
 					player.gravity = -13.5f;
 				}
-
+				xspeed = 0;
 				active = false;
+				
 			}
-			else {
+			else{
 				// Mario choca desde el lado: perder vida
 				player.lives--;
+
 			}
 		}
 	}

@@ -45,7 +45,7 @@ int main() {
 
 	const int waitFrames = 180;
 
-	while (!WindowShouldClose() && !fadeOutDone) {
+	/*while (!WindowShouldClose() && !fadeOutDone) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -79,7 +79,7 @@ int main() {
 
 		EndDrawing();
 		frameCounter++;
-	}
+	}*/
 
 	string map = (
 		"0"
@@ -104,7 +104,7 @@ int main() {
 	Enemies EnemiesLvl1;
 
 	Player Mario;
-	Goomba goomba(400, 300);
+	Goomba goomba(400, 600);
 	Goomba goomba1(900, 644);
 	Goomba goomba2(900, 644);
 	/*Plant plant(1920, 480);*/
@@ -134,7 +134,7 @@ int main() {
 				EnemiesLvl1.goombas[a]->xpos -= Mario.position.x - 500;
 				EnemiesLvl1.goombas[a]->hitbox.x -= Mario.position.x - 500;
 			}
-			goomba.xpos -= Mario.position.x - 500;
+			
 			Mario.position.x = 500;
 		}
 		if (Mario.position.x < 0) { // border left
