@@ -87,21 +87,50 @@ public:
 		}
 	}
 
+	int direction = 1;
 	void CollidingWithBlock(Block& block) {
+		bool isOnTop = hitbox.y + hitbox.height <= block.rec.y + 5; // viene desde arriba
+		bool isHittingSide =
+			(hitbox.x + hitbox.width > block.rec.x && hitbox.x < block.rec.x && direction == 1) ||
+			(hitbox.x < block.rec.x + block.rec.width && hitbox.x + hitbox.width > block.rec.x + block.rec.width && direction == -1);
+
 		if (CheckCollisionRecs(block.rec, hitbox)) {
-			//change direction of movement
-			xspeed *= -1;
-			xpos += xspeed*1.2;
-			ypos = block.rec.y + block.rec.height;
+			if (isHittingSide) {
+				direction *= -1;
+				xpos -= xspeed * direction; // retrocede un poco
+			}
+			else if (isOnTop) {
+				ypos = block.rec.y - hitbox.height; // mantenerlo sobre el bloque
+			}
 		}
-		else if (ypos < 640) {
-			ypos += 1;
+		else {
+			// solo cae si no hay bloque debajo
+			ypos += 0; // simula gravedad
 		}
 	}
 	
 	void movement() {
-		xpos += xspeed;
+		xpos += xspeed * direction;
 	}
+
+	int frameCounter = 1;
+
+	void Animation() {
+		if (frameCounter == 12) {
+			texture = LoadTexture("resources/goomba_frame1.png");
+			frameCounter++;
+		}
+		if (frameCounter == 24) {
+			texture = LoadTexture("resources/goomba_frame2.png");
+			frameCounter = 1;
+		}
+		if (frameCounter == 0) {
+			texture = LoadTexture("resources/goomba_death.png");
+		}
+
+	}
+
+
 	~Goomba() {}
 	int Frames() {
 		static int frame = 1;
@@ -128,7 +157,7 @@ public:
 class Enemies {
 public:
 
-	vector <Goomba> goombas;
-	vector <Plant> plants;
+	vector <Goomba*> goombas;
+	vector <Plant*> plants;
 
 };
