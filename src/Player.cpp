@@ -217,7 +217,7 @@ Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
 }
 void Player::Colliding(Block &block){
-	if (CheckCollisionRecs(GetRect(), block.rec) && (block.active || block.type != "break")) {
+	if (CheckCollisionRecs(GetRect(), block.rec) && (block.active || block.type != "break")/* && block.textureName != "block_invisible"*/) {
 		if (position.x + currentframe[Frames()].width <= block.rec.x + 10) {
 			position.x = block.rec.x - currentframe[Frames()].width;
 		}
@@ -239,4 +239,5 @@ void Player::Colliding(Block &block){
 			}
 		}
 	}
+	
 }

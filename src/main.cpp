@@ -124,6 +124,7 @@ int main() {
 			Enemies EnemiesLvl1;
 
 			Player Mario;
+			Mario.lives = 2;
 			Goomba goomba(1200, 644);
 			Goomba goomba1(10734, 644);
 			Goomba goomba2(2134, 644);
@@ -179,10 +180,14 @@ int main() {
 				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 					EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
 				}
+				
+				for (int i = 0; i < level1.collisions.size(); ++i) {
+					level1.collisions[i]->SolveBreakBug();
+				}
 
 				for (int i = 0; i < level1.collisions.size(); ++i) {
 					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
-					level1.collisions[i]->SolveBreakBug();
+					
 				}
 
 				bool goombaOnGround = false;
@@ -221,7 +226,11 @@ int main() {
 				}*/
 
 				for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
+					
 					Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
+					/*level1.collisions[i]->SolveBreakBug();*/
+					
+					
 				}
 
 				// NO MAS COLISIONES A PARTIR DE AQUI
