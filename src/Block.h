@@ -81,8 +81,8 @@ public:
 
 
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
-		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
-			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
+		if (CheckCollisionRecs(rec, player) && active) {
+			if ((player.y > rec.y + rec.height - 30) && gravity < 0) { 
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
 

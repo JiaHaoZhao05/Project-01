@@ -171,9 +171,7 @@ int main() {
 					Mario.lives = 0;
 				}
 				//Resolver bug de break_block
-				for (int i = 0; i < level1.collisions.size(); ++i) {
-					level1.collisions[i]->SolveBreakBug();
-				}
+				
 
 				// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
 
@@ -181,9 +179,7 @@ int main() {
 					EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
 				}
 				
-				for (int i = 0; i < level1.collisions.size(); ++i) {
-					level1.collisions[i]->SolveBreakBug();
-				}
+				
 
 				for (int i = 0; i < level1.collisions.size(); ++i) {
 					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
@@ -228,7 +224,7 @@ int main() {
 				for (int i = 0; i < level1.collisions.size(); ++i) { // collision with map
 					
 					Mario.Colliding(/*pasar rectangulo con una funcion rectangle <Block> */*level1.collisions[i]);
-					/*level1.collisions[i]->SolveBreakBug();*/
+					
 					
 					
 				}
