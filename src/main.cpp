@@ -128,13 +128,19 @@ int main() {
 			Goomba goomba(1200, 644);
 			Goomba goomba1(10734, 644);
 			Goomba goomba2(2134, 644);
-			//Goomba goomba3(9333, 644); --> If we add a 4th goomba, the logic of all of them will not work (???)
+			Goomba goomba3(9333, 644);
+			Goomba goomba4(11133, 644);
+			Goomba goomba5(12999, 644);
+			Goomba goomba6(0, 644);
 			/*Plant plant(1920, 480);*/
 
 			EnemiesLvl1.goombas.push_back(&goomba);
 			EnemiesLvl1.goombas.push_back(&goomba1);
 			EnemiesLvl1.goombas.push_back(&goomba2);
-			/*EnemiesLvl1.goombas.push_back(&goomba3);*/
+			EnemiesLvl1.goombas.push_back(&goomba3);
+			EnemiesLvl1.goombas.push_back(&goomba4);
+			EnemiesLvl1.goombas.push_back(&goomba5);
+			EnemiesLvl1.goombas.push_back(&goomba6);
 			PlaySound(bgm.bgMusic);
 			while (!WindowShouldClose() && Mario.lives > 0 && distance < 12300)// run the loop untill the user presses ESCAPE or presses the Close button on the window
 			{

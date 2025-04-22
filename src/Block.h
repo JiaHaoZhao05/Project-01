@@ -58,6 +58,9 @@ public:
 				/*active = 0;*/ //Esto provoca que se desactive antes y el player no lo "detecte" justo al desactivarse
 			}
 		}
+		else {
+			SolveBreakBug();
+		}
 
 	}
 
