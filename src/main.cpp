@@ -131,7 +131,7 @@ int main() {
 			Goomba goomba3(9333, 644);
 			Goomba goomba4(11133, 644);
 			Goomba goomba5(12999, 644);
-			Goomba goomba6(0, 644);
+			Goomba goomba6(128, 644);
 			/*Plant plant(1920, 480);*/
 
 			EnemiesLvl1.goombas.push_back(&goomba);

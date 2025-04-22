@@ -60,7 +60,7 @@ public:
 			LoadTexture("resources/goomba_frame1.png"), // 1 walk
 			LoadTexture("resources/goomba_frame2.png") // 2 walk
 		};
-		hitbox = {xpos, ypos, 64, 64};
+		hitbox = {xpos, ypos, 64, 62};
 		xspeed = 3;
 		yspeed = 0;
 	}
