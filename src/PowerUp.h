@@ -6,6 +6,8 @@
 class PowerUp {
 public:
 
+	float x;
+	float y;
 	int durability;
 	bool invencibility;
 	bool increaseLives;
@@ -13,7 +15,9 @@ public:
 
 	Texture2D texture;
 
-	PowerUp(int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
+	PowerUp(float x, float y, int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
+		this->x = x;
+		this->y = y;
 		this->durability = durability;
 		this->invencibility = invencibility;
 		this->increaseLives = increaseLives;
@@ -25,8 +29,7 @@ public:
 class Star : public PowerUp {
 public:
 
-	Star(int durability, bool invencibility, bool increaseLives) : PowerUp(durability, invencibility, increaseLives) {
-		this->durability = durability;
+	Star(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
 		this->invencibility = true;
 		this->increaseLives = true;
 		texture = LoadTexture("resources/star.png");
@@ -34,6 +37,5 @@ public:
 	}
 
 	~Star() {}
-
 
 };
