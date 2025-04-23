@@ -124,7 +124,7 @@ int main() {
 			Enemies EnemiesLvl1;
 
 			Player Mario;
-			Mario.lives = 2;
+			Mario.lives = 1;
 			Goomba goomba(1200, 644);
 			Goomba goomba1(10734, 644);
 			Goomba goomba2(2134, 644);
