@@ -54,19 +54,57 @@ public:
 
 };
 
+class Flower : public PowerUp {
+public:
+
+	Flower(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+		this->invencibility = false;
+		this->increaseLives = true;
+		texture = LoadTexture("resources/flower.png");
+		active = true;
+	}
+
+	~Flower() {}
+
+};
+
+class Coin : public PowerUp {
+public:
+
+	Coin(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+		this->invencibility = false;
+		this->increaseLives = false;
+		texture = LoadTexture("resources/coin.png");
+		active = true;
+	}
+
+	~Coin() {}
+
+};
+
 class AllPowerUps {
 public:
 
 	vector <PowerUp> allPowerUps;
 
-	void addPowerUp(Block& block, string type) {
+	void addPowerUp(Block& block, string type, int lives) {
 		if (type == "star") {
 			allPowerUps.push_back(Star(block.rec.x, block.rec.y, 10, 1, 0));
 		}
 		if (type == "shroom") {
-			allPowerUps.push_back(Shroom(block.rec.x, block.rec.y - 64, 0, 0, 1));
+			if (lives == 1) {
+				allPowerUps.push_back(Shroom(block.rec.x, block.rec.y - 64, 0, 0, 1));
+			}
+			else {
+				allPowerUps.push_back(Flower(block.rec.x, block.rec.y - 64, 0, 0, 1));
+			}
 		}
-
+		if (type == "flower") {
+			allPowerUps.push_back(Flower(block.rec.x, block.rec.y, 10, 1, 0));
+		}
+		if (type == "coin") {
+			allPowerUps.push_back(Coin(block.rec.x, block.rec.y, 10, 1, 0));
+		}
 	}
 
 };
