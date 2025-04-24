@@ -78,7 +78,7 @@ public:
 
 			if (playerFromAbove) {
 				// Mario cae sobre el Goomba y lo aplasta
-				if (player.lives == 1) {
+				if (player.gravity > 0) {
 					player.gravity = -11.1f;
 				}
 				else if (player.lives > 1) {
