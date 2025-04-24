@@ -160,7 +160,7 @@ public:
 	vector <Block*> blocks;
 	vector <Block_break*> block_break;
 	vector <Block_question*> block_question;
-
+	vector <string> allPowerUps = {"coin","coin","coin","coin","shroom","star","coin","shroom","coin","shroom","coin","shroom","coin","star","coin"};
 	void LoadMap(string mapa) {
 
 		static int ID = 0;
@@ -175,7 +175,7 @@ public:
 			float x = counter * side;
 			float ypos = y * side;
 
-			vector <string> allPowerUps{};
+			
 
 			hitbox.x = x;
 			hitbox.y = ypos;
