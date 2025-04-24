@@ -31,11 +31,42 @@ public:
 
 	Star(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
 		this->invencibility = true;
-		this->increaseLives = true;
+		this->increaseLives = false;
 		texture = LoadTexture("resources/star.png");
-		active = false;
+		active = true;
 	}
 
 	~Star() {}
+
+};
+
+class Shroom : public PowerUp {
+public:
+
+	Shroom(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+		this->invencibility = false;
+		this->increaseLives = true;
+		texture = LoadTexture("resources/shroom.png");
+		active = true;
+	}
+
+	~Shroom() {}
+
+};
+
+class AllPowerUps {
+public:
+
+	vector <PowerUp> allPowerUps;
+
+	void addPowerUp(Block block, string type) {
+		if (type == "star") {
+			allPowerUps.push_back(Star(block.rec.x, block.rec.y, 10, 1, 0));
+		}
+		if (type == "shroom") {
+			allPowerUps.push_back(Shroom(block.rec.x, block.rec.y - 64, 0, 0, 1));
+		}
+
+	}
 
 };
