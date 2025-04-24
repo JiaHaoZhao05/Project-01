@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <iostream>
 #include <vector>
+#include "Block.h"
 
 class PowerUp {
 public:
