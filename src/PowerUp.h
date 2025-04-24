@@ -59,7 +59,7 @@ public:
 
 	vector <PowerUp> allPowerUps;
 
-	void addPowerUp(Block block, string type) {
+	void addPowerUp(Block& block, string type) {
 		if (type == "star") {
 			allPowerUps.push_back(Star(block.rec.x, block.rec.y, 10, 1, 0));
 		}

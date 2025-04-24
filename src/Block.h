@@ -74,9 +74,10 @@ public:
 
 class Block_question : public Block {
 public:
-	Block_question(float x, float y, Rectangle rec, string type) : Block(x, y, rec, "question") {
+	string powerUp;
+	Block_question(float x, float y, Rectangle rec, string type, string powerUp) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
-
+		this->powerUp = powerUp;
 	}
 	~Block_question() {
 	
@@ -162,7 +163,7 @@ public:
 
 	void LoadMap(string mapa) {
 
-
+		static int ID = 0;
 		int y = 0;
 		int counter = 0;
 		Rectangle hitbox;
@@ -174,6 +175,7 @@ public:
 			float x = counter * side;
 			float ypos = y * side;
 
+			vector <string> allPowerUps{};
 
 			hitbox.x = x;
 			hitbox.y = ypos;
@@ -203,7 +205,8 @@ public:
 			}
 			else if (tipoBloque == 'q') { // Bloque pregunta
 
-				collisions.push_back(new Block_question(x, ypos, hitbox, "question"));
+				collisions.push_back(new Block_question(x, ypos, hitbox, "question", allPowerUps[ID]));
+				++ID;
 				/*block_question.push_back(&Block_question(x, ypos, hitbox, "question"));*/
 
 			}
