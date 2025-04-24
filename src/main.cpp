@@ -122,6 +122,8 @@ int main() {
 			level1.LoadMap(map);
 
 			Enemies EnemiesLvl1;
+			AllPowerUps powerUpsLvl1;
+
 
 			Player Mario;
 			Mario.lives = 1;
@@ -191,7 +193,9 @@ int main() {
 
 				for (int i = 0; i < level1.collisions.size(); ++i) {
 					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
-					
+					if (level1.collisions[i]->returnType() == "question") {
+						powerUpsLvl1.addPowerUp(*level1.collisions[i], level1.allPowerUps[i], Mario.lives);
+					}
 				}
 
 				bool goombaOnGround = false;

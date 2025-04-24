@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Player.h"
+#include "PowerUp.h"
 #define side 64
 
 using namespace std;
@@ -75,6 +76,7 @@ public:
 class Block_question : public Block {
 public:
 	string powerUp;
+	
 	Block_question(float x, float y, Rectangle rec, string type, string powerUp) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
 		this->powerUp = powerUp;
@@ -82,14 +84,14 @@ public:
 	~Block_question() {
 	
 	};
-
+	
 
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
 		if (CheckCollisionRecs(rec, player) && active) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) { 
 				active = false;
 				texture = LoadTexture("resources/block_empty.png");
-
+				
 			}
 		}
 
