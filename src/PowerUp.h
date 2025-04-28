@@ -14,6 +14,8 @@ public:
 	bool increaseLives;
 	bool active;
 
+	int ID;
+
 	Texture2D texture;
 
 	PowerUp(float x, float y, int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
@@ -80,32 +82,5 @@ public:
 	}
 
 	~Coin() {}
-
-};
-
-class AllPowerUps {
-public:
-
-	vector <PowerUp> allPowerUps;
-
-	void addPowerUp(Block& block, string type, int lives) {
-		if (type == "star") {
-			allPowerUps.push_back(Star(block.rec.x, block.rec.y, 10, 1, 0));
-		}
-		if (type == "shroom") {
-			if (lives == 1) {
-				allPowerUps.push_back(Shroom(block.rec.x, block.rec.y - 64, 0, 0, 1));
-			}
-			else {
-				allPowerUps.push_back(Flower(block.rec.x, block.rec.y - 64, 0, 0, 1));
-			}
-		}
-		if (type == "flower") {
-			allPowerUps.push_back(Flower(block.rec.x, block.rec.y, 10, 1, 0));
-		}
-		if (type == "coin") {
-			allPowerUps.push_back(Coin(block.rec.x, block.rec.y, 10, 1, 0));
-		}
-	}
 
 };

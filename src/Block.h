@@ -25,6 +25,7 @@ public:
 	string textureName;
 
 	bool active = true;
+	int powerUpID{};
 
 	virtual void CollidingWithPlayer(Rectangle rec, float gravity, int lives) = 0;
 
@@ -76,10 +77,12 @@ public:
 class Block_question : public Block {
 public:
 	string powerUp;
+	int ID;
 	
-	Block_question(float x, float y, Rectangle rec, string type, string powerUp) : Block(x, y, rec, "question") {
+	Block_question(float x, float y, Rectangle rec, string type, string powerUp, int ID) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
 		this->powerUp = powerUp;
+		powerUpID = ID;
 	}
 	~Block_question() {
 	
@@ -162,14 +165,14 @@ public:
 	vector <Block*> blocks;
 	vector <Block_break*> block_break;
 	vector <Block_question*> block_question;
-	vector <string> allPowerUps = {"coin","coin","coin","coin","shroom","star","coin","shroom","coin","shroom","coin","shroom","coin","star","coin"};
+	vector <string> allPowerUps = { "coin","coin","coin","coin","shroom","star","coin","shroom","coin","shroom","coin","shroom","coin","star","coin" };
 	void LoadMap(string mapa) {
 
 		static int ID = 0;
 		int y = 0;
 		int counter = 0;
 		Rectangle hitbox;
-		
+
 
 		for (int i = 0; i < mapa.length(); ++i) {
 
@@ -177,7 +180,7 @@ public:
 			float x = counter * side;
 			float ypos = y * side;
 
-			
+
 
 			hitbox.x = x;
 			hitbox.y = ypos;
@@ -207,7 +210,7 @@ public:
 			}
 			else if (tipoBloque == 'q') { // Bloque pregunta
 
-				collisions.push_back(new Block_question(x, ypos, hitbox, "question", allPowerUps[ID]));
+				collisions.push_back(new Block_question(x, ypos, hitbox, "question", allPowerUps[ID], ID));
 				++ID;
 				/*block_question.push_back(&Block_question(x, ypos, hitbox, "question"));*/
 
@@ -237,3 +240,28 @@ public:
 
 };
 
+class AllPowerUps {
+public:
+
+	vector <PowerUp*> allPowerUps;
+
+	void addPowerUp(Block& block, string type, int lives) {
+		if (type == "star") {
+			allPowerUps.push_back(new Star(block.rec.x, block.rec.y, 10, 1, 0));
+		}
+		if (type == "shroom") {
+			if (lives == 1) {
+				allPowerUps.push_back(new Shroom(block.rec.x, block.rec.y - 64, 0, 0, 1));
+			}
+			else {
+				allPowerUps.push_back(new Flower(block.rec.x, block.rec.y - 64, 0, 0, 1));
+			}
+		}
+		if (type == "flower") {
+			allPowerUps.push_back(new Flower(block.rec.x, block.rec.y, 10, 1, 0));
+		}
+		if (type == "coin") {
+			allPowerUps.push_back(new Coin(block.rec.x, block.rec.y, 10, 1, 0));
+		}
+	}
+};

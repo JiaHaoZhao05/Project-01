@@ -194,7 +194,7 @@ int main() {
 				for (int i = 0; i < level1.collisions.size(); ++i) {
 					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
 					if (level1.collisions[i]->returnType() == "question") {
-						powerUpsLvl1.addPowerUp(*level1.collisions[i], level1.allPowerUps[i], Mario.lives);
+						powerUpsLvl1.addPowerUp(*level1.collisions[level1.collisions[i]->powerUpID], level1.allPowerUps[level1.collisions[i]->powerUpID], Mario.lives);
 					}
 				}
 
