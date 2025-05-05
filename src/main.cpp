@@ -148,14 +148,17 @@ int main() {
 			{
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
-				if (lifesave < 0) { // timing after losing a live
+				if (lifesave < 0) { // timing after losing a life
 					lifesave--;
 				}
 				BeginDrawing();
 
 				ClearBackground(SKY);
-				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) { //goombas
 					EnemiesLvl1.goombas[i]->Draw(EnemiesLvl1.goombas[i]->Frames());
+				}
+				for (int i = 0; i < EnemiesLvl1.plants.size(); ++i) { //plants
+					EnemiesLvl1.plants[i]->Draw(EnemiesLvl1.plants[i]->Frames());
 				}
 				Mario.Draw(Mario.Frames()); // animation
 				Mario.Gravedad();
@@ -190,6 +193,9 @@ int main() {
 				if (lifesave <= 0) {
 					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 						EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
+					}
+					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+						EnemiesLvl1.plants[i]->CollidingWithPlayer(Mario);
 					}
 				}
 				

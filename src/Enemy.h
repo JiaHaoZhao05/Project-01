@@ -44,8 +44,8 @@ public:
 		xspeed = 0;
 		yspeed = 2;
 	}
-	void Draw() {
-		DrawTextureV(texture[Frames()], {xpos, ypos}, WHITE);
+	void Draw(int a) {
+		DrawTextureV(texture[a], {xpos, ypos}, WHITE);
 	}
 	int Frames() {
 		static int frame = 1;
