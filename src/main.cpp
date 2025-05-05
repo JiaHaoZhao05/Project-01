@@ -21,7 +21,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 using namespace std;
 
 int framecounter = 0; // variable that marks the frame of the characters
-
+int lifesave = 0; // avoid getting one-tapped by mobs
 int main() {
 	int distance;
 	InitWindow(1200, 800, "Super Mario");
@@ -148,6 +148,9 @@ int main() {
 			{
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
+				if (lifesave < 0) { // timing after losing a live
+					lifesave--;
+				}
 				BeginDrawing();
 
 				ClearBackground(SKY);
@@ -184,9 +187,10 @@ int main() {
 				
 
 				// TODAS LAS COLISIONES DEBEN EMPEZAR A PARTIR DE AQU?
-
-				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
-					EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
+				if (lifesave <= 0) {
+					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+						EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
+					}
 				}
 				
 				

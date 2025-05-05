@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Block.h"
 extern int framecounter;
+extern int lifesave;
 class Enemy {
 public:
 
@@ -35,21 +36,62 @@ public:
 
 class Plant : public Enemy {
 public:
-
+	int pivot = 0;
 	Plant(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {
-		texture = { LoadTexture("resources/plant_frame1.png") };
+		texture = { LoadTexture("resources/block_invisible.png"), LoadTexture("resources/plant_frame1.png"), LoadTexture("resources/plant_frame2.png")};
 		hitbox = { xpos, ypos, 64 , 64 };
+		pivot = ypos;
 		xspeed = 0;
 		yspeed = 2;
 	}
 	void Draw() {
-		DrawTextureV(texture[0], {xpos, ypos}, WHITE);
+		DrawTextureV(texture[Frames()], {xpos, ypos}, WHITE);
 	}
-	
-	
+	int Frames() {
+		static int frame = 1;
+		if (framecounter >= (60 / 12)) // timing 1
+		{
+			frame++;
+			if (frame > 2) {
+				frame = 1;
+			}
+		}
+		if (active == false) {
+			return 0;
+		}
+		if (frame == 1) {
+			return 1;
+		}
+		else if (frame == 2) {
+			return 2;
+		}
+	}
+	void Movement() {
+		if (hitbox.y > pivot + 64) {
+			yspeed = -2;
+		}
+		else if (ypos < pivot - 64) {
+			hitbox.y = 2;
+		}
+		hitbox.y += yspeed;
+	}
+	void CollidingWithPlayer(Player& player) {
+		if (active = true) {
+			if (CheckCollisionRecs(player.GetRect(), hitbox)) {
+				lifesave = 120;
+				if (player.lives == 3) {
+					player.lives = 2;
+				}
+				else if (player.lives == 2) {
+					player.lives = 1;
+				}
+				else if (player.lives == 1) {
+					player.lives = 0;
+				}
+			}
+		}
+	}
 	~Plant() {}
-
-
 };
 
 class Goomba : public Enemy {
@@ -90,6 +132,7 @@ public:
 			}
 			else{
 				// Mario choca desde el lado: perder vida
+				lifesave = 120;
 				if (player.lives == 3) {
 					player.lives = 2;
 				}
