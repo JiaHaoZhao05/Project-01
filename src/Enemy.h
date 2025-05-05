@@ -36,20 +36,21 @@ public:
 
 class Plant : public Enemy {
 public:
-	int pivot = 0;
+	int pivot;
 	Plant(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {
 		texture = { LoadTexture("resources/block_invisible.png"), LoadTexture("resources/plant_frame1.png"), LoadTexture("resources/plant_frame2.png")};
 		hitbox = { xpos, ypos, 64 , 64 };
 		pivot = ypos;
 		xspeed = 0;
 		yspeed = 2;
+		active = true;
 	}
-	void Draw(int a) {
-		DrawTextureV(texture[a], {xpos, ypos}, WHITE);
+	void Draw() {
+		DrawTextureV(texture[Frames()], {xpos, ypos}, WHITE);
 	}
 	int Frames() {
 		static int frame = 1;
-		if (framecounter >= (60 / 12)) // timing 1
+		if (framecounter >= (60 / 15)) // timing 1
 		{
 			frame++;
 			if (frame > 2) {
@@ -67,13 +68,14 @@ public:
 		}
 	}
 	void Movement() {
-		if (hitbox.y > pivot + 64) {
+		if (pivot - 70 > ypos) {
+			yspeed = 2;
+		}
+		else if (pivot + 70 < ypos) {
 			yspeed = -2;
 		}
-		else if (ypos < pivot - 64) {
-			hitbox.y = 2;
-		}
 		hitbox.y += yspeed;
+		ypos += yspeed;
 	}
 	void CollidingWithPlayer(Player& player) {
 		if (active = true) {

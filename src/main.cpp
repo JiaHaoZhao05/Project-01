@@ -13,7 +13,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 //#include "Player.h" //No se incluye para que no se genere una inclusi�n circular
 #include "Enemy.h"
-#include "PowerUp.h"
+//#include "PowerUp.h"
 #include "Block.h"
 #include "AudioManager.h"
 #include <string>
@@ -120,7 +120,7 @@ int main() {
 			Texture2D texture1 = LoadTexture("resources/block_empty.png");
 			Map level1;
 			level1.LoadMap(map);
-
+			lifesave = 0;
 			Enemies EnemiesLvl1;
 			AllPowerUps powerUpsLvl1;
 
@@ -134,7 +134,13 @@ int main() {
 			Goomba goomba4(11133, 644);
 			Goomba goomba5(12999, 644);
 			Goomba goomba6(128, 644);
-			/*Plant plant(1920, 480);*/
+			Plant plant(1888, 576);
+			Plant plant2(2528, 512); 
+			Plant plant3(3040, 448);
+			Plant plant4(3744, 448);
+			Plant plant5(10528, 576);
+			Plant plant6(11552, 576);
+
 
 			EnemiesLvl1.goombas.push_back(&goomba);
 			EnemiesLvl1.goombas.push_back(&goomba1);
@@ -143,14 +149,18 @@ int main() {
 			EnemiesLvl1.goombas.push_back(&goomba4);
 			EnemiesLvl1.goombas.push_back(&goomba5);
 			EnemiesLvl1.goombas.push_back(&goomba6);
+			EnemiesLvl1.plants.push_back(&plant);
+			EnemiesLvl1.plants.push_back(&plant2);
+			EnemiesLvl1.plants.push_back(&plant3);
+			EnemiesLvl1.plants.push_back(&plant4);
+			EnemiesLvl1.plants.push_back(&plant5);
+			EnemiesLvl1.plants.push_back(&plant6);
 			PlaySound(bgm.bgMusic);
 			while (!WindowShouldClose() && Mario.lives > 0 && distance < 12300)// run the loop untill the user presses ESCAPE or presses the Close button on the window
 			{
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
-				if (lifesave < 0) { // timing after losing a life
-					lifesave--;
-				}
+				lifesave--;  // timing after losing a life
 				BeginDrawing();
 
 				ClearBackground(SKY);
@@ -158,7 +168,11 @@ int main() {
 					EnemiesLvl1.goombas[i]->Draw(EnemiesLvl1.goombas[i]->Frames());
 				}
 				for (int i = 0; i < EnemiesLvl1.plants.size(); ++i) { //plants
-					EnemiesLvl1.plants[i]->Draw(EnemiesLvl1.plants[i]->Frames());
+					EnemiesLvl1.plants[i]->Draw();
+				}
+				for (int i = 1; i < EnemiesLvl1.plants.size(); ++i) { //plants
+					EnemiesLvl1.plants[i]->Draw();
+					++i;
 				}
 				Mario.Draw(Mario.Frames()); // animation
 				Mario.Gravedad();
@@ -174,7 +188,10 @@ int main() {
 						EnemiesLvl1.goombas[a]->xpos -= Mario.position.x - 500;
 						EnemiesLvl1.goombas[a]->hitbox.x -= Mario.position.x - 500;
 					}
-
+					for (int a = 0; a < EnemiesLvl1.plants.size(); ++a) {
+						EnemiesLvl1.plants[a]->xpos -= Mario.position.x - 500;
+						EnemiesLvl1.plants[a]->hitbox.x -= Mario.position.x - 500;
+					}
 					Mario.position.x = 500;
 				}
 				if (Mario.position.x < 0) { // border left
@@ -194,19 +211,19 @@ int main() {
 					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 						EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
 					}
-					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+					for (int i = 0; i < EnemiesLvl1.plants.size(); ++i) {
 						EnemiesLvl1.plants[i]->CollidingWithPlayer(Mario);
 					}
 				}
 				
 				
 
-				for (int i = 0; i < level1.collisions.size(); ++i) {
-					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
-					if (level1.collisions[i]->returnType() == "question") {
-						powerUpsLvl1.addPowerUp(*level1.collisions[level1.collisions[i]->powerUpID], level1.allPowerUps[level1.collisions[i]->powerUpID], Mario.lives);
-					}
-				}
+				//for (int i = 0; i < level1.collisions.size(); ++i) {
+				//	level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
+				//	if (level1.collisions[i]->returnType() == "question") {
+				//		powerUpsLvl1.addPowerUp(*level1.collisions[level1.collisions[i]->powerUpID], level1.allPowerUps[level1.collisions[i]->powerUpID], Mario.lives);
+				//	}
+				//}
 
 				bool goombaOnGround = false;
 				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
@@ -237,7 +254,9 @@ int main() {
 						}
 					}
 				}
-
+				for (int a = 0;a < EnemiesLvl1.plants.size();++a) {
+					EnemiesLvl1.plants[a]->Movement();
+				}
 
 				/*for (int i = 0; i < level1.block_question.size(); ++i) {
 						level1.block_question[i]->CollidingWithPlayer(Mario.GetRect());
