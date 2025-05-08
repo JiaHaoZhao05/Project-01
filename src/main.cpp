@@ -176,6 +176,7 @@ int main() {
 				}
 				for (int i = 1; i < level1.PowerUps.size(); ++i) { //plants
 					if (level1.PowerUps[i]->active == true) {
+						level1.PowerUps[i]->Update();
 						level1.PowerUps[i]->Draw();
 						++i;
 					}
@@ -230,8 +231,24 @@ int main() {
 
 				for (int i = 0; i < level1.collisions.size(); ++i) {
 					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
-					if (level1.collisions[i]->type == "question" && level1.collisions[i]->AuxiliarCollisionCheck(Mario.GetRect())) {
-						level1.PowerUps[level1.collisions[i]->GivePowerUpID()]->SetActive();
+					
+					// Check if it's a question block and needs to activate PowerUp
+					if (level1.collisions[i]->type == "question") {
+						Block_question* questionBlock = dynamic_cast<Block_question*>(level1.collisions[i]);
+						if (questionBlock && !questionBlock->active && questionBlock->hasTriggered) {
+							int powerUpID = questionBlock->GivePowerUpID();
+							if (powerUpID >= 0 && powerUpID < level1.PowerUps.size()) {
+								level1.PowerUps[powerUpID]->SetActive();
+							}
+						}
+					}
+				}
+
+				// Update and draw PowerUps
+				for (int i = 0; i < level1.PowerUps.size(); ++i) {
+					if (level1.PowerUps[i]->active) {
+						level1.PowerUps[i]->Update();
+						level1.PowerUps[i]->Draw();
 					}
 				}
 

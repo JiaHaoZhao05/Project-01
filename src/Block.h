@@ -86,29 +86,41 @@ class Block_question : public Block {
 public:
 	string powerUp;
 	int ID;
+	bool hasTriggered;
 	
 	Block_question(float x, float y, Rectangle rec, string type, string powerUp, int ID) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
 		this->powerUp = powerUp;
 		powerUpID = ID;
+		hasTriggered = false;
 	}
-	~Block_question() {
+	~Block_question() {};
 	
-	};
-	
-	
-
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
-		if (CheckCollisionRecs(rec, player) && active) {
-			if ((player.y > rec.y + rec.height - 30) && gravity < 0) { 
+		if (!active || hasTriggered) return;
+		
+		// Check if collision occurs
+		if (!CheckCollisionRecs(rec, player)) return;
+		
+		// Calculate collision directions
+		float playerBottom = player.y + player.height;
+		float blockTop = rec.y;
+		float playerTop = player.y;
+		float blockBottom = rec.y + rec.height;
+		
+		// Check if hit from below
+		// Ensure Mario's top is below block's bottom and moving upward
+		if (playerTop < blockBottom && playerBottom > blockTop && gravity < 0) {
+			// Check if Mario is within block's horizontal range with margins
+			float horizontalMargin = rec.width * 0.2f; // 20% margin on each side
+			if (player.x + player.width > rec.x + horizontalMargin && 
+				player.x < rec.x + rec.width - horizontalMargin) {
 				active = false;
+				hasTriggered = true;
 				texture = LoadTexture("resources/block_empty.png");
-				
 			}
 		}
-
 	}
-
 };
 
 class Block_floor : public Block {
@@ -200,7 +212,7 @@ public:
 
 
 			if (tipoBloque == '0') {
-				y++;  // Cambiar de fila cuando se encuentra un salto de línea
+				y++;  // Cambiar de fila cuando se encuentra un salto de lï¿½nea
 				counter = 0;
 			}
 			else {
@@ -221,7 +233,8 @@ public:
 			}
 			else if (tipoBloque == 'q') { // Bloque pregunta
 
-				collisions.push_back(new Block_question(x, ypos, hitbox, "question", allPowerUps[ID], ID));
+				Block_question* questionBlock = new Block_question(x, ypos, hitbox, "question", allPowerUps[ID], ID);
+				collisions.push_back(questionBlock);
 				++ID;
 				/*block_question.push_back(&Block_question(x, ypos, hitbox, "question"));*/
 
