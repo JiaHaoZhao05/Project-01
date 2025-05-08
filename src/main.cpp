@@ -127,13 +127,14 @@ int main() {
 
 			Player Mario;
 			Mario.lives = 1;
-			Goomba goomba(1200, 644);
-			Goomba goomba1(10734, 644);
-			Goomba goomba2(2134, 644);
-			Goomba goomba3(9333, 644);
-			Goomba goomba4(11133, 644);
-			Goomba goomba5(12999, 644);
-			Goomba goomba6(128, 644);
+			// Create Goomba objects using dynamic memory allocation
+			Goomba* goomba = new Goomba(1200, 644);
+			Goomba* goomba1 = new Goomba(10734, 644);
+			Goomba* goomba2 = new Goomba(2134, 644);
+			Goomba* goomba3 = new Goomba(9333, 644);
+			Goomba* goomba4 = new Goomba(11133, 644);
+			Goomba* goomba5 = new Goomba(12999, 644);
+			Goomba* goomba6 = new Goomba(128, 644);
 			Plant plant(1888, 576);
 			Plant plant2(2528, 512); 
 			Plant plant3(3040, 448);
@@ -141,14 +142,13 @@ int main() {
 			Plant plant5(10528, 576);
 			Plant plant6(11552, 576);
 
-
-			EnemiesLvl1.goombas.push_back(&goomba);
-			EnemiesLvl1.goombas.push_back(&goomba1);
-			EnemiesLvl1.goombas.push_back(&goomba2);
-			EnemiesLvl1.goombas.push_back(&goomba3);
-			EnemiesLvl1.goombas.push_back(&goomba4);
-			EnemiesLvl1.goombas.push_back(&goomba5);
-			EnemiesLvl1.goombas.push_back(&goomba6);
+			EnemiesLvl1.goombas.push_back(goomba);
+			EnemiesLvl1.goombas.push_back(goomba1);
+			EnemiesLvl1.goombas.push_back(goomba2);
+			EnemiesLvl1.goombas.push_back(goomba3);
+			EnemiesLvl1.goombas.push_back(goomba4);
+			EnemiesLvl1.goombas.push_back(goomba5);
+			EnemiesLvl1.goombas.push_back(goomba6);
 			EnemiesLvl1.plants.push_back(&plant);
 			EnemiesLvl1.plants.push_back(&plant2);
 			EnemiesLvl1.plants.push_back(&plant3);
@@ -287,6 +287,15 @@ int main() {
 					EnemiesLvl1.goombas[i]->movement();
 				}
 
+				// Check and delete dead Goombas
+				for (auto it = EnemiesLvl1.goombas.begin(); it != EnemiesLvl1.goombas.end();) {
+					if ((*it)->ShouldBeDeleted()) {
+						delete *it;
+						it = EnemiesLvl1.goombas.erase(it);
+					} else {
+						++it;
+					}
+				}
 
 				for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
 					DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
@@ -330,6 +339,12 @@ int main() {
 					music = false;
 				}
 				EndDrawing();
+
+				// Clean up dynamically allocated memory
+				for (auto goomba : EnemiesLvl1.goombas) {
+					delete goomba;
+				}
+				EnemiesLvl1.goombas.clear();
 			}
 		}
 	}

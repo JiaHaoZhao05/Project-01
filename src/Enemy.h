@@ -99,6 +99,7 @@ public:
 class Goomba : public Enemy {
 public:
 	Sound squash = LoadSound("resources/audio_step.mp3"); // 1 step
+	float deathTime = 0; // add deathtime to track when to delete the goomba
 	Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {	
 		texture = { LoadTexture("resources/goomba_death.png"), // 0 death
 			LoadTexture("resources/goomba_frame1.png"), // 1 walk
@@ -130,6 +131,7 @@ public:
 				}
 				xspeed = 0;
 				active = false;
+				deathTime = GetTime(); // record deathtime
 				PlaySound(squash);
 			}
 			else{
@@ -148,6 +150,12 @@ public:
 		}
 	}
 
+	bool ShouldBeDeleted() {
+		if (!active && GetTime() - deathTime >= 3.0f) {
+			return true;
+		}
+		return false;
+	}
 
 	int direction = 1;
 	void CollidingWithBlock(Block& block) {
