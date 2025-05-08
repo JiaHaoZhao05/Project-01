@@ -19,12 +19,13 @@ public:
 
 	Texture2D texture;
 
-	PowerUp(float x, float y, int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
+	PowerUp(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : active{}, texture {} {
 		position.x = x;
 		position.y = y;
 		this->durability = durability;
 		this->invencibility = invencibility;
 		this->increaseLives = increaseLives;
+		this->ID = ID;
 	}
 	~PowerUp() {}
 
@@ -32,16 +33,20 @@ public:
 		DrawTexture(texture, position.x, position.y , WHITE);
 	}
 
+	void SetActive() {
+		active = true;
+	}
+
 };
 
 class Star : public PowerUp {
 public:
 
-	Star(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+	Star(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
 		this->invencibility = true;
 		this->increaseLives = false;
 		texture = LoadTexture("resources/star.png");
-		active = true;
+		active = false;
 	}
 
 	~Star() {}
@@ -51,11 +56,11 @@ public:
 class Shroom : public PowerUp {
 public:
 
-	Shroom(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+	Shroom(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
 		this->invencibility = false;
 		this->increaseLives = true;
 		texture = LoadTexture("resources/shroom.png");
-		active = true;
+		active = false;
 	}
 
 	~Shroom() {}
@@ -65,11 +70,11 @@ public:
 class Flower : public PowerUp {
 public:
 
-	Flower(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+	Flower(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
 		this->invencibility = false;
 		this->increaseLives = true;
 		texture = LoadTexture("resources/flower.png");
-		active = true;
+		active = false;
 	}
 
 	~Flower() {}
@@ -79,11 +84,11 @@ public:
 class Coin : public PowerUp {
 public:
 
-	Coin(float x, float y, int durability, bool invencibility, bool increaseLives) : PowerUp(x, y, durability, invencibility, increaseLives) {
+	Coin(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
 		this->invencibility = false;
 		this->increaseLives = false;
 		texture = LoadTexture("resources/coin.png");
-		active = true;
+		active = false;
 	}
 
 	~Coin() {}

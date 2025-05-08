@@ -39,6 +39,14 @@ public:
 
 	void SolveBreakBug() {}
 
+	bool AuxiliarCollisionCheck(Rectangle player) {
+		return CheckCollisionRecs(rec, player);
+	}
+
+	int GivePowerUpID() {
+		return powerUpID;
+	}
+
 };
 
 class Block_break : public Block {
@@ -87,6 +95,7 @@ public:
 	~Block_question() {
 	
 	};
+	
 	
 
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
@@ -170,6 +179,7 @@ public:
 	void LoadMap(string mapa) {
 
 		static int ID = 0;
+		static int PowerUpsID = 0;
 		int y = 0;
 		int counter = 0;
 		Rectangle hitbox;
@@ -237,13 +247,13 @@ public:
 
 			if (tipoBloque == '1') { // Coin
 
-				PowerUps.push_back(new Coin(x,ypos ,0, 0, 0 ));
-				
+				PowerUps.push_back(new Coin(x,ypos ,0, 0, 0, PowerUpsID));
+				PowerUpsID++;
 			}
 			if (tipoBloque == '2') { // Coin
 
-				PowerUps.push_back(new Shroom(x, ypos, 0, 0, 1));
-
+				PowerUps.push_back(new Shroom(x, ypos, 0, 0, 1, PowerUpsID));
+				PowerUpsID++;
 			}
 			
 		}
