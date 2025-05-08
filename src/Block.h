@@ -165,6 +165,7 @@ public:
 	vector <Block*> blocks;
 	vector <Block_break*> block_break;
 	vector <Block_question*> block_question;
+	vector <PowerUp*> PowerUps;
 	vector <string> allPowerUps = { "coin","coin","coin","coin","shroom","star","coin","shroom","coin","shroom","coin","shroom","coin","star","coin" };
 	void LoadMap(string mapa) {
 
@@ -233,6 +234,18 @@ public:
 			else if (tipoBloque == 'm') { // tubo
 				collisions.push_back(new Block_pipebr(x, ypos, hitbox, "pipebr"));
 			}
+
+			if (tipoBloque == '1') { // Coin
+
+				PowerUps.push_back(new Coin(x,ypos ,0, 0, 0 ));
+				
+			}
+			if (tipoBloque == '2') { // Coin
+
+				PowerUps.push_back(new Shroom(x, ypos, 0, 0, 1));
+
+			}
+			
 		}
 
 		ID = 0;
@@ -243,7 +256,7 @@ public:
 class AllPowerUps {
 public:
 
-	vector <PowerUp*> allPowerUps;
+	/*vector <PowerUp*> allPowerUps;
 
 	void addPowerUp(Block& block, string type, int lives) {
 		if (type == "star") {
@@ -263,5 +276,5 @@ public:
 		if (type == "coin") {
 			allPowerUps.push_back(new Coin(block.rec.x, block.rec.y, 10, 1, 0));
 		}
-	}
+	}*/
 };

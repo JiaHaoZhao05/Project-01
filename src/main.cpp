@@ -100,7 +100,7 @@ int main() {
 			quit = true;
 		}
 		EndDrawing();
-		if (!menu) {
+		if (!menu) { //1->Coin, 2->Mushroom, 3-> Star, 4->Double jump
 			string map = (
 				"0"
 				"0"
@@ -108,7 +108,7 @@ int main() {
 				".............................................................................................................................................................................................ll0"
 				".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
 				"...........................................................................................................................................................................................llll0"
-				".................................................................q........................................................................................................................lllll0"
+				"......................1.2........................................q........................................................................................................................lllll0"
 				".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
 				".......................................hj......nm.........nm.............................................................................ll..ll........lll..ll..........................lllllll0"
 				".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj.llllllll0"
@@ -122,7 +122,7 @@ int main() {
 			level1.LoadMap(map);
 			lifesave = 0;
 			Enemies EnemiesLvl1;
-			AllPowerUps powerUpsLvl1;
+			
 
 
 			Player Mario;
@@ -174,6 +174,10 @@ int main() {
 					EnemiesLvl1.plants[i]->Draw();
 					++i;
 				}
+				for (int i = 1; i < level1.PowerUps.size(); ++i) { //plants
+					level1.PowerUps[i]->Draw();
+					++i;
+				}
 				Mario.Draw(Mario.Frames()); // animation
 				Mario.Gravedad();
 				//SetMusicVolume(bgMusic, 0.5f);
@@ -191,6 +195,10 @@ int main() {
 					for (int a = 0; a < EnemiesLvl1.plants.size(); ++a) {
 						EnemiesLvl1.plants[a]->xpos -= Mario.position.x - 500;
 						EnemiesLvl1.plants[a]->hitbox.x -= Mario.position.x - 500;
+					}
+					for (int a = 0; a < level1.PowerUps.size(); ++a) {
+						level1.PowerUps[a]->position.x -= Mario.position.x - 500;
+						
 					}
 					Mario.position.x = 500;
 				}
@@ -218,12 +226,12 @@ int main() {
 				
 				
 
-				//for (int i = 0; i < level1.collisions.size(); ++i) {
-				//	level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
-				//	if (level1.collisions[i]->returnType() == "question") {
-				//		powerUpsLvl1.addPowerUp(*level1.collisions[level1.collisions[i]->powerUpID], level1.allPowerUps[level1.collisions[i]->powerUpID], Mario.lives);
-				//	}
-				//}
+				for (int i = 0; i < level1.collisions.size(); ++i) {
+					level1.collisions[i]->CollidingWithPlayer(Mario.GetRect(), Mario.gravity, Mario.lives);
+					/*if (level1.collisions[i]->returnType() == "question") {
+						powerUpsLvl1.addPowerUp(*level1.collisions[level1.collisions[i]->powerUpID], level1.allPowerUps[level1.collisions[i]->powerUpID], Mario.lives);
+					}*/
+				}
 
 				bool goombaOnGround = false;
 				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {

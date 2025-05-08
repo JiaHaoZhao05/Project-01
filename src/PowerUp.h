@@ -13,19 +13,24 @@ public:
 	bool invencibility;
 	bool increaseLives;
 	bool active;
+	Rectangle position;
 
 	int ID;
 
 	Texture2D texture;
 
 	PowerUp(float x, float y, int durability, bool invencibility, bool increaseLives) : active{}, texture {} {
-		this->x = x;
-		this->y = y;
+		position.x = x;
+		position.y = y;
 		this->durability = durability;
 		this->invencibility = invencibility;
 		this->increaseLives = increaseLives;
 	}
 	~PowerUp() {}
+
+	void Draw() {
+		DrawTexture(texture, position.x, position.y , WHITE);
+	}
 
 };
 
