@@ -16,6 +16,7 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_walking3_live1.png"), // 7
 		LoadTexture("resources/mario_jumping_live1.png"), // 8 jump
 		LoadTexture("resources/LEFT_mario_jumping_live1.png"), // 9
+
 		LoadTexture("resources/mario_static_live2.png"), // 10 mario 2 live left
 		LoadTexture("resources/mario_walking1_live2.png"), // 11
 		LoadTexture("resources/mario_walking2_live2.png"), // 12
@@ -25,6 +26,7 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_walking3_live2.png"), // 16
 		LoadTexture("resources/mario_jumping_live2.png"), // 17 jump
 		LoadTexture("resources/LEFT_mario_jumping_live2.png"), // 18 jump left
+
 		LoadTexture("resources/mario_static_live3.png"), // 19 mario 3 lives left
 		LoadTexture("resources/mario_walking1_live3.png"), // 20
 		LoadTexture("resources/mario_walking2_live3.png"), // 21
@@ -35,7 +37,27 @@ Player::Player() {
 		LoadTexture("resources/mario_jumping_live3.png"), // 26 jump
 		LoadTexture("resources/LEFT_mario_jumping_live3.png"),// 27 jump left
 		LoadTexture("resources/mario_shoot.png"), // 28 shoot
-		LoadTexture("resources/LEFT_mario_shoot.png") // 29 shoot left
+		LoadTexture("resources/LEFT_mario_shoot.png"), // 29 shoot left
+
+		LoadTexture("resources/mario_static_star.png"), // 30 mario get star
+		LoadTexture("resources/mario_walking1_star.png"), // 31
+		LoadTexture("resources/mario_walking2_star.png"), // 32
+		LoadTexture("resources/mario_walking3_star.png"), // 33
+		LoadTexture("resources/LEFT_mario_walking1_star.png"), // 34 left
+		LoadTexture("resources/LEFT_mario_walking2_star.png"), // 35
+		LoadTexture("resources/LEFT_mario_walking3_star.png"), // 36
+		LoadTexture("resources/mario_jumping_star.png"), // 37 jump
+		LoadTexture("resources/LEFT_mario_jumping_star.png"),// 38 jump left
+
+		LoadTexture("resources/mario_static_giant.png"), // 39 mario giant
+		LoadTexture("resources/mario_walking1_giant.png"), // 40
+		LoadTexture("resources/mario_walking2_giant.png"), // 41
+		LoadTexture("resources/mario_walking3_giant.png"), // 42
+		LoadTexture("resources/LEFT_mario_walking1_giant.png"), // 43 left
+		LoadTexture("resources/LEFT_mario_walking2_giant.png"), // 44
+		LoadTexture("resources/LEFT_mario_walking3_giant.png"), // 45
+		LoadTexture("resources/mario_jumping_giant.png"), // 46 jump
+		LoadTexture("resources/LEFT_mario_jumping_giant.png")// 47 jump left
 	};
 	soundeffect = { LoadSound("resources/audio_jump.mp3"), // 0 jump
 	};
@@ -228,7 +250,7 @@ void Player::Colliding(Block &block){
 			if (position.y + currentframe[Frames()].height <= block.rec.y + 30) {
 				position.y = block.rec.y - currentframe[Frames()].height;
 				gravity = 0;
-				jumps = 1;
+				jumps = 1 + (lives == 3);
 			}
 			if (position.y > block.rec.y + block.rec.height - 30) {
 				position.y = block.rec.y + block.rec.height;
