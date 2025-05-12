@@ -136,7 +136,7 @@ int main() {
 			Goomba* goomba5 = new Goomba(12999, 644);
 			Goomba* goomba6 = new Goomba(128, 644);
 			Plant plant(1888, 576);
-			Plant plant2(2528, 512); 
+			Plant plant2(2528, 512);
 			Plant plant3(3040, 448);
 			Plant plant4(3744, 448);
 			Plant plant5(10528, 576);
@@ -305,12 +305,11 @@ int main() {
 				}
 
 				// Check and delete dead Goombas
-				for (auto it = EnemiesLvl1.goombas.begin(); it != EnemiesLvl1.goombas.end();) {
-					if ((*it)->ShouldBeDeleted()) {
-						delete *it;
-						it = EnemiesLvl1.goombas.erase(it);
-					} else {
-						++it;
+				
+				for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
+					if ((EnemiesLvl1.goombas[i])->ShouldBeDeleted()) {
+						EnemiesLvl1.goombas[i]->disapear = true;
+						
 					}
 				}
 

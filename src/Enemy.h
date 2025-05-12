@@ -98,12 +98,14 @@ public:
 
 class Goomba : public Enemy {
 public:
+	bool disapear = false;
 	Sound squash = LoadSound("resources/audio_step.mp3"); // 1 step
 	float deathTime = 0; // add deathtime to track when to delete the goomba
 	Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox) {	
 		texture = { LoadTexture("resources/goomba_death.png"), // 0 death
 			LoadTexture("resources/goomba_frame1.png"), // 1 walk
-			LoadTexture("resources/goomba_frame2.png") // 2 walk
+			LoadTexture("resources/goomba_frame2.png"), // 2 walk
+			LoadTexture("resources/block_invisible.png"),
 		};
 		hitbox = {xpos, ypos, 64, 62};
 		xspeed = 3;
@@ -203,6 +205,9 @@ public:
 			if (frame > 2) {
 				frame = 1;
 			}
+		}
+		if (disapear == true) {
+			return 3;
 		}
 		if (active == false) {
 			return 0;
