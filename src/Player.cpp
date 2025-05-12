@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 extern int framecounter;
+extern int starcounter;
+extern int giantcounter;
 Player::Player() {
 
 	currentframe = { LoadTexture("resources/mario_death.png"), // 0 mario 1 life left
@@ -233,7 +235,6 @@ int Player::Frames() {
 			return 19;
 		}
 	}
-
 }
 Rectangle Player::GetRect(){
 	return Rectangle{ position.x, position.y, float(currentframe[Frames()].width), float(currentframe[Frames()].height)};
