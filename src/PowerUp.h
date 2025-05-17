@@ -21,6 +21,7 @@ public:
 	float targetY;
 	float animationSpeed;
 	bool animationCompleted;
+	string type;
 
 	int ID;
 
@@ -71,6 +72,7 @@ public:
 		this->increaseLives = false;
 		texture = LoadTexture("resources/star.png");
 		active = false;
+		type = "star";
 	}
 	~Star() {}
 };
@@ -84,6 +86,7 @@ public:
 		texture = LoadTexture("resources/shroom.png");
 		active = false;
 		targetY = y;
+		type = "shroom";
 	}
 
 	void SetActive() override {
@@ -105,6 +108,7 @@ public:
 		this->increaseLives = true;
 		texture = LoadTexture("resources/flower.png");
 		active = false;
+		type = "flower";
 	}
 	~Flower() {}
 };
@@ -116,6 +120,7 @@ public:
 		this->increaseLives = false;
 		texture = LoadTexture("resources/coin.png");
 		active = false;
+		type = "coin";
 	}
 	~Coin() {}
 };

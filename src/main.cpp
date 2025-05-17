@@ -295,6 +295,12 @@ int main() {
 					
 				}
 
+				for (int i = 0; i < level1.PowerUps.size(); ++i) { // collision with map
+
+					Mario.PowerUpCollision(/*pasar rectangulo con una funcion rectangle <Block> */*level1.PowerUps[i]);
+
+				}
+
 				// NO MAS COLISIONES A PARTIR DE AQUI
 
 				Mario.Movement();
