@@ -130,6 +130,41 @@ int Player::Frames() {
 	if (lives == 0) { // Death.
 		return 0;
 	}
+	else if (giantcounter > 0) {
+		if (gravity < 0) { // jumping
+			if (speedx < 0) {
+				return 9; // jumping facing left frame
+			}
+			else if (speedx >= 0) {
+				return 8; // jumping facing right frame
+			}
+		}
+		if (speedx > 0) {
+			if (frame == 1) { // activate frame sorter if Mario is running right
+				return 2; // running right frame 1
+			}
+			else if (frame == 2) {
+				return 3; // running right frame 2
+			}
+			else if (frame == 3) {
+				return 4; // running right frame 3
+			}
+		}
+		if (speedx < 0) {
+			if (frame == 1) { // activate frame sorter if Mario is running left
+				return 5; // running left frame 1
+			}
+			else if (frame == 2) {
+				return 6; // running left frame 2
+			}
+			else if (frame == 3) {
+				return 7; // running left frame 3
+			}
+		}
+		if (speedx == 0) { // if mario is not moving, set the static frame
+			return 1;
+		}
+	}
 	else if (lives == 1) { // Mario frames when he has 1 life left
 		if (gravity < 0) { // jumping
 			if (speedx < 0) {
