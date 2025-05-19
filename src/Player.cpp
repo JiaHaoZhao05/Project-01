@@ -87,7 +87,7 @@ void Player::Gravedad() {
 	else {
 		gravity = 15;
 	}
-	if(position.y>800){jumps=1;} // <-comment if mario does not need recovery
+	if(position.y>800){jumps=1;} // <- comment if mario does not need recovery
 }
 void Player::Movement() {	
 	if ((IsKeyDown('D') || IsKeyDown(KEY_RIGHT)) && (IsKeyDown('A') || IsKeyDown(KEY_LEFT))) {

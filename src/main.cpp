@@ -21,7 +21,9 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 using namespace std;
 
 int framecounter = 0; // variable that marks the frame of the characters
-int lifesave = 0; // avoid getting one-tapped by mobs
+int lifesave = 0; // avoid getting one-tapped by mobs 
+int starcounter = 0; // counter star buff 
+int giantcounter = 0; // counter giant buff 
 int main() {
 	int distance;
 	InitWindow(1200, 800, "Super Mario");
