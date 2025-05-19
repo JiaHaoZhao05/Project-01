@@ -263,12 +263,16 @@ public:
 				PowerUps.push_back(new Coin(x,ypos ,0, 0, 0, PowerUpsID));
 				PowerUpsID++;
 			}
-			if (tipoBloque == '2') { // Coin
+			if (tipoBloque == '2') { // Shroom
 
 				PowerUps.push_back(new Shroom(x, ypos, 0, 0, 1, PowerUpsID));
 				PowerUpsID++;
 			}
-			
+			if (tipoBloque == '3') { // Boots
+
+				PowerUps.push_back(new Boots(x, ypos, 0, 0, 1, PowerUpsID));
+				PowerUpsID++;
+			}
 		}
 
 		ID = 0;

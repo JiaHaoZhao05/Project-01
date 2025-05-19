@@ -106,16 +106,16 @@ public:
 	~Shroom() {}
 };
 
-class Flower : public PowerUp {
+class Boots : public PowerUp {
 public:
-	Flower(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
+	Boots(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
 		this->invencibility = false;
 		this->increaseLives = true;
-		texture = LoadTexture("resources/flower.png");
+		texture = LoadTexture("resources/boots.png");
 		active = false;
-		type = "flower";
+		type = "boots";
 	}
-	~Flower() {}
+	~Boots() {}
 };
 
 class Coin : public PowerUp {
