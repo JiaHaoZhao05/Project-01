@@ -336,15 +336,20 @@ void Player::Colliding(Block &block){
 }
 
 void Player::PowerUpCollision(PowerUp& powerUp) {
-	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active && lives == 1 && powerUp.active == true) {
+	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 1 && powerUp.active == true) {
 		position.y -= 64;
 		lives++;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 	}
-	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active && lives == 2 && powerUp.active == true) {
-		position.y -= 64;
+	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 2 && powerUp.active == true) {
+		position.y -= 0;
 		lives++;
+		powerUp.active = false;
+		powerUp.texture = LoadTexture("resources/block_invisible.png");
+	}
+	else if (powerUp.type == "coin" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+		position.y -= 0;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 	}
