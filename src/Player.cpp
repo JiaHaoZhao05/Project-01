@@ -264,3 +264,10 @@ void Player::Colliding(Block &block){
 	}
 	
 }
+
+void Player::PowerUpCollision(PowerUp& powerUp) {
+	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.position) && powerUp.active && lives == 1) {
+		lives++;
+	}
+
+}

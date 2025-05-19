@@ -6,6 +6,7 @@
 using namespace std;
 
 class Block; //ChatGPT dice que esto es una declaración adelantada. Si ponemos include Block.h, se crea una inclusión circular, provocando errores.
+class PowerUp;
 
 class Player {
 
@@ -32,6 +33,7 @@ public:
 	int jumps;
 
 	void Colliding(Block &block);
+	void PowerUpCollision(PowerUp& powerUp);
 
 private:
 
