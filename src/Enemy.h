@@ -48,30 +48,28 @@ public:
 		active = true;
 	}
 	void Draw() {
-		if (active == true) {
-			DrawTextureV(texture[Frames()], { xpos, ypos }, WHITE);
-		}
+		DrawTextureV(texture[Frames()], { xpos, ypos }, WHITE);
 	}
 	int Frames() {
-		if (active == true) {
+		
 			static int frame = 1;
-			if (framecounter >= (60 / 15)) // timing 1
+			if (active == false) {
+				return 0;
+			}
+			if (framecounter >= (60 / 15) && active) // timing 1
 			{
 				frame++;
 				if (frame > 2) {
 					frame = 1;
 				}
 			}
-			if (active == false) {
-				return 0;
-			}
-			if (frame == 1) {
+			if (frame == 1 && active) {
 				return 1;
 			}
-			else if (frame == 2) {
+			else if (frame == 2 && active) {
 				return 2;
 			}
-		}
+		
 	}
 	void Movement() {
 		if (active == true) {
@@ -91,7 +89,7 @@ public:
 			return;
 		}
 
-		if (active = true) {
+		if (active == true) {
 			if (CheckCollisionRecs(player.GetRect(), hitbox)) {
 				lifesave = 120;
 				if (player.lives == 3) {

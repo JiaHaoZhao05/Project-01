@@ -352,13 +352,16 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		score += 100;
 	}
 	else if (powerUp.type == "coin" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
-		powerUp.y -= 99999;
+		powerUp.hitbox.y -= 99999;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
 	}
 	else if (powerUp.type == "star" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
-		powerUp.y -= 99999;
+		powerUp.hitbox.y -= 99999;
+		if (lives == 1) {
+			position.y -= 64;
+		}
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
