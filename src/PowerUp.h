@@ -22,6 +22,7 @@ public:
 	float animationSpeed;
 	bool animationCompleted;
 	string type;
+	Rectangle hitbox;
 
 	int ID;
 
@@ -32,6 +33,10 @@ public:
 		  animationSpeed(2.0f), animationCompleted(false) {
 		position.x = x;
 		position.y = y;
+		hitbox.x = x;
+		hitbox.y = y;
+		hitbox.height = 64;
+		hitbox.width = 64;
 		this->durability = durability;
 		this->invencibility = invencibility;
 		this->increaseLives = increaseLives;
