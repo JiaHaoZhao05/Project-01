@@ -301,7 +301,10 @@ void Player::Colliding(Block &block){
 }
 
 void Player::PowerUpCollision(PowerUp& powerUp) {
-	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active && lives == 1) {
+	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active && lives == 1 && powerUp.active == true) {
+		position.y -= 64;
 		lives++;
+		powerUp.active = false;
+		powerUp.texture = LoadTexture("resources/block_invisible.png");
 	}
 }
