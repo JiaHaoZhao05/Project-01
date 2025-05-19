@@ -297,9 +297,9 @@ int main() {
 					
 				}
 
-				for (int i = 0; i < level1.PowerUps.size(); ++i) { // collision with map
+				for (int i = 0; i < level1.PowerUps.size(); ++i) { // collision with power ups
 
-					Mario.PowerUpCollision(/*pasar rectangulo con una funcion rectangle <Block> */*level1.PowerUps[i]);
+					Mario.PowerUpCollision(*level1.PowerUps[i]);
 
 				}
 
