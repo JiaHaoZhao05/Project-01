@@ -7,7 +7,7 @@
 #define side 64
 
 using namespace std;
-
+extern int giantcounter;
 
 class Block {
 public:
@@ -47,6 +47,13 @@ public:
 		return powerUpID;
 	}
 
+	void GiantDestroy(Rectangle giantplayer) {
+		if (giantcounter > 0 && active && CheckCollisionRecs(rec, giantplayer) && type != "floor") {
+			active = false;
+			texture = LoadTexture("resources/block_invisible.png");
+		}
+	}
+
 };
 
 class Block_break : public Block {
@@ -58,6 +65,10 @@ public:
 	~Block_break() {};
 
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (giantcounter > 0 && active && CheckCollisionRecs(rec, player) && type != "floor") {
+			active = false;
+			texture = LoadTexture("resources/block_invisible.png");
+		}
 		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
 				texture = LoadTexture("resources/block_invisible.png");
@@ -98,7 +109,10 @@ public:
 	
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
 		if (!active || hasTriggered) return;
-		
+		if (giantcounter > 0 && active && CheckCollisionRecs(rec, player) && type != "floor") {
+			active = false;
+			texture = LoadTexture("resources/block_invisible.png");
+		}
 		// Check if collision occurs
 		if (!CheckCollisionRecs(rec, player)) return;
 		
@@ -276,6 +290,11 @@ public:
 			if (tipoBloque == '4') { // Star
 
 				PowerUps.push_back(new Star(x, ypos, 5, 1, 0, PowerUpsID));
+				PowerUpsID++;
+			}
+			if (tipoBloque == '5') { // Giant Shroom
+
+				PowerUps.push_back(new GiantShroom(x, ypos, 5, 1, 0, PowerUpsID));
 				PowerUpsID++;
 			}
 		}

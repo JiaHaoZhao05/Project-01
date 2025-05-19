@@ -367,4 +367,11 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		score += 100;
 		starcounter = powerUp.durability*60;
 	}
+	else if (powerUp.type == "giantshroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+		powerUp.hitbox.y -= 99999;
+		powerUp.active = false;
+		powerUp.texture = LoadTexture("resources/block_invisible.png");
+		score += 500;
+		starcounter = powerUp.durability * 60;
+	}
 }

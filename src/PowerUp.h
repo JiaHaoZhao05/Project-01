@@ -130,3 +130,15 @@ public:
 	}
 	~Coin() {}
 };
+
+class GiantShroom : public PowerUp {
+public:
+	GiantShroom(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
+		this->invencibility = true;
+		this->increaseLives = false;
+		texture = LoadTexture("resources/giant_shroom.png");
+		active = false;
+		type = "giantshroom";
+	}
+	~GiantShroom() {}
+};
