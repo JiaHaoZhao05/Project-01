@@ -163,6 +163,8 @@ int main() {
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
 				lifesave--;  // timing after losing a life
+				giantcounter--; //timing for giant
+				starcounter--; // timing for star
 				BeginDrawing();
 
 				ClearBackground(SKY);
