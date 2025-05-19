@@ -35,6 +35,8 @@ public:
 	void Colliding(Block &block);
 	void PowerUpCollision(PowerUp& powerUp);
 
+	int score;
+
 private:
 
 

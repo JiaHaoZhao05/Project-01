@@ -69,6 +69,7 @@ Player::Player() {
 	gravity = 0.0f;
 	speedx = 0;
 	jumps = 1;
+	score = 0;
 
 }
 Player::~Player() {
@@ -341,16 +342,26 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		lives++;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
+		score += 100;
 	}
 	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 2 && powerUp.active == true) {
-		position.y -= 0;
+		powerUp.y -= 99999;
 		lives++;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
+		score += 100;
 	}
 	else if (powerUp.type == "coin" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
-		position.y -= 0;
+		powerUp.y -= 99999;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
+		score += 100;
+	}
+	else if (powerUp.type == "star" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+		powerUp.y -= 99999;
+		powerUp.active = false;
+		powerUp.texture = LoadTexture("resources/block_invisible.png");
+		score += 100;
+		starcounter = powerUp.durability*60;
 	}
 }

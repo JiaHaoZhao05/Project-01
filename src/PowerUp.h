@@ -73,6 +73,7 @@ public:
 class Star : public PowerUp {
 public:
 	Star(float x, float y, int durability, bool invencibility, bool increaseLives, int ID) : PowerUp(x, y, durability, invencibility, increaseLives, ID) {
+		this->durability = 5;
 		this->invencibility = true;
 		this->increaseLives = false;
 		texture = LoadTexture("resources/star.png");

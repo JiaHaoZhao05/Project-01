@@ -273,6 +273,11 @@ public:
 				PowerUps.push_back(new Boots(x, ypos, 0, 0, 1, PowerUpsID));
 				PowerUpsID++;
 			}
+			if (tipoBloque == '4') { // Star
+
+				PowerUps.push_back(new Star(x, ypos, 5, 1, 0, PowerUpsID));
+				PowerUpsID++;
+			}
 		}
 
 		ID = 0;

@@ -6,6 +6,8 @@
 #include "Block.h"
 extern int framecounter;
 extern int lifesave;
+extern int starcounter;
+extern int giantcounter;
 class Enemy {
 public:
 
@@ -68,16 +70,23 @@ public:
 		}
 	}
 	void Movement() {
-		if (pivot - 70 > ypos) {
-			yspeed = 2;
+		if (active == true) {
+			if (pivot - 70 > ypos) {
+				yspeed = 2;
+			}
+			else if (pivot + 70 < ypos) {
+				yspeed = -2;
+			}
+			hitbox.y += yspeed;
+			ypos += yspeed;
 		}
-		else if (pivot + 70 < ypos) {
-			yspeed = -2;
-		}
-		hitbox.y += yspeed;
-		ypos += yspeed;
 	}
 	void CollidingWithPlayer(Player& player) {
+		if (CheckCollisionRecs(player.GetRect(), hitbox) && starcounter > 0) {
+			active = false;
+			return;
+		}
+
 		if (active = true) {
 			if (CheckCollisionRecs(player.GetRect(), hitbox)) {
 				lifesave = 120;
@@ -119,6 +128,22 @@ public:
 		if (!active) return;
 
 		Rectangle playerRect = player.GetRect();
+
+		if (CheckCollisionRecs(playerRect, hitbox) && starcounter > 0) {
+			xspeed = 0;
+			active = false;
+			deathTime = GetTime(); // record deathtime
+			PlaySound(squash);
+			return;
+		}
+
+		if (CheckCollisionRecs(playerRect, hitbox) && giantcounter > 0) {
+			xspeed = 0;
+			active = false;
+			deathTime = GetTime(); // record deathtime
+			PlaySound(squash);
+			return;
+		}
 
 		if (CheckCollisionRecs(playerRect, hitbox)) {
 			bool playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
