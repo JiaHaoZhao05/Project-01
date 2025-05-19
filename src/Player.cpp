@@ -133,36 +133,71 @@ int Player::Frames() {
 	else if (giantcounter > 0) {
 		if (gravity < 0) { // jumping
 			if (speedx < 0) {
-				return 9; // jumping facing left frame
+				return 47; // jumping facing left frame
 			}
 			else if (speedx >= 0) {
-				return 8; // jumping facing right frame
+				return 46; // jumping facing right frame
 			}
 		}
 		if (speedx > 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running right
-				return 2; // running right frame 1
+				return 40; // running right frame 1
 			}
 			else if (frame == 2) {
-				return 3; // running right frame 2
+				return 41; // running right frame 2
 			}
 			else if (frame == 3) {
-				return 4; // running right frame 3
+				return 42; // running right frame 3
 			}
 		}
 		if (speedx < 0) {
 			if (frame == 1) { // activate frame sorter if Mario is running left
-				return 5; // running left frame 1
+				return 43; // running left frame 1
 			}
 			else if (frame == 2) {
-				return 6; // running left frame 2
+				return 44; // running left frame 2
 			}
 			else if (frame == 3) {
-				return 7; // running left frame 3
+				return 45; // running left frame 3
 			}
 		}
 		if (speedx == 0) { // if mario is not moving, set the static frame
-			return 1;
+			return 39;
+		}
+	}
+	else if (starcounter > 0) {
+		if (gravity < 0) { // jumping
+			if (speedx < 0) {
+				return 38; // jumping facing left frame
+			}
+			else if (speedx >= 0) {
+				return 37; // jumping facing right frame
+			}
+		}
+		if (speedx > 0) {
+			if (frame == 1) { // activate frame sorter if Mario is running right
+				return 31; // running right frame 1
+			}
+			else if (frame == 2) {
+				return 32; // running right frame 2
+			}
+			else if (frame == 3) {
+				return 33; // running right frame 3
+			}
+		}
+		if (speedx < 0) {
+			if (frame == 1) { // activate frame sorter if Mario is running left
+				return 34; // running left frame 1
+			}
+			else if (frame == 2) {
+				return 35; // running left frame 2
+			}
+			else if (frame == 3) {
+				return 36; // running left frame 3
+			}
+		}
+		if (speedx == 0) { // if mario is not moving, set the static frame
+			return 30;
 		}
 	}
 	else if (lives == 1) { // Mario frames when he has 1 life left
