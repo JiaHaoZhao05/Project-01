@@ -48,25 +48,29 @@ public:
 		active = true;
 	}
 	void Draw() {
-		DrawTextureV(texture[Frames()], {xpos, ypos}, WHITE);
+		if (active == true) {
+			DrawTextureV(texture[Frames()], { xpos, ypos }, WHITE);
+		}
 	}
 	int Frames() {
-		static int frame = 1;
-		if (framecounter >= (60 / 15)) // timing 1
-		{
-			frame++;
-			if (frame > 2) {
-				frame = 1;
+		if (active == true) {
+			static int frame = 1;
+			if (framecounter >= (60 / 15)) // timing 1
+			{
+				frame++;
+				if (frame > 2) {
+					frame = 1;
+				}
 			}
-		}
-		if (active == false) {
-			return 0;
-		}
-		if (frame == 1) {
-			return 1;
-		}
-		else if (frame == 2) {
-			return 2;
+			if (active == false) {
+				return 0;
+			}
+			if (frame == 1) {
+				return 1;
+			}
+			else if (frame == 2) {
+				return 2;
+			}
 		}
 	}
 	void Movement() {
