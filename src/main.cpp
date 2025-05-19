@@ -202,8 +202,8 @@ int main() {
 						EnemiesLvl1.plants[a]->hitbox.x -= Mario.position.x - 500;
 					}
 					for (int a = 0; a < level1.PowerUps.size(); ++a) {
+						level1.PowerUps[a]->hitbox.x -= Mario.position.x - 500;
 						level1.PowerUps[a]->position.x -= Mario.position.x - 500;
-						
 					}
 					Mario.position.x = 500;
 				}
