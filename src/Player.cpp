@@ -344,7 +344,7 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
 	}
-	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 2 && powerUp.active == true) {
+	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
 		powerUp.y -= 99999;
 		lives++;
 		powerUp.active = false;
