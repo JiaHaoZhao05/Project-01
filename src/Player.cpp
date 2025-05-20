@@ -330,6 +330,7 @@ void Player::Colliding(Block &block){
 				if (block.type == "break" && lives != 1) {
 					block.active = false;
 				}
+				jumps = 0;
 			}
 		}
 	}
