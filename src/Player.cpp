@@ -374,6 +374,6 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 500;
-		starcounter = powerUp.durability * 60;
+		giantcounter = powerUp.durability * 60;
 	}
 }
