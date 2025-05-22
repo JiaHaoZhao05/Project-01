@@ -153,7 +153,7 @@ public:
 			if (player.lives == 1) {
 				playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
 			}
-			else if (player.gravity <= 0.5 && player.gravity >= 0.0){
+			else if (player.gravity > 0.5){
 				playerFromAbove = 1;
 			}
 			else {
@@ -162,12 +162,13 @@ public:
 
 			if (playerFromAbove) {
 				// Mario cae sobre el Goomba y lo aplasta
-				if (player.gravity > 0) {
+				/*if (player.gravity > 0) {
 					player.gravity = -11.1f;
 				}
 				else if (player.lives > 1) {
 					player.gravity = -13.5f;
-				}
+				}*/
+				player.gravity = -11.1f;
 				xspeed = 0;
 				active = false;
 				deathTime = GetTime(); // record deathtime
