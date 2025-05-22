@@ -8,6 +8,7 @@ extern int framecounter;
 extern int lifesave;
 extern int starcounter;
 extern int giantcounter;
+class Player;
 class Enemy {
 public:
 
