@@ -44,7 +44,7 @@ int main() {
 
 	const int waitFrames = 180;
 
-	while (!WindowShouldClose() && !fadeOutDone) {
+	/*while (!WindowShouldClose() && !fadeOutDone) {
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -78,7 +78,7 @@ int main() {
 
 		EndDrawing();
 		frameCounter++;
-	}
+	}*/
 	bool menu = true;
 	Texture2D menuScreen = LoadTexture("resources/menu_screen.png");
 	AudioManager bgm;

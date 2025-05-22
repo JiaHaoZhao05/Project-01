@@ -148,7 +148,16 @@ public:
 		}
 
 		if (CheckCollisionRecs(playerRect, hitbox)) {
-			bool playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
+			bool playerFromAbove;
+			if (player.lives == 1) {
+				playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
+			}
+			else if (player.gravity <= 0.5 && player.gravity >= 0.0){
+				playerFromAbove = 1;
+			}
+			else {
+				playerFromAbove = 0;
+			}
 
 			if (playerFromAbove) {
 				// Mario cae sobre el Goomba y lo aplasta
@@ -163,7 +172,7 @@ public:
 				deathTime = GetTime(); // record deathtime
 				PlaySound(squash);
 			}
-			else{
+			else {
 				// Mario choca desde el lado: perder vida
 				lifesave = 120;
 				if (player.lives == 3) {
