@@ -166,7 +166,7 @@ int Player::Frames() {
 			return 39;
 		}
 	}
-	else if (starcounter > 0) {
+	else if (starcounter > 0 && starcounter % 3 == 0) {
 		if (gravity < 0) { // jumping
 			if (speedx < 0) {
 				return 38; // jumping facing left frame
