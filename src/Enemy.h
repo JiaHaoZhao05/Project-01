@@ -87,6 +87,7 @@ public:
 	void CollidingWithPlayer(Player& player) {
 		if (CheckCollisionRecs(player.GetRect(), hitbox) && (starcounter > 0 || giantcounter > 0)) {
 			active = false;
+			player.score += 300;
 			return;
 		}
 
@@ -137,6 +138,7 @@ public:
 			active = false;
 			deathTime = GetTime(); // record deathtime
 			PlaySound(squash);
+			player.score += 200;
 			return;
 		}
 
@@ -145,6 +147,7 @@ public:
 			active = false;
 			deathTime = GetTime(); // record deathtime
 			PlaySound(squash);
+			player.score += 200;
 			return;
 		}
 
@@ -173,6 +176,7 @@ public:
 				active = false;
 				deathTime = GetTime(); // record deathtime
 				PlaySound(squash);
+				player.score += 200;
 			}
 			else {
 				// Mario choca desde el lado: perder vida

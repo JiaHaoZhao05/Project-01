@@ -359,28 +359,28 @@ void Player::Colliding(Block &block){
 }
 
 void Player::PowerUpCollision(PowerUp& powerUp) {
-	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 1 && powerUp.active == true) {
+	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 1 && (powerUp.active == true)) {
 		position.y -= 64;
 		lives++;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
 	}
-	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
-		powerUp.y -= 99999;
+	else if (powerUp.type == "boots" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && (powerUp.active == true)) {
+		powerUp.hitbox.y -= 99999;
 		if (lives == 1) position.y -= 64;
 		lives = 3;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
 	}
-	else if (powerUp.type == "coin" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+	else if (powerUp.type == "coin" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && (powerUp.active == true)) {
 		powerUp.hitbox.y -= 99999;
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
 	}
-	else if (powerUp.type == "star" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+	else if (powerUp.type == "star" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && (powerUp.active == true)) {
 		powerUp.hitbox.y -= 99999;
 		if (lives == 1) {
 			position.y -= 64;
@@ -390,7 +390,7 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 		score += 100;
 		starcounter = powerUp.durability*60;
 	}
-	else if (powerUp.type == "giantshroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && powerUp.active == true) {
+	else if (powerUp.type == "giantshroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && (powerUp.active == true)) {
 		lives = 2;
 		powerUp.hitbox.y -= 99999;
 		position.y -= 128;

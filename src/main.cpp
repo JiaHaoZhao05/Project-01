@@ -11,7 +11,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include <iostream>
 #include <vector>
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
-//#include "Player.h" //No se incluye para que no se genere una inclusi�n circular
+//#include "Player.h" //No se incluye para que no se genere una inclusion circular
 #include "Enemy.h"
 //#include "PowerUp.h"
 #include "Block.h"
