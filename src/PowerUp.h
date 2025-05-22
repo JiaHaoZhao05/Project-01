@@ -53,6 +53,9 @@ public:
 	virtual void SetActive() {
 		if (!active && !animationCompleted) {
 			active = true;
+			isAnimating = true;
+			animationHeight = 0;
+			position.y = targetY + 64;
 		}
 	}
 
@@ -94,16 +97,6 @@ public:
 		targetY = y;
 		type = "shroom";
 	}
-
-	void SetActive() override {
-		if (!active && !animationCompleted) {
-			active = true;
-			isAnimating = true;
-			animationHeight = 0;
-			position.y = targetY + 64;
-		}
-	}
-
 	~Shroom() {}
 };
 
