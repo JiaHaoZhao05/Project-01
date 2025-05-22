@@ -25,6 +25,7 @@ public:
 	string textureName;
 
 	bool active = true;
+	bool hasTriggered = true;
 	int powerUpID{};
 
 	virtual void CollidingWithPlayer(Rectangle rec, float gravity, int lives) = 0;
@@ -48,7 +49,7 @@ public:
 	}
 
 	void GiantDestroy(Rectangle giantplayer) {
-		if (giantcounter > 0 && active && CheckCollisionRecs(rec, giantplayer) && type != "floor") {
+		if (giantcounter > 0 && CheckCollisionRecs(rec, giantplayer) && type != "floor") {
 			active = false;
 			texture = LoadTexture("resources/block_invisible.png");
 		}
@@ -65,9 +66,11 @@ public:
 	~Block_break() {};
 
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
-		if (giantcounter > 0 && active && CheckCollisionRecs(rec, player) && type != "floor") {
+		if (giantcounter > 0 && active && CheckCollisionRecs(rec, player)) {
 			active = false;
 			texture = LoadTexture("resources/block_invisible.png");
+			SolveBreakBug();
+			textureName = "block_invisible";
 		}
 		if (CheckCollisionRecs(rec, player) && active && lives != 1) {
 			if ((player.y > rec.y + rec.height - 30) && gravity < 0) {
@@ -97,7 +100,7 @@ class Block_question : public Block {
 public:
 	string powerUp;
 	int ID;
-	bool hasTriggered;
+	
 	
 	Block_question(float x, float y, Rectangle rec, string type, string powerUp, int ID) : Block(x, y, rec, "question") {
 		texture = LoadTexture("resources/block_question.png");
@@ -109,10 +112,6 @@ public:
 	
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
 		if (!active || hasTriggered) return;
-		if (giantcounter > 0 && active && CheckCollisionRecs(rec, player) && type != "floor") {
-			active = false;
-			texture = LoadTexture("resources/block_invisible.png");
-		}
 		// Check if collision occurs
 		if (!CheckCollisionRecs(rec, player)) return;
 		
@@ -129,8 +128,8 @@ public:
 			float horizontalMargin = rec.width * 0.2f; // 20% margin on each side
 			if (player.x + player.width > rec.x + horizontalMargin && 
 				player.x < rec.x + rec.width - horizontalMargin) {
-				active = false;
 				hasTriggered = true;
+				active = false;
 				texture = LoadTexture("resources/block_empty.png");
 			}
 		}
@@ -166,7 +165,12 @@ public:
 		texture = LoadTexture("resources/pipe_head_left.png");
 	}
 	~Block_pipetl() {};
-	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+			rec.y -= 9999;
+
+		}
+	}
 };
 class Block_pipetr : public Block {
 public:
@@ -174,7 +178,12 @@ public:
 		texture = LoadTexture("resources/pipe_head_right.png");
 	}
 	~Block_pipetr() {};
-	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+			rec.y -= 9999;
+
+		}
+	}
 };
 class Block_pipebl : public Block {
 public:
@@ -182,7 +191,12 @@ public:
 		texture = LoadTexture("resources/pipe_body_left.png");
 	}
 	~Block_pipebl() {};
-	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+			rec.y -= 9999;
+
+		}
+	}
 };
 class Block_pipebr : public Block {
 public:
@@ -190,7 +204,12 @@ public:
 		texture = LoadTexture("resources/pipe_body_right.png");
 	}
 	~Block_pipebr() {};
-	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
+	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {
+		if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+			rec.y -= 9999;
+
+		}
+	}
 };
 class Map {
 public:

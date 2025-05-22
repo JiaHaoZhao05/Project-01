@@ -312,29 +312,50 @@ Rectangle Player::GetRect(){
 }
 void Player::Colliding(Block &block){
 	if (CheckCollisionRecs(GetRect(), block.rec) && (block.active || block.type != "break")/* && block.textureName != "block_invisible"*/) {
-		if (position.x + currentframe[Frames()].width <= block.rec.x + 10) {
-			position.x = block.rec.x - currentframe[Frames()].width;
+		if (giantcounter <= 0) {
+			if (position.x + currentframe[Frames()].width <= block.rec.x + 10) {
+				position.x = block.rec.x - currentframe[Frames()].width;
+			}
+			if (position.x >= block.rec.x + block.rec.width - 5) {
+				position.x = block.rec.x + block.rec.width;
+			}
+			if (position.x + currentframe[Frames()].width > block.rec.x + 5 && position.x < block.rec.x + block.rec.width - 5) {
+				if (position.y + currentframe[Frames()].height <= block.rec.y + 30) {
+					position.y = block.rec.y - currentframe[Frames()].height;
+					gravity = 0;
+					jumps = 1 + (lives == 3);
+				}
+				if (position.y > block.rec.y + block.rec.height - 30) {
+					position.y = block.rec.y + block.rec.height;
+					gravity = 2.4f;
+					if (block.type == "break" && lives != 1) {
+						block.active = false;
+					}
+					jumps = 0;
+				}
+			}
 		}
-		if (position.x >= block.rec.x + block.rec.width - 5) {
-			position.x = block.rec.x + block.rec.width;
-		}
-		if (position.x + currentframe[Frames()].width > block.rec.x + 5 && position.x < block.rec.x + block.rec.width - 5) {
+		else if (block.type == "floor" && giantcounter > 0) {
 			if (position.y + currentframe[Frames()].height <= block.rec.y + 30) {
 				position.y = block.rec.y - currentframe[Frames()].height;
 				gravity = 0;
 				jumps = 1 + (lives == 3);
 			}
+		}
+		/*else if (block.hasTriggered && block.type == "question") {
+			if (giantcounter > 0) {
+				block.hasTriggered = 0;
+				block.active = false;
+			}
+		}
+		else if(block.type == "question" && !block.hasTriggered) {
 			if (position.y > block.rec.y + block.rec.height - 30) {
 				position.y = block.rec.y + block.rec.height;
 				gravity = 2.4f;
-				if (block.type == "break" && lives != 1) {
-					block.active = false;
-				}
 				jumps = 0;
 			}
-		}
+		}*/
 	}
-	
 }
 
 void Player::PowerUpCollision(PowerUp& powerUp) {
