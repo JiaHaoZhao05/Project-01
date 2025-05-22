@@ -156,7 +156,7 @@ public:
 			if (player.lives == 1) {
 				playerFromAbove = player.position.y + player.currentframe[Frames()].height <= ypos + 30;
 			}
-			else if (player.gravity > 0.5){
+			else if (player.gravity > 1){
 				playerFromAbove = 1;
 			}
 			else {
