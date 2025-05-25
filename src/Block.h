@@ -68,4 +68,3 @@ public:
 	void CollidingWithPlayer(Rectangle player, float gravity, int lives) override {}
 
 };
-//missing pipes blocks {h<-top left/ j<-top right/ n<-side left/ m<-side right}

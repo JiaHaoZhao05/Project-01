@@ -29,18 +29,10 @@ public:
 		this->ypos = ypos;
 		this->xspeed = xspeed;
 		this->yspeed = yspeed;
-		active = 1;
+		active = true;
 
 	};
 
 	~Enemy() {}
-
-};
-
-class Enemies {
-public:
-
-	vector <Goomba*> goombas;
-	vector <Plant*> plants;
 
 };

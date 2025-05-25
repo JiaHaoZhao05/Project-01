@@ -21,6 +21,9 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "Block_pipes.h"
 #include "Map.h"
 #include "AudioManager.h"
+#include "Enemy_goomba.h"
+#include "Enemy_plant.h"
+#include "Enemy_manager.h"
 #include <string>
 #define SKY { 135, 206, 235, 255}
 using namespace std;
