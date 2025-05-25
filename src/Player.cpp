@@ -6,6 +6,7 @@
 extern int framecounter;
 extern int starcounter;
 extern int giantcounter;
+extern int lifesafe;
 Player::Player() {
 
 	currentframe = { LoadTexture("resources/mario_death.png"), // 0 mario 1 life left
@@ -246,6 +247,14 @@ int Player::Frames() {
 		}
 		if (speedx == 0) { // if mario is not moving, set the static frame
 			return 30;
+		}
+	}
+	else if (lifesafe > 0 && lifesafe % 3 == 0) {
+		if (lives == 1) {
+			return 57;
+		}
+		else if (lives > 1) {
+			return 58;
 		}
 	}
 	else if (lives == 1) { // Mario frames when he has 1 life left
