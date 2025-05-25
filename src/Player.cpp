@@ -59,7 +59,20 @@ Player::Player() {
 		LoadTexture("resources/LEFT_mario_walking2_giant.png"), // 44
 		LoadTexture("resources/LEFT_mario_walking3_giant.png"), // 45
 		LoadTexture("resources/mario_jumping_giant.png"), // 46 jump
-		LoadTexture("resources/LEFT_mario_jumping_giant.png")// 47 jump left
+		LoadTexture("resources/LEFT_mario_jumping_giant.png"), // 47 jump left
+
+		LoadTexture("resources/mario_static_star1.png"), // 48 mario get star with 1 life
+		LoadTexture("resources/mario_walking1_star1.png"), // 49
+		LoadTexture("resources/mario_walking2_star1.png"), // 50
+		LoadTexture("resources/mario_walking3_star1.png"), // 51
+		LoadTexture("resources/LEFT_mario_walking1_star1.png"), // 52 left
+		LoadTexture("resources/LEFT_mario_walking2_star1.png"), // 53
+		LoadTexture("resources/LEFT_mario_walking3_star1.png"), // 54
+		LoadTexture("resources/mario_jumping_star1.png"), // 55 jump
+		LoadTexture("resources/LEFT_mario_jumping_star1.png"), // 56 jump left
+
+		LoadTexture("resources/block_invisible.png"), // 57 damaged 1
+		LoadTexture("resources/mario_invis2.png") // 58 damaged 2
 	};
 	soundeffect = { LoadSound("resources/audio_jump.mp3"), // 0 jump
 	};
@@ -120,8 +133,7 @@ void Player::Movement() {
 }
 int Player::Frames() { 
 	static int frame = 1;
-	if (framecounter >= (60 / 12)) // timing 1
-	{
+	if (framecounter >= (60 / 12)) { // timing 1
 		framecounter = 0;
 		frame++;
 		if (frame > 3) {
@@ -167,6 +179,41 @@ int Player::Frames() {
 		}
 	}
 	else if (starcounter > 0 && starcounter % 3 == 0) {
+		if (lives == 1) {
+			if (gravity < 0) { // jumping
+				if (speedx < 0) {
+					return 56; // jumping facing left frame
+				}
+				else if (speedx >= 0) {
+					return 55; // jumping facing right frame
+				}
+			}
+			if (speedx > 0) {
+				if (frame == 1) { // activate frame sorter if Mario is running right
+					return 49; // running right frame 1
+				}
+				else if (frame == 2) {
+					return 50; // running right frame 2
+				}
+				else if (frame == 3) {
+					return 51; // running right frame 3
+				}
+			}
+			if (speedx < 0) {
+				if (frame == 1) { // activate frame sorter if Mario is running left
+					return 52; // running left frame 1
+				}
+				else if (frame == 2) {
+					return 53; // running left frame 2
+				}
+				else if (frame == 3) {
+					return 54; // running left frame 3
+				}
+			}
+			if (speedx == 0) { // if mario is not moving, set the static frame
+				return 48;
+			}
+		}
 		if (gravity < 0) { // jumping
 			if (speedx < 0) {
 				return 38; // jumping facing left frame
