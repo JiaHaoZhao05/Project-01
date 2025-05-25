@@ -15,6 +15,11 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "Enemy.h"
 //#include "PowerUp.h"
 #include "Block.h"
+#include "Block_break.h"
+#include "Block_question.h"
+#include "Block_floor.h"
+#include "Block_pipes.h"
+#include "Map.h"
 #include "AudioManager.h"
 #include <string>
 #define SKY { 135, 206, 235, 255}
