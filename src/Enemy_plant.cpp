@@ -47,7 +47,7 @@ void Plant::Movement() {
 }
 
 void Plant::CollidingWithPlayer(Player& player) {
-    if (CheckCollisionRecs(player.GetRect(), hitbox) && (starcounter > 0 || giantcounter > 0)) {
+    if (CheckCollisionRecs(player.GetRect(), hitbox) && (starcounter > 0 || giantcounter > 0) && active) {
         active = false;
         player.score += 300;
         return;
