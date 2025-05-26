@@ -129,8 +129,7 @@ void Player::Movement() {
 	}
 	position.x += speedx;
 	position.y += gravity;
-	DrawText(TextFormat("Gravity: %f", gravity), 10, 50, 20, BLACK);
-	DrawText(TextFormat("Jumps: %i", jumps), 10, 70, 20, BLACK);
+	
 }
 int Player::Frames() { 
 	static int frame = 1;

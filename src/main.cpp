@@ -353,7 +353,7 @@ int main() {
 					DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 					DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
 				}
-				DrawText(TextFormat("Score: %d", Mario.score), 10, 130, 20, BLACK);
+				DrawText(TextFormat("Score: %d", Mario.score), 30, 30, 30, BLACK);
 				EndDrawing();
 			}
 			StopSound(bgm.bgMusic);
