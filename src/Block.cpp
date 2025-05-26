@@ -44,5 +44,7 @@ Block_ladder::Block_ladder(float x, float y, Rectangle rec, std::string type) : 
 Block_ladder::~Block_ladder() {}
 
 void Block_ladder::CollidingWithPlayer(Rectangle player, float gravity, int lives) {
-    // Implementación vacía
+    if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+        rec.y -= 9999;
+    }
 }
