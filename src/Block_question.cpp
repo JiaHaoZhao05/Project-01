@@ -12,9 +12,12 @@ Block_question::Block_question(float x, float y, Rectangle rec, std::string type
 Block_question::~Block_question() {}
 
 void Block_question::CollidingWithPlayer(Rectangle player, float gravity, int lives) {
+    if (CheckCollisionRecs(player, rec) && giantcounter > 0) {
+        rec.y -= 9999;
+    }
     if (!active || hasTriggered) return;
     if (!CheckCollisionRecs(rec, player)) return;
-
+    
     float playerBottom = player.y + player.height;
     float blockTop = rec.y;
     float playerTop = player.y;
@@ -30,4 +33,5 @@ void Block_question::CollidingWithPlayer(Rectangle player, float gravity, int li
             texture = LoadTexture("resources/block_empty.png");
         }
     }
+
 }
