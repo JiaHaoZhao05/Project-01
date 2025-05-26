@@ -5,9 +5,10 @@
 #include "Player.h"
 #include "Block.h"
 extern int framecounter;
-extern int lifesave;
+
 extern int starcounter;
 extern int giantcounter;
+extern int lifesafe;
 class Player;
 class Enemy {
 public:

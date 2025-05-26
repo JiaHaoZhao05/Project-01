@@ -6,9 +6,10 @@
 #include "Player.h"
 #include "Block.h"
 extern int framecounter;
-extern int lifesave;
+
 extern int starcounter;
 extern int giantcounter;
+extern int lifesafe;
 class Player;
 class Goomba : public Enemy {
 public:
@@ -82,7 +83,7 @@ public:
 			}
 			else {
 				// Mario choca desde el lado: perder vida
-				lifesave = 120;
+				lifesafe = 120;
 				if (player.lives == 3) {
 					player.lives = 2;
 				}

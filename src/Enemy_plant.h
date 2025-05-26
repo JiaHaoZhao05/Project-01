@@ -6,9 +6,11 @@
 #include "Player.h"
 #include "Block.h"
 extern int framecounter;
-extern int lifesave;
+
 extern int starcounter;
 extern int giantcounter;
+
+extern int lifesafe;
 class Player;
 class Plant : public Enemy {
 public:
@@ -65,7 +67,7 @@ public:
 
 		if (active == true) {
 			if (CheckCollisionRecs(player.GetRect(), hitbox)) {
-				lifesave = 120;
+				lifesafe = 120;
 				if (player.lives == 3) {
 					player.lives = 2;
 				}

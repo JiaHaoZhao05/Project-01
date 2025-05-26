@@ -29,7 +29,7 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 using namespace std;
 
 int framecounter = 0; // variable that marks the frame of the characters
-int lifesave = 0; // avoid getting one-tapped by mobs 
+int lifesafe = 0; // avoid getting one-tapped by mobs 
 int starcounter = 0; // counter star buff 
 int giantcounter = 0; // counter giant buff 
 int main() {
@@ -115,14 +115,14 @@ int main() {
 				"0"
 				"0"
 				"0"
-				".......................2.......................................................................1..............3...................21.........................................................ll0"
-				".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb.......................................................lll0"
-				".................................................................1.........................................................................................................................llll0"
-				".................1....1.4........................................q.............3...........................2..1..2.....1...................................................5..............lllll0"
-				".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb............llllll0"
-				".......................................hj......nm.........nm.............................................................................ll..ll........lll..ll..........................lllllll0"
-				".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj.llllllll0"
-				".............................nm........nm......nm.........nm...........................................................................llll..llll....lllll..llll....nm..............nmlllllllll........l0"
+				".......................2.......................................................................1..............3...................21................................................................................ll0"
+				".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb..............................................................................lll0"
+				".................................................................1................................................................................................................................................llll0"
+				".................1....1.4........................................q.............3...........................2..1..2.....1...................................................5.....................................lllll0"
+				".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb.............bb..bb................llllll0"
+				".......................................hj......nm.........nm.............................................................................ll..ll........lll..ll.................................................lllllll0"
+				".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj......ll................llllllll0"
+				".............................nm........nm......nm.........nm...........................................................................llll..llll....lllll..llll....nm..............nm.....llll..............lllllllll........l0"
 				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 				);
@@ -130,7 +130,7 @@ int main() {
 			Texture2D texture1 = LoadTexture("resources/block_empty.png");
 			Map level1;
 			level1.LoadMap(map);
-			lifesave = 0;
+			lifesafe = 0;
 			Enemies EnemiesLvl1;
 			
 
@@ -170,7 +170,7 @@ int main() {
 			{
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
-				if (lifesave > -1) { lifesave--; }  // timing after losing a life
+				if (lifesafe > -1) { lifesafe--; }  // timing after losing a life
 				if (giantcounter > -1) { giantcounter--; } //timing for giant
 				if (starcounter > -1) { starcounter--; } // timing for star
 				BeginDrawing();
@@ -236,7 +236,7 @@ int main() {
 
 				}
 
-				if (lifesave <= 0) {
+				if (lifesafe <= 0) {
 					for (int i = 0; i < EnemiesLvl1.goombas.size(); ++i) {
 						EnemiesLvl1.goombas[i]->CollidingWithPlayer(Mario);
 					}
