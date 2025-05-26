@@ -28,12 +28,20 @@ Key W - Jump.
 Player to map collisions
 1 level with gravity
 Movement of the player + animation
-3 Goombas
+7 Goombas
 Player to Goombas interaction
 1 win screen at the end of the level
 1 lose screen when dying to Goombas or falling out of the map
 Music and sound effects
 1 menu screen
 
+Breakable blocks
+Interactive Suprise Blocks
+Mushroom buff
+Double jump Buff
+Giant Mushroom Buff
+Star Buff
+Carnivorous plants
+
 # Link to video
-https://youtu.be/L1BlxzE91bc
+https://youtu.be/jLdn8_XHA64
