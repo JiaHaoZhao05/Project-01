@@ -105,17 +105,17 @@ int main() {
 			string map = (
 				"0"
 				"0"
-				"0"
-				".......................2.......................................................................1..............3...................21................................................................................ll0"
-				".......................q......................................................bbbbbbbbbbb....bbq..............q...........bbb....bqqb..............................................................................lll0"
-				".................................................................1................................................................................................................................................llll0"
-				".................1....1.4........................................q.............3...........................2..1..2.....1...................................................5.....................................lllll0"
-				".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb.............bb..bb................llllll0"
+				"...............................................................................................1..............3...................21..................................................................................0"
+				".......................2......................................................bbbbbbbbbbb....bbq..............q..................bqqb...............................................................................ll0"
+				".......................q..............................................................bbb.................................bbb.....................................................................bb.....3.........lll0"
+				".................................................................1.......................................................................................................................................q........llll0"
+				".................1....1.4........................................q.............3...........................2..5..3.....1...................................................4..................bb.................lllll0"
+				".................q...bqbqb.....................hj.........hj..................bqb..............b.....bb....q..q..q.....q..........bb......l..l..........ll..l............bbqb...................................llllll0"
 				".......................................hj......nm.........nm.............................................................................ll..ll........lll..ll.................................................lllllll0"
-				".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj......ll................llllllll0"
-				".............................nm........nm......nm.........nm...........................................................................llll..llll....lllll..llll....nm..............nm.....llll..............lllllllll........l0"
-				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
-				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
+				".............................hj........nm......nm.........nm............................................................................lll..lll......llll..lll.....hj..............hj......ll...........l....llllllll0"
+				".............................nm........nm......nm.........nm...........................................................................llll..llll....lllll..llll....nm..............nm.....llll.........lll..lllllllll........l0"
+				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
+				"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffff...ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff..fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0"
 				);
 			distance = 0;
 			Texture2D texture1 = LoadTexture("resources/block_empty.png");
@@ -124,6 +124,15 @@ int main() {
 			lifesafe = 0;
 			Enemies EnemiesLvl1;
 			
+			 
+			Block_ladder pole(15300,200,{640,64},"pole");
+			pole.texture = LoadTexture("resources/pole.png");
+			pole.pos.x = 14215;
+			pole.pos.y = 180;
+			pole.rec.width = 64;
+			pole.rec.height = 640;
+			pole.rec.x = 14215;
+			pole.rec.y = 180;
 
 
 			Player Mario;
@@ -157,7 +166,7 @@ int main() {
 			EnemiesLvl1.plants.push_back(&plant5);
 			EnemiesLvl1.plants.push_back(&plant6);
 			PlaySound(bgm.bgMusic);
-			while (!WindowShouldClose() && Mario.lives > 0 && distance < 12300)// run the loop untill the user presses ESCAPE or presses the Close button on the window
+			while (!WindowShouldClose() && Mario.lives > 0 && distance < 15300)// run the loop untill the user presses ESCAPE or presses the Close button on the window
 			{
 				float deltaTime = GetFrameTime();
 				framecounter++; // timing of the animation
@@ -188,7 +197,7 @@ int main() {
 				Mario.Gravedad();
 				//SetMusicVolume(bgMusic, 0.5f);
 
-				if (Mario.position.x > 500 && distance < 12300) {
+				if (Mario.position.x > 500 && distance < 15300) {
 					distance += Mario.position.x - 500; // tracker
 					for (int a = 0; a < level1.collisions.size(); ++a) { // camera
 						level1.collisions[a]->pos.x -= Mario.position.x - 500;
@@ -206,6 +215,8 @@ int main() {
 						level1.PowerUps[a]->hitbox.x -= Mario.position.x - 500;
 						level1.PowerUps[a]->position.x -= Mario.position.x - 500;
 					}
+					pole.pos.x -= Mario.position.x - 500;
+					pole.rec.x -= Mario.position.x - 500;
 					Mario.position.x = 500;
 				}
 				if (Mario.position.x < 0) { // border left
@@ -311,7 +322,9 @@ int main() {
 					Mario.PowerUpCollision(*level1.PowerUps[i]);
 
 				}
-
+				if (CheckCollisionRecs(pole.rec, Mario.GetRect())) {
+					distance = 16000;
+				}
 				
 
 				// NO MAS COLISIONES A PARTIR DE AQUI
@@ -331,11 +344,11 @@ int main() {
 						
 					}
 				}
-
+				DrawTextureV(pole.texture, { pole.pos.x,pole.pos.y }, WHITE);
 				for (int a = 0; a < level1.collisions.size(); ++a) { // draw map
 					DrawTextureV(level1.collisions[a]->texture, level1.collisions[a]->pos, WHITE);
 				}
-
+				
 				if (IsKeyDown('O')) {
 					DrawText(TextFormat("Distance: %d", distance), 10, 90, 20, BLACK);
 					DrawText(TextFormat("Lives: %d", Mario.lives), 10, 110, 20, BLACK);
@@ -366,7 +379,7 @@ int main() {
 			if (distance >= 12300) {
 				PlaySound(win);
 			}
-			while (!WindowShouldClose() && distance >= 12300 && !menu) { // win screen
+			while (!WindowShouldClose() && distance >= 15300 && !menu) { // win screen
 				BeginDrawing();
 				ClearBackground(RAYWHITE);
 

@@ -415,9 +415,11 @@ void Player::Colliding(Block &block){
 }
 
 void Player::PowerUpCollision(PowerUp& powerUp) {
-	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && lives == 1 && (powerUp.active == true)) {
-		position.y -= 64;
-		lives++;
+	if (powerUp.type == "shroom" && CheckCollisionRecs(GetRect(), powerUp.hitbox)  && (powerUp.active == true)) {
+		if (lives == 1) {
+			position.y -= 64;
+			lives++;
+		}
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;
@@ -438,9 +440,6 @@ void Player::PowerUpCollision(PowerUp& powerUp) {
 	}
 	else if (powerUp.type == "star" && CheckCollisionRecs(GetRect(), powerUp.hitbox) && (powerUp.active == true)) {
 		powerUp.hitbox.y -= 99999;
-		if (lives == 1) {
-			position.y -= 64;
-		}
 		powerUp.active = false;
 		powerUp.texture = LoadTexture("resources/block_invisible.png");
 		score += 100;

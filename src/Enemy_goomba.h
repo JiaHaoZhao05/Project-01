@@ -17,6 +17,7 @@ class Goomba : public Enemy {
 public:
     bool disapear = false;
     Sound squash;
+    Sound mario;
     float deathTime = 0;
     int direction = 1;
 

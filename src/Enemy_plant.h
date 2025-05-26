@@ -16,7 +16,7 @@ class Player;
 class Plant : public Enemy {
 public:
     int pivot;
-
+    Sound mario;
     Plant(float xpos, float ypos);
     ~Plant();
 

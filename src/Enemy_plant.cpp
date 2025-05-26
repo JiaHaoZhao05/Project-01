@@ -10,6 +10,7 @@ Plant::Plant(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbox)
     pivot = ypos;
     xspeed = 0;
     yspeed = 2;
+    mario = LoadSound("resources/audio_mario.mp3");
 }
 
 Plant::~Plant() {}
@@ -54,6 +55,7 @@ void Plant::CollidingWithPlayer(Player& player) {
 
     if (active && CheckCollisionRecs(player.GetRect(), hitbox)) {
         lifesafe = 120;
+        PlaySound(mario);
         if (player.lives == 3) player.lives = 2;
         else if (player.lives == 2) player.lives = 1;
         else if (player.lives == 1) player.lives = 0;

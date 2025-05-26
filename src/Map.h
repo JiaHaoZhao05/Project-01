@@ -16,7 +16,7 @@ public:
 
     vector<string> allPowerUps = {
         "coin", "coin", "coin", "coin", "shroom", "star", "coin", "shroom", "coin", "shroom",
-        "coin", "shroom", "coin", "star", "coin"
+        "coin", "shroom", "coin", "star", "coin", "coin"
     };
 
     void LoadMap(string mapa);

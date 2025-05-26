@@ -10,6 +10,7 @@ Goomba::Goomba(float xpos, float ypos) : Enemy(xpos, ypos, xspeed, yspeed, hitbo
     hitbox = { xpos, ypos, 64, 62 };
     xspeed = 3;
     yspeed = 0;
+    mario = LoadSound("resources/audio_mario.mp3");
 }
 
 Goomba::~Goomba() {}
@@ -54,6 +55,7 @@ void Goomba::CollidingWithPlayer(Player& player) {
         }
         else {
             lifesafe = 120;
+            PlaySound(mario);
             if (player.lives == 3) player.lives = 2;
             else if (player.lives == 2) player.lives = 1;
             else if (player.lives == 1) player.lives = 0;
