@@ -325,8 +325,9 @@ int main() {
 				if (CheckCollisionRecs(pole.rec, Mario.GetRect())) {
 					distance = 16000;
 				}
-				
-
+				if (Mario.position.x > pole.pos.x + pole.rec.width - 20) {
+					Mario.position.x = pole.pos.x + pole.rec.width - 20;
+				}
 				// NO MAS COLISIONES A PARTIR DE AQUI
 
 				Mario.Movement();
